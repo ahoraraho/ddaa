@@ -1,0 +1,1213 @@
+/* ===== Colours ===== */
+:root {
+
+    --more-color: #1e354e;
+    --more-color-hs: #1e354e;
+    --more-color--hover: #147024;
+    --colorLink: #7906b2;
+
+    --colorTextRuta: #0f3765;
+    --colorIconRuta: #000000;
+
+    --colorIconos: #16375b;
+
+    --bg-drop: #ffffff;
+
+}
+
+body.dark {
+    --more-color: #3fb6b2;
+    --more-color-hs: #0be5d6;
+    --more-color--hover: #4de507;
+    --colorLink: #03cb24;
+
+    --colorTextRuta: #b7d604;
+    --colorIconRuta: #0168b2;
+
+    --colorIconos: #ffea00;
+
+    --bg-drop: #1a3b5e;
+}
+
+/************************************/
+/*             TABLAS            */
+/************************************/
+table {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 1.25em;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 15px;
+}
+
+/*table tr:last-child {
+font-weight: bold;
+  }*/
+th,
+tr,
+td {
+    /*border: 1px solid;
+    border-color: black;*/
+    color: var(--text-color);
+    border-radius: 20px;
+    padding: 10px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+th {
+    font-weight: bold;
+    /*negrita fuerte*/
+    font-size: 20px;
+    border-bottom: 1px solid;
+    border-bottom-color: var(--box-shadow-color);
+    color: var(--text-color);
+    border-radius: 20px;
+}
+
+tr:nth-child(odd) td {
+    color: var(--text-color);
+}
+
+/*FORMULARION DE ENTRADA DE DATOS DE TODO TIPO*/
+
+form {
+    color: var(--text-color);
+}
+
+/************************************/
+/*              INPUTS              */
+/************************************/
+select,
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+textarea {
+    font-size: 17px;
+    background: transparent;
+    border: 1px solid var(--text-color);
+    outline-color: rgb(0, 40, 108);
+    pointer-events: rgba(56, 20, 103, 0) 0px 5px 20px 0px;
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0px;
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+/*input[type="search"] {
+    width: 80% !important;
+    margin: 0;
+    font-size: 18px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    outline-color: rgb(31, 63, 118);
+    box-shadow: rgba(20, 64, 118, 0.447) 0px 5px 20px 0px;
+    padding: 8px;
+    border-radius: 20px;
+}*/
+textarea {
+    height: 150px;
+    padding: 10;
+    border: 1px solid var(--text-color);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
+/*campo de no edicion de datos*/
+#noEdid {
+    background-color: rgba(43, 104, 130, 0.422);
+    color: #000000;
+    text-align: center;
+}
+
+.noEdid {
+    background-color: rgb(43, 126, 143);
+    color: #000000;
+    text-align: center;
+}
+
+
+.btn-busca {
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 25px;
+    padding: 10px 10px;
+    margin-left: 5px;
+    transition: 1s background-color;
+    transition: 2s font-size;
+    border: none;
+    outline: none;
+    display: inline-block;
+    border-radius: 20px;
+}
+
+.btn-busca:hover {
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(40, 201, 91);
+}
+
+
+
+/*BOTONES DE LA CUENTA DEL USUARIO*/
+#actulizar-cuenta {
+    border: 1px solid black;
+    background: #15af4e;
+    color: #000000;
+}
+
+#eliminar-cuenta {
+    border: 1px solid black;
+    background-color: rgb(188, 27, 27);
+    color: rgb(255, 255, 2);
+}
+
+
+.button-link,
+.button-comprar {
+    background-color: rgba(47, 214, 150, 0.798);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px 10px;
+    margin: 10px;
+    transition: 1s background-color;
+    border-radius: 10px;
+    font-weight: bold;
+    border: solid .1px black;
+}
+
+
+.button-link:hover,
+.button-comprar:hover {
+    background-color: rgb(0, 219, 243);
+    /*negrita fuerte*/
+}
+
+/*BOTON DE ALGO DE NUEVO*/
+.btn-new {
+    border-radius: 15px;
+    width: auto;
+}
+
+/*CONTENIDO DE EDICION DE LAS PAGINAS*/
+
+.formularios {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+.entradas {
+    width: 50% !important;
+}
+
+.formularios .entradas span {
+    margin-left: 10px;
+}
+
+
+/*PREVISUALIZADOR DE IMAGER*/
+
+#previewImg {
+    border-radius: 10px;
+}
+
+/*##############################################################*/
+
+.form_logueado {
+    position: relative;
+    height: auto;
+    margin: auto;
+}
+
+.form_logueado .eyePass {
+    position: absolute;
+    font-size: 1.5em;
+    top: 2em;
+    right: .58em;
+    color: var(--text-color);
+    cursor: grab;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.form_logueado .eyePass :hover {
+    color: var(--text-color-hover)
+}
+
+
+
+/************************************/
+/*             NAV PANEL            */
+/************************************/
+.panel-users {
+    /* background-image: linear-gradient(175deg,
+        #003c27 0,
+        #003c2c 3.33%,
+        #003c32 6.67%,
+        #003c37 10%,
+        #003c3d 13.33%,
+        #003c42 16.67%,
+        #003c47 20%,
+        #003c4b 23.33%,
+        #003b4f 26.67%,
+        #003a53 30%,
+        #003956 33.33%,
+        #003858 36.67%,
+        #003759 40%,
+        #00365a 43.33%,
+        #10345a 46.67%,
+        #1f3259 50%,
+        #2a3057 53.33%,
+        #332e55 56.67%,
+        #3a2c52 60%,
+        #41294e 63.33%,
+        #47274a 66.67%,
+        #4b2546 70%,
+        #4f2441 73.33%,
+        #52223c 76.67%,
+        #552137 80%,
+        #562131 83.33%,
+        #57212c 86.67%,
+        #572227 90%,
+        #562322 93.33%,
+        #55251d 96.67%,
+        #522619 100%); */
+    background-color: var(--nav-color);
+    height: 100%;
+}
+
+.nav-panel {
+    float: left;
+    top: 70px;
+    width: 15%;
+    padding: 5px 5px;
+    background: none;
+    height: 100%;
+    border: none;
+}
+
+.nav-panel a {
+    display: flex;
+    padding: 8px 0px;
+    align-items: center;
+    color: var(--text-color);
+    cursor: pointer;
+    box-sizing: content-box;
+    transition: background-color 0.9s;
+    font-size: 18px;
+}
+
+.nav-panel a:hover {
+    color: var(--text-color-a-hover);
+    font-weight: bold;
+    /*negrita fuerte*/
+    font-size: 20px;
+    /* border-left: 6px solid cornflowerblue;
+      padding-left: 18px; */
+}
+
+.nav-panel a i {
+    font-size: 28px;
+    width: 50px;
+}
+
+.nav-panel a i ::before {
+    font-size: 28px;
+}
+
+.nav-panel .nav-active {
+    background-color: var(--primary);
+    color: var(--secondary) !important;
+    border-radius: 10px;
+    font-weight: bold;
+    /*negrita fuerte*/
+    font-size: 20px;
+    /*padding-left: 4px !important;*/
+}
+
+.container-panel {
+    width: auto;
+    /* height: 88vh; */
+    height: 100%;
+    margin-left: 15%;
+    padding: 15px;
+    background-color: var(--body-color)
+}
+
+/* .container-panel h3 {
+    color: var(--more-color-hs);
+} */
+
+/*LOGUEADO CUENTA ADMINISTRADOR*/
+.from_input {
+    position: relative;
+    width: min-content;
+    height: min-content;
+    padding: 0;
+}
+
+.from_input input[type="text"] {
+    padding: 11px;
+    margin: auto;
+    width: max-content;
+    border-radius: 15px;
+}
+
+
+.btn-buscador {
+    background: transparent;
+    color: var(--colorTextRuta);
+    cursor: pointer;
+    font-size: 21px;
+    padding: 10px;
+    transition: .5s background-color;
+    border: none;
+    display: inline-block;
+    border-radius: 20px;
+    position: absolute;
+    top: 0em;
+    right: 0px;
+}
+
+.btn-buscador:hover {
+    color: rgb(35, 134, 66);
+}
+
+
+/*filtros de busqueda de profuctos para el administrador*/
+
+
+.filtrador_boton {
+    position: relative;
+}
+
+.dropbtnMarca {
+    background-color: #349de3;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    width: 150px;
+}
+
+.dropbtnCategoria {
+    background-color: #34db6e;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    width: 150px;
+}
+
+.dropbtn:hover,
+.dropbtn:focus {
+    background-color: #137abe;
+}
+
+.filtrador-content {
+    display: none;
+    text-align: start;
+    position: absolute;
+    background-color: var(--bg-drop);
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 15px;
+    width: min-content;
+}
+
+.filtrador-content-m {
+    top: 100%;
+    right: 0;
+}
+
+.filtrador-content-c {
+    top: 100%;
+}
+
+.filtrador-content-c a,
+.filtrador-content-m a {
+    color: var(--text-color);
+    padding: 5px 8px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.filtrador a:hover {
+    background-color: rgb(255, 249, 90);
+    color: black;
+    font-weight: bold;
+}
+
+.show {
+    display: block;
+}
+
+/*Contenedor tabla*/
+.container {
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--body-color);
+}
+
+/*contenido de la tabla*/
+
+.contenido-tabla {
+    width: auto;
+    padding: 5px;
+    color: var(--text-color);
+    /* background-color: var(--body-color); */
+    /* border: solid 1px #1c3e6db4; */
+    border-collapse: collapse;
+    border-radius: 20px;
+}
+
+.contenido-tabla .resp input[type="checkbox"] {
+    display: none;
+}
+
+.contenido-tabla table {
+    margin: 0;
+}
+
+.contenido-tabla table .responsive-carrito {
+    margin: auto;
+    border: solid 1px #1c3e6d00;
+}
+
+.contenido-tabla .resp a p {
+    font-size: 11px;
+    color: var(--text-color);
+}
+
+.contenido-tabla .resp img {
+    max-width: 100px;
+    border-radius: 10px;
+}
+
+.contenido-tabla table .edid,
+.contenido-tabla table .ok,
+.contenido-tabla table .nok,
+.contenido-tabla table .delete {
+    margin: 0;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+}
+
+.contenido-tabla table .edid {
+    margin-right: 20px;
+    color: rgb(13, 57, 133);
+}
+
+.contenido-tabla table .delete {
+    color: rgb(180, 6, 6);
+}
+
+
+.contenido-tabla table .ok {
+    margin-right: 20px;
+    color: rgb(75, 192, 29);
+}
+
+.contenido-tabla table .nok {
+    color: rgb(71, 56, 146);
+}
+
+/*BOTON DE AGREGAR MAS ...*/
+.numm {
+    width: 100%;
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+}
+
+.numm .f1 {
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.numm .f2 {
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/*CONTADOR DE ...*/
+.f-s {
+    color: #f6ff00;
+    background: rgb(11, 48, 126);
+    font-size: 22px;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px 10px;
+    text-align: center;
+    width: auto;
+}
+
+.f-e {
+    width: auto;
+    text-align: center;
+    margin: 0px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.abi {
+    margin: 15px;
+    font-size: 20px;
+    color: var(--colorIconos);
+}
+
+span {
+    margin-right: 15px;
+}
+
+/*BOTONES DE CORRAR O COMPRAR EN MENU CARRITO*/
+
+.displayFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.displayGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    margin: 5px;
+    padding: 0;
+    width: 90%;
+}
+
+.displayGrid .btnPay,
+.displayGrid .btnVaciarCarrito,
+.displayGrid .btnComprar {
+    width: 100%;
+    padding: 0.75rem 2rem;
+    font-size: large;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: #000000;
+    transition: background-color 400ms ease-in;
+    margin: 0;
+}
+
+.displayGrid .btnPay:hover,
+.displayGrid .btnVaciarCarrito:hover,
+.displayGrid .btnComprar:hover {
+    font-weight: bold;
+}
+
+
+.displayGrid select {
+    margin: 0;
+    padding: auto;
+    font-size: 16px;
+    border-radius: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.seclecOptions {
+
+    position: relative;
+}
+
+.iconoDonw {
+    font-size: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+option {
+    color: var(--text-color);
+    background-color: var(--bg-drop)
+}
+
+.displayGrid .btnComprar {
+    background-color: #00ff37;
+}
+
+.displayGrid .btnVaciarCarrito {
+    background-color: #f14d44;
+}
+
+.displayGrid .btnPay {
+    background-color: #02cd2e;
+}
+
+/* 
+.displayGrid select::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -2.5px;
+} */
+
+.btnBack {
+    width: 100%;
+    padding: 0.75rem 2rem;
+    font-size: large;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: none;
+    color: #000000;
+    transition: background-color 400ms ease-in;
+    margin: 5px;
+    background-color: #11c2a8;
+}
+
+/************************************/
+/*      VISTA DE RUTA ADMIN         */
+/************************************/
+.ruta {
+    border-bottom: 1px solid var(--colorIconRuta);
+    color: var(--colorTextRuta);
+}
+
+.ruta a {
+    padding: 10px 16px 10px 10px;
+    display: inline-block;
+    background-image: url("../svgs/next.svg");
+    background-position: center right;
+    background-repeat: no-repeat;
+    font-size: 13px;
+    color: var(--colorTextRuta);
+    border-radius: 15px 0 0 0;
+    ;
+}
+
+.ruta a:hover,
+.ruta i:hover {
+    border-top: solid 0.5px;
+    color: var(--more-color--hover);
+}
+
+.ruta a i {
+    margin-right: 5px;
+    color: var(--colorIconRuta);
+}
+
+.ruta .active {
+    /* background-color: rgba(255, 255, 255, 0.383); */
+    border-top: solid 0.5px;
+    border-left: solid 0.5px;
+    border-color: var(--colorIconRuta);
+    border-radius: 15px 0 0 15px;
+    font-weight: bold;
+}
+
+/* .ruta a:last-child {
+    background-image: none;
+}
+
+.ruta a.current {
+    font-weight: bold;
+    color: #00134d;
+} */
+
+/*BOTON FILTRO DE MAYOR O MENOR PRECIO DE LA TABLA PRODUCTOS*/
+
+.filtros_botones {
+    margin: 0;
+}
+
+.btn_filtrador i {
+    border-radius: 15px;
+    width: auto;
+    padding: 5px;
+    margin: 0 12px 0 0;
+    font-size: 30px;
+    color: var(--colorIconos);
+    cursor: pointer;
+    border: solid .1px var(--colorIconos);
+}
+
+.btn_filtrador i:hover {
+    background-color: var(--colorIconRuta);
+    border: solid .1px var(--colorIconos);
+}
+
+.f2 .formFiltro {
+    /*NO SE VE ES UNA FORMA DE HACERLO CON JAVASCRIPT*/
+    display: none;
+}
+
+.btn-filtro {
+    background: none;
+    cursor: pointer;
+    font-size: 25px;
+    border: none;
+    outline: none;
+    display: inline-block;
+    border-radius: 20px;
+}
+
+.btn-filtro-precio .btn-filtro i,
+.btn-filtro-alfabeto .btn-filtro i {
+    display: none;
+    border-radius: 15px;
+    width: auto;
+    padding: 5px;
+    margin: 3px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.btn-filtro-precio .btn-filtro i:hover {
+    background: yellowgreen;
+}
+
+.btn-filtro-alfabeto .btn-filtro i:hover {
+    background: rgb(2, 162, 195);
+}
+
+/*MEDIA RESPONSIVE*/
+@media only screen and (max-width: 1380px) {
+
+    /*CONTENIDO DE EDICION DE LAS PAGINAS Para que este al centro */
+    .entradas {
+        width: 59% !important;
+    }
+}
+
+
+/*MEDIA RESPONSIVE*/
+@media only screen and (max-width: 1200px) {
+
+    /*PANEL DE UN USUARIO*/
+    .nav-panel a span {
+        display: none;
+    }
+
+    .nav-panel {
+        width: auto;
+    }
+
+    .container-panel {
+        height: 100%;
+        width: auto;
+        padding: 10px;
+        margin-bottom: 0;
+        margin-left: 64px;
+    }
+
+    /*CONTENIDO DE EDICION DE LAS PAGINAS Para que este al centro */
+    .entradas {
+        width: 65% !important;
+    }
+}
+
+/*MEDIA RESPONSIVE*/
+@media only screen and (max-width: 900px) {
+
+    /*PANEL DE NAVEGACION UNA VES INICIADA LA SESION*/
+
+    .nav-panel {
+        display: none;
+        visibility: hidden;
+    }
+
+    .container-panel {
+        width: 100% !important;
+        min-height: 100%;
+        padding: 10px;
+        margin-left: auto;
+    }
+
+
+    /************************************/
+    /*           VISTA DE RUTA ADMIN    */
+    /************************************/
+    /* ruta */
+
+    .ruta a {
+        /* font-family: cursive; */
+        padding: 10px 11px 10px 0px;
+        font-size: 12px;
+    }
+
+    .ruta .active {
+        border: none;
+        color: var(--colorLink);
+    }
+
+    /*BOTON DE AGREGAR MAS ...*/
+
+    /*BOTON DE AGREGAR MAS ...*/
+    .numm {
+        width: 100%;
+        display: flex;
+        height: auto;
+    }
+
+    .f-s {
+        color: #f6ff00;
+        background: rgb(21, 39, 78);
+        font-size: 18px;
+        border-radius: 10px;
+        text-align: center;
+        width: auto;
+        padding: 8px;
+        margin: 0 0 0 4px;
+    }
+
+    .f-e {
+        width: auto;
+        text-align: center;
+        margin: 0 8px 0 4px;
+        padding: 0;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+    }
+
+    .f2 a span {
+        display: none;
+    }
+
+    .f2 a i {
+        margin: 0;
+        padding: 0;
+    }
+
+    .abi {
+        width: min-content;
+        margin: 15px;
+        font-size: 30px;
+    }
+
+
+    /*CONTENIDO DE EDICION DE LAS PAGINAS Para que este al centro */
+
+    .entradas {
+        width: 80% !important;
+    }
+
+
+    /*LOGUEADO CUENTA ADMINISTRADOR*/
+
+    .from_input input[type="text"] {
+        padding: 11px;
+        margin: auto;
+        width: 160px;
+        border-radius: 15px;
+    }
+
+    /*BOTON FILTRO DE MAYOR O MENOR PRECIO DE LA TABLA PRODUCTOS*/
+
+    .btn_filtrador i {
+        border-radius: 15px;
+        width: auto;
+        margin: 0 5px 0 0 !important;
+        font-size: 30px;
+        cursor: pointer;
+        border: solid 0px black;
+    }
+
+    .btn_filtrador i:hover {
+        border: solid 0px black;
+        background: none;
+    }
+
+
+    /************************************/
+    /*          NAV PRODUCTOS           */
+    /************************************/
+
+    /*TABLAS*/
+    table,
+    thead,
+    tbody,
+    tr,
+    th,
+    td,
+    caption {
+        display: block;
+    }
+
+    table {
+        border: none;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    tbody tr {
+        margin: 8px 0;
+        border: 1px solid rgb(47, 79, 138);
+    }
+
+    td {
+        position: relative;
+        padding-left: 45%;
+        text-align: center;
+    }
+
+    /* tr td:last-child {
+        border-bottom: 1px double #ffffff;
+    } */
+
+    tr:last-child td:last-child {
+        border: none;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    /*CONTENEDOR DE TABLA */
+    .contenido-tabla {
+        width: auto;
+        border: none;
+        border-collapse: collapse;
+        border-radius: 10px;
+    }
+
+
+    /*PARA HACER QUE LA TABLA PRODUCTOS SEA RESPONSIVA*/
+    .resp td:nth-of-type(1):before {
+        content: "Imagen";
+    }
+
+    .resp td:nth-of-type(2):before {
+        content: "Nombre";
+    }
+
+    .resp td:nth-of-type(3):before {
+        content: "Precio";
+    }
+
+    .resp td:nth-of-type(4):before {
+        content: "Marca";
+    }
+
+    .resp td:nth-of-type(5):before {
+        content: "Categoria";
+    }
+
+    .resp td:nth-of-type(6):before {
+        content: "Presentacion";
+    }
+
+    .resp td:nth-of-type(7):before {
+        content: "Stock";
+    }
+
+    .resp td:nth-of-type(8):before {
+        content: "Destacado";
+    }
+
+    .resp td:nth-of-type(9):before {
+        content: "Acciones";
+    }
+
+    /*PARA HACER QUE LA TABLA CARRITO SEA RESPONSIVA*/
+    .responsive-carrito td:nth-of-type(1):before {
+        content: "Imagen";
+    }
+
+    .responsive-carrito td:nth-of-type(2):before {
+        content: "Nombre";
+    }
+
+    .responsive-carrito td:nth-of-type(3):before {
+        content: "Cantidad";
+    }
+
+    .responsive-carrito td:nth-of-type(4):before {
+        content: "Precio";
+    }
+
+    .responsive-carrito td:nth-of-type(5):before {
+        content: "Total";
+    }
+
+    .responsive-carrito td:nth-of-type(6):before {
+        content: "Quitar";
+    }
+
+    /*PARA HACER QUE LA TABLA VENTAS SEA RESPONSIVA*/
+    .responsive-ventas td:nth-of-type(1):before {
+        content: "N°";
+    }
+
+    .responsive-ventas td:nth-of-type(2):before {
+        content: "Fecha";
+    }
+
+    .responsive-ventas td:nth-of-type(3):before {
+        content: "Cliente";
+    }
+
+    .responsive-ventas td:nth-of-type(4):before {
+        content: "Producto";
+    }
+
+    .responsive-ventas td:nth-of-type(5):before {
+        content: "Cantidad";
+    }
+
+    .responsive-ventas td:nth-of-type(6):before {
+        content: "Precio";
+    }
+
+    .responsive-ventas td:nth-of-type(7):before {
+        content: "Total";
+    }
+
+    .responsive-ventas td:nth-of-type(8):before {
+        content: "Estado";
+    }
+
+    .responsive-ventas td:nth-of-type(9):before {
+        content: "Opciones";
+    }
+
+    /*PARA HACER QUE LA TABLA COMPRAS SEA RESPONSIVA*/
+    .responsive-compras td:nth-of-type(1):before {
+        content: "N° Ref.";
+    }
+
+    .responsive-compras td:nth-of-type(2):before {
+        content: "Fecha";
+    }
+
+    .responsive-compras td:nth-of-type(3):before {
+        content: "Producto";
+    }
+
+    .responsive-compras td:nth-of-type(4):before {
+        content: "Cantidad";
+    }
+
+    .responsive-compras td:nth-of-type(5):before {
+        content: "Precio";
+    }
+
+    .responsive-compras td:nth-of-type(6):before {
+        content: "Total";
+    }
+
+    .responsive-compras td:nth-of-type(7):before {
+        content: "Estado";
+    }
+
+    /*PARA HACER QUE LA TABLA CATEGORIAS SEA RESPONSIVA*/
+    .responsive-categorias td:nth-of-type(1):before {
+        content: "Id Categoria";
+    }
+
+    .responsive-categorias td:nth-of-type(2):before {
+        content: "Nombre";
+    }
+
+    .responsive-categorias td:nth-of-type(3):before {
+        content: "Referencia";
+    }
+
+    .responsive-categorias td:nth-of-type(4):before {
+        content: "Acciones";
+    }
+
+    /*PARA HACER QUE LA TABLA MARCAS SEA RESPONSIVA*/
+    .responsive-marcas td:nth-of-type(1):before {
+        content: "Id Marca";
+    }
+
+    .responsive-marcas td:nth-of-type(2):before {
+        content: "Nombre";
+    }
+
+    .responsive-marcas td:nth-of-type(3):before {
+        content: "Acciones";
+    }
+
+    /*PARA HACER QUE LA TABLA USUARIO SEA RESPONSIVA*/
+    .responsive-usuarios td:nth-of-type(1):before {
+        content: "Id";
+    }
+
+    .responsive-usuarios td:nth-of-type(2):before {
+        content: "Nombre";
+    }
+
+    .responsive-usuarios td:nth-of-type(3):before {
+        content: "Apellido";
+    }
+
+    .responsive-usuarios td:nth-of-type(4):before {
+        content: "Dirección";
+    }
+
+    .responsive-usuarios td:nth-of-type(5):before {
+        content: "Telefono";
+    }
+
+    .responsive-usuarios td:nth-of-type(6):before {
+        content: "Email";
+    }
+
+    .responsive-usuarios td:nth-of-type(7):before {
+        content: "Acciones";
+    }
+
+}
+
+
+/*MEDIA RESPONSIVE*/
+@media only screen and (max-width: 500px) {
+
+    /*grid botones carrito*/
+    .displayGrid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    /*CONTENIDO DE EDICION DE LAS PAGINAS Para que este al centro */
+    .entradas {
+        width: 100% !important;
+        margin: auto 15px;
+    }
+}

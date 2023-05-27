@@ -1,0 +1,428 @@
+/*   color variables */
+/*   border radius */
+/*letra en negrita*/
+
+/* ===== Colours ===== */
+:root {
+
+  --text-color-hover: #D4AF37;
+  --label-bg: #ffffff;
+
+  --form-input-focus: #000000;
+
+  --border-color: #000000;
+
+
+  /*LOGUIN*/
+  --dorado: #D4AF37;
+  --negro: #000000;
+
+  /*Registro*/
+  --c_resgistro: #000000;
+  --c_resgistro-hover: #D4AF37;
+
+
+}
+
+body.dark {
+  --text-color-hover: #ffffff;
+  --label-bg: #000000;
+  --form-input-focus: #D4AF37;
+
+  --border-color: #dededec6;
+
+  /*LOGUIN*/
+  --dorado: #D4AF37;
+  --negro: #000000;
+
+  /*Registro*/
+  --c_resgistro: #ffffff;
+  --c_resgistro-hover: #D4AF37;
+}
+
+h1 {
+  color: var(--form-input-focus);
+  text-align: center;
+}
+
+sup {
+  color: #f43f31;
+  margin-left: 4px;
+  display: none;
+}
+
+.form {
+  max-width: 100%;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.form_title {
+  margin-bottom: 0.5rem;
+}
+
+.form_description {
+  margin-bottom: 2rem;
+}
+
+.form_group {
+  position: relative;
+  height: 49px;
+  margin-bottom: 1.2rem;
+}
+
+
+.form_group_max {
+  position: relative;
+  height: 150px;
+  margin-bottom: 1.2rem;
+}
+
+.form_input_textarea {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  outline: none;
+  padding: 15px !important;
+  background: none;
+  padding: 15px !important;
+}
+
+.form_group_max .form__input_textarea {
+  background: var(--center-small-bg);
+  border: 1px solid var(--border-color);
+}
+
+/* .form_group input[type="text"],
+.form_group input[type="email"],
+.form_group input[type="number"],
+.form_group input[type="password"], */
+.form_group .form_input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  outline: none;
+  padding: 15px !important;
+  background: var(--center-small-bg);
+}
+
+.form_input:hover {
+  border: solid 1px var(--form-input-focus);
+}
+
+.form_input:focus {
+  border: solid 2px var(--form-input-focus);
+}
+
+
+
+.form_group_max .form_input_textarea:hover {
+  border: solid 1px var(--form-input-focus);
+}
+
+.form_group_max .form_input_textarea:focus {
+  border: solid 2px var(--form-input-focus);
+}
+
+.form_label {
+  position: absolute;
+  left: 0.7rem;
+  top: 1.4rem;
+  padding: .5em 5rem .5em .3em;
+  background-color: var(--label-bg);
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+  cursor: unset;
+}
+
+.form_label-pass {
+  padding: .5em 0 .5em .3em;
+}
+
+.form_label>span {
+  margin: 0 auto 0 8px;
+  padding: 0;
+}
+
+/*terminos y condiciones o recordar cuenta*/
+.form_guardar-cuenta {
+  text-align: left;
+  color: var(--text-color);
+  margin: 30px auto 20px;
+}
+
+.form_guardar-cuenta:hover {
+  color: var(--text-color-hover);
+}
+
+.form_guardar-cuenta a {
+  padding: 0;
+  margin: 0;
+  color: var(--more-color);
+  font-weight: bold;
+}
+
+.form_guardar-cuenta a:hover {
+  color: var(--more-color--hover);
+  font-weight: bold;
+  border-bottom: solid .1px #1c5615;
+}
+
+/*termina aqui*/
+
+
+
+.form_login {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  padding: 0.75rem 2rem;
+  background-color: var(--dorado);
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: large;
+  border-radius: 0.5rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: var(--negro);
+  border: solid 1px var(--negro);
+  transition: background-color 400ms ease-in;
+}
+
+.form_login:hover {
+  background-color: var(--negro);
+  color: var(--dorado);
+  border-color: var(--dorado);
+  font-weight: bold;
+}
+
+.form_singup {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  padding: 0.75rem 2rem;
+  border: solid 1px var(--c_resgistro);
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: large;
+  border-radius: 0.5rem;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--c_resgistro);
+  transition: background-color 400ms ease-in;
+}
+
+.form_singup-disabled {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  padding: 0.75rem 2rem;
+  background-color: #d8dada;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: large;
+  border-radius: 0.5rem;
+  outline: none;
+  border: none;
+  pointer-events: none;
+  cursor: not-allowed;
+  /*boton desabilitado*/
+}
+
+.form_singup:hover {
+  font-weight: bold;
+  color: var(--c_resgistro-hover);
+  border-color: var(--c_resgistro-hover);
+}
+
+#disabled {
+  color: rgb(32, 43, 53);
+  background-color: #c5c5c5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+/* 
+1. Cuando la entrada está en el estado de enfoque
+reducir el tamaño de la etiqueta y mover hacia arriba
+
+2. Mantenga el estado de la etiqueta cuando el contenido esté en el campo de entrada
+*/
+.form_input:focus~.form_label,
+.form_input:not(:placeholder-shown).form_input:not(:focus)~.form_label {
+  top: 8px;
+  left: 0.8rem;
+  font-size: 0.8rem;
+  color: var(--form-input-focus);
+  padding: 0px 2px;
+  margin: 0;
+}
+
+.form__input_textarea:focus~.form_label,
+.form__input_textarea:not(:placeholder-shown).form__input_textarea:not(:focus)~.form_label {
+  top: 8px;
+  left: 0.8rem;
+  font-size: 0.8rem;
+  color: var(--form-input-focus);
+  padding: 0px 2px;
+  margin: 0;
+}
+
+.control {
+  font-family: arial;
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 5px;
+  padding-top: 3px;
+  cursor: grabbing;
+  font-size: 16px;
+}
+
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.control_indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: rgba(1, 243, 162, 0);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  border: solid 1px var(--text-color);
+}
+
+.control:hover input~.control_indicator,
+.control input:focus~.control_indicator {
+  background: #cccccc;
+}
+
+.control input:checked~.control_indicator {
+  background: #2a4c72;
+}
+
+.control:hover input:not([disabled]):checked~.control_indicator,
+.control input:checked:focus~.control_indicator {
+  background: #244969;
+}
+
+.control input:disabled~.control_indicator {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.control_indicator:after {
+  box-sizing: unset;
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.control input:checked~.control_indicator:after {
+  display: block;
+}
+
+.control-checkbox .control_indicator:after {
+  left: 6px;
+  top: 3px;
+  width: 3px;
+  height: 8px;
+  border: solid #fff200;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.control-checkbox .control_indicator::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  margin-left: -0.5rem;
+  margin-top: -0.5rem;
+  background: #244969;
+  border-radius: 3rem;
+  opacity: 0.6;
+  z-index: 99999;
+  transform: scale(0);
+}
+
+@keyframes s-ripple {
+  0% {
+    transform: scale(0);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes s-ripple-dup {
+  0% {
+    transform: scale(0);
+  }
+
+  30% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.control-checkbox input+.control_indicator::before {
+  animation: s-ripple 250ms ease-out;
+}
+
+.control-checkbox input:checked+.control_indicator::before {
+  animation-name: s-ripple-dup;
+}
+
+/*# sourceMappingURL=main.css.map */
+
+
+/*VER CONTRASEÑA*/
+
+
+.eyePass {
+  position: absolute;
+  font-size: 1.5em;
+  top: 1.1em;
+  right: .58em;
+  color: var(--text-color);
+  cursor: grab;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.eyePass :hover {
+  color: var(--text-color-hover)
+}
