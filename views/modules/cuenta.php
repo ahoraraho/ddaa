@@ -19,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "Cargo" => $_POST["cargo"],
         "Direccion" => $_POST["direccion"],
         "Telefono" => $_POST["telefono"],
-        "Email" => $_POST["email"]
-        // "Pass" => $_POST["pass"]
+        "Email" => $_POST["email"],
+        "DNI" => $_POST["dni"]
     );
     if (isset($_POST['update'])) {
         $msj = "0x1000";
         if ($dbUsuarios->UpdateUsuario($user) > 0) {
-            $msj = "0x20";
+            $msj = "ok";
             // reinicio sesión
             session_start();
 
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header('location: ?m=panel&mod=cuenta&msj=' . $msj);
     }
     if (isset($_POST['delete'])) {
-        $msj = "0x1000";
+        $msj = "dok";
         if ($dbUsuarios->DeleteUsuario($user) > 0) {
             //msj = "0x30";
             // cierro la sesión
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $direccion = $user["Direccion"];
     $telefono = $user["Telefono"];
     $email = $user["Email"];
-    // $pass = $user["Pass"];
+    $dni = $user["DNI"];
 }
 ?>
 <!-- ruta de acceso guia -->
@@ -75,13 +75,23 @@ if (isset($_GET['msj'])) {
     $msj = $_GET['msj'];
     $typeMsj = "";
     switch ($msj) {
-        case '0x20':
+        case 'okpas':
+            $msj = "Contraseña actualizada correctamente!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check-lg";
+            break;
+        case 'ok':
             $msj = "Cuenta actualizada correctamente!";
             $typeMsj = "msj-ok";
             $iconoAlert = "bi-check2-circle";
             break;
-        case '0x1000':
+        case 'dok':
             $msj = "Hubo un error al intentar realizar la operación!";
+            $typeMsj = "msj-error";
+            $iconoAlert = "bi-bug";
+            break;
+        default:
+            $msj = "No hubo modificaciones!";
             $typeMsj = "msj-error";
             $iconoAlert = "bi-bug";
             break;
@@ -109,7 +119,12 @@ if (isset($_GET['msj'])) {
             <input type="hidden" name="rol" value="<?= $rol ?>">
             <input type="hidden" name="idCliente" value="<?= $idCliente ?>">
             <input type="hidden" name="email" value="<?= $email ?>">
-
+            <?php if ($rol == 0) { ?>
+                <div>
+                    <i class="bi bi-person-vcard"></i><span>DNI </span>
+                    <input type="number" name="dni" value="<?= $dni ?>">
+                </div>
+            <?php } ?>
             <div>
                 <i class="bi bi-person-lines-fill"></i></i><span>Nombre </span>
                 <input type="text" name="nombre" value="<?= $nombre ?>">
@@ -119,24 +134,23 @@ if (isset($_GET['msj'])) {
                 <input type="text" name="apellido" value="<?= $apellido ?>">
             </div>
             <div>
-                <i class="bi bi-building"></i><span>Cargo </span>
-                <input type="text" name="cargo" value="<?= $cargo ?>">
-            </div>
-
-            <div>
-                <i class="bi bi-pin-map"></i><span>Dirección </span>
-                <input type="text" name="direccion" value="<?= $direccion ?>">
-            </div>
-            <div>
-                <i class="bi bi-phone"></i><span>Teléfono </span>
+                <i class="bi bi-phone"></i><span>Celular </span>
                 <input type="text" name="telefono" value="<?= $telefono ?>">
             </div>
             <div>
                 <i class="bi bi-envelope"></i><span>Email </span>
                 <input type="email" name="email" value="<?= $email ?>">
             </div>
+            <div>
+                <i class="bi bi-pin-map"></i><span>Dirección </span>
+                <input type="text" name="direccion" value="<?= $direccion ?>">
+            </div>
+            <div>
+                <i class="bi bi-building"></i><span>Cargo </span>
+                <input type="text" name="cargo" value="<?= $cargo ?>">
+            </div>
             <div><br><br>
-                <button type="submit" name="update" id="actualizar" class="form_login">Guardar cambios</button>
+                <button type="submit" name="update" id="actualizar" class="form_login">Modificar y guardar cambios</button>
             </div><br>
             <?php if ($rol == 0) { ?>
                 <div>

@@ -17,21 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newPass = $_POST["newPass"];
     $passOk = $_POST["passOk"];
     if (isset($_POST['resetPassUser'])) {
-        //if (isset($_POST['OldPass']) && isset($_POST['newPass']) && isset($_POST['passOk'])) {
         $mj = "bug";
         if (!$dbUsuarios->validarPassReset($id, $email, $oldPass)) {
             $mj = "nul";
             //header('location: ?m=panel&mod=cuentaReset&msj=' . $mj);
+            exit(header('location: ?m=panel&mod=cuentaReset&msj=' . $mj));
         } elseif ($newPass != $passOk) {
             $mj = "nok";
         } else {
             if ($dbUsuarios->ResetPassUsers($id, $email, $passOk)) {
-                $mj = "ok";
-                //header('location: ?m=panel&mod=cuentaReset&msj=' . $mj);
+                $mj = "okpas";
+                exit(header('location: ?m=panel&mod=cuenta&msj=' . $mj));
             }
         }
         header('location: ?m=panel&mod=cuentaReset&msj=' . $mj);
-        //}
     }
 } else {
     $user = $dbUsuarios->SelectUsuario($id);
@@ -51,9 +50,9 @@ if (isset($_GET['msj'])) {
     $msj = $_GET['msj'];
     $typeMsj = "";
     switch ($msj) {
-        case 'ok':
-            alertaResponDialog("msj-ok", "Contraseña actulizada", "bi-check-lg");
-            break;
+            // case 'ok':
+            //     alertaResponDialog("msj-ok", "Contraseña actulizada", "bi-check-lg");
+            //     break;
         case 'nok':
             alertaResponDialog("msj-error", "Las contraseñas no coinciden",  "bi-exclamation-circle");
             $stylee = null;

@@ -9,7 +9,7 @@
 	<meta content="Asesoría en licitaciones públicas, desarrollo logístico, asesoría comercial" name="keywords">
 	<meta content="Asesoramos a empresas para que se posicionen entre las primeras en licitaciones públicas. Desarrollo logístico y asesoría comercial." name="description">
 
-	<title>Sistema D & A - Asesoría en Licitaciones Públicas</title>
+	<title>D & A - Asesoría en Licitaciones Públicas</title>
 	<link rel="shortcut icon" href="svgs/logo_gold.svg" type="image/png">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="library/bootstrap-icons-1.10.2/bootstrap-icons.css">

@@ -9,11 +9,13 @@ if (isset($_POST["registrar"])) {
 
 	if ($check == "checked") {
 		$usuario = [
+			"DNI" => $_POST["dni"],
 			"Nombre" => $_POST["nombre"],
 			"Apellido" => $_POST["apellido"],
-			"Direccion" => "",
-			"Telefono" => $_POST["telefono"],
 			"Email" => $_POST["email"],
+			"Telefono" => $_POST["telefono"],
+			"Direccion" => $_POST["direccion"],
+			"Cargo" => "Especialista",
 			"Pass" => $_POST["pass"],
 		];
 
@@ -38,27 +40,35 @@ if (isset($_POST["registrar"])) {
 ?>
 <div class="conten">
 	<div class="center-small">
-		<h1 class="form_title">Sing Up</h1>
+		<h1 class="form_title">Registro Especialista</h1>
 		<form action="" method="POST" class="form">
 			<div class="form_group">
-				<input type="text" id="nombre" name="nombre" class="form_input" placeholder=" " autocomplete="off" required autofocus>
-				<label for="nombre" class="form_label"><i class="bi bi-person-lines-fill"></i><span>Name</span><sup>*</sup></label>
+				<input type="number" id="dni" name="dni" class="form_input" placeholder=" " autocomplete="off" required autofocus>
+				<label for="dni" class="form_label"><i class="bi bi-person-vcard"></i><span>DNI</span><sup>*</sup></label>
+			</div>
+			<div class="form_group">
+				<input type="text" id="nombre" name="nombre" class="form_input" placeholder=" " autocomplete="off" required >
+				<label for="nombre" class="form_label"><i class="bi bi-person-lines-fill"></i><span>Nombre</span><sup>*</sup></label>
 			</div>
 			<div class="form_group">
 				<input type="text" id="apellido" name="apellido" class="form_input" placeholder=" " autocomplete="off" required>
-				<label for="apellido" class="form_label"><i class="bi bi-credit-card-2-front"></i><span>last name</span><sup>*</sup></label>
+				<label for="apellido" class="form_label"><i class="bi bi-credit-card-2-front"></i><span>Apellido</span><sup>*</sup></label>
 			</div>
 			<div class="form_group">
 				<input type="email" id="email" name="email" class="form_input" placeholder=" " autocomplete="off" required>
-				<label for="email" class="form_label"><i class="bi bi-envelope"></i><span>Email</span><sup>*</sup></label>
+				<label for="email" class="form_label"><i class="bi bi-envelope"></i><span>Correo</span><sup>*</sup></label>
 			</div>
 			<div class="form_group">
 				<input type="number" id="telefono" name="telefono" class="form_input" placeholder=" " autocomplete="off" required maxlength="9">
-				<label for="telefono" class="form_label"><i class="bi bi-phone"></i><span>Telefono</span><sup>*</sup></label>
+				<label for="telefono" class="form_label"><i class="bi bi-phone"></i><span>Celular</span><sup>*</sup></label>
+			</div>
+			<div class="form_group">
+				<input type="text" id="direccion" name="direccion" class="form_input" placeholder=" " autocomplete="off" required>
+				<label for="direccion" class="form_label"><i class="bi bi-pin-map"></i><span>Direccion</span><sup>*</sup></label>
 			</div>
 			<div class="form_group">
 				<input type="password" id="txtPassword" name="pass" class="form_input" placeholder=" " required>
-				<label for="password" class="form_label form_label-pass"><i class="bi bi-shield-lock"></i><span>Password</span><sup>*</sup></label>
+				<label for="password" class="form_label form_label-pass"><i class="bi bi-shield-lock"></i><span>Contraseña</span><sup>*</sup></label>
 				<div class="eyePass">
 					<i id="iconoEye" class="bi bi-eye"></i>
 				</div>
@@ -74,14 +84,14 @@ if (isset($_POST["registrar"])) {
 					echo "<div class='resultado'>" . $resultado . "</div>";
 				}
 				?>
-				<label class="control control-checkbox <?= $coo ?>"> I agree the <a target="_blank" href="?m=terminos">Terminos y condiciones </a>
+				<label class="control control-checkbox <?= $coo ?>"> Acepto los  <a target="_blank" href="?m=terminos">Terminos y condiciones </a>
 					<input type="checkbox" id="checkbox" name="checkbox">
 					<div class="control_indicator "></div>
 				</label>
 			</div>
-			<button type="submit" name="registrar" id="registrar" class="form_singup-disabled">Login</button>
+			<button type="submit" name="registrar" id="registrar" class="form_singup-disabled">Registrarse</button>
 		</form><br>
-		<a class="crear-cuenta" href="?m=ingreso">Registro</a>
+		<a class="crear-cuenta" href="?m=ingreso">Iniciar Sesion</a>
 	</div>
 
 </div>

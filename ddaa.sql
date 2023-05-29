@@ -12,15 +12,16 @@ INSERT INTO `administrador` (`nombre`,`apellido`, `cargo`, `direccion`, `telefon
 
 CREATE TABLE `especialista` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `DNI` varchar(8) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellido` varchar(30) NOT NULL,
-  `cargo` varchar(100) NOT NULL DEFAULT 'Especialista',
+  `cargo` varchar(50) NOT NULL DEFAULT 'Especialista',
   `direccion` varchar(100) NOT NULL,
-  `telefono` varchar(30) NOT NULL
+  `telefono` varchar(9) NOT NULL
 );
 
-INSERT INTO `especialista` (`nombre`, `apellido`, `cargo`,`direccion`, `telefono`) VALUES
-('Juan', 'Pérez', 'Especialista', 'Lima', '123456789');
+INSERT INTO `especialista` (`DNI`, `nombre`, `apellido`, `cargo`,`direccion`, `telefono`) VALUES
+('78458968','Juan', 'Pérez', 'Especialista', 'Lima', '123456789');
 
 CREATE TABLE `login` (
   `idUsuario` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,

@@ -38,7 +38,6 @@ class dbUsuarios
     /******************************************************************************/
     public function verificarPass($email, $pass)
     {
-
         global $dbConexion, $conexion;
 
         $email = trim(strtolower($email));
@@ -64,7 +63,6 @@ class dbUsuarios
     /******************************************************************************/
     public function validarPassReset($id, $email, $oldPass)
     {
-
         global $dbConexion, $conexion;
 
         $email = trim(strtolower($email));
@@ -94,7 +92,7 @@ class dbUsuarios
         global $dbConexion, $conexion;
 
         //EL IFNULL debuelve un resulataso si es que uno de ellos es nulo o vacio
-        $consulta = "SELECT L.Rol, L.Email, L.Pass, 
+        $consulta = "SELECT L.Rol, L.Email, L.Pass, E.DNI,
                     IFNULL (B.id, E.id) AS IdCliente,
                     IFNULL(B.Nombre, E.Nombre) AS Nombre, 
                     IFNULL(B.Apellido, E.Apellido) AS Apellido, 
@@ -128,9 +126,9 @@ class dbUsuarios
         if ($rol == 1) { //TRIM()permite eliminar caracteres o espacios específicos del principio,del final o de ambos extremos de una cadena
             $nombre = trim($usuario['Nombre']);
             $apellido = trim($usuario['Apellido']);
-            $cargo = trim($usuario['Cargo']);
             $direccion = trim($usuario['Direccion']);
             $telefono = trim($usuario['Telefono']);
+            $cargo = trim($usuario['Cargo']);
             $email = trim(strtolower($usuario['Email']));
             $pass = trim($usuario['Pass']);
 
@@ -138,17 +136,20 @@ class dbUsuarios
             $passHash = password_hash($pass, PASSWORD_BCRYPT, ["cost" => 11]);
 
             $consulta = "INSERT INTO administrador (Nombre, Apellido, Cargo, Direccion, Telefono )
-        VALUES ( '$nombre', '$apellido', '$cargo', '$direccion', '$telefono' );";
+        VALUES ('$nombre', '$apellido', '$cargo', '$direccion', '$telefono' );";
 
             mysqli_query($conexion, $consulta);
 
             $ultimo_id = mysqli_insert_id($conexion);
 
-            $consulta = "INSERT INTO login (Rol, idAdministrador, Email, Pass, Estado )
-            VALUES ( $rol, $ultimo_id, '$email', '$passHash', 1 );";
+            $fechaHoraActual = date('Y-m-d H:i:s');
+
+            $consulta = "INSERT INTO login (Rol, idAdministrador, Email, Pass, Activacion, Estado )
+            VALUES ( $rol, $ultimo_id, '$email', '$passHash','$fechaHoraActual', 1 );";
 
             mysqli_query($conexion, $consulta);
         } else if ($rol == 0) {
+            $dni = trim($usuario['DNI']);
             $nombre = trim($usuario['Nombre']);
             $apellido = trim($usuario['Apellido']);
             $cargo = trim($usuario['Cargo']);
@@ -160,15 +161,17 @@ class dbUsuarios
             //encriptar la contraseña - cost es el nivel de encriptamiento de la misma
             $passHash = password_hash($pass, PASSWORD_BCRYPT, ["cost" => 11]);
 
-            $consulta = "INSERT INTO especialista (Nombre, Apellido, Cargo, Direccion, Telefono )
-        VALUES ( '$nombre', '$apellido', '$cargo', '$direccion', '$telefono' );";
+            $consulta = "INSERT INTO especialista (DNI, Nombre, Apellido, Cargo, Direccion, Telefono )
+        VALUES ('$dni',  '$nombre', '$apellido', '$cargo', '$direccion', '$telefono' );";
 
             mysqli_query($conexion, $consulta);
 
             $ultimo_id = mysqli_insert_id($conexion);
 
-            $consulta = "INSERT INTO login (Rol, idEspecialista, Email, Pass, Estado )
-            VALUES ( $rol, $ultimo_id, '$email', '$passHash', 1 );";
+            $fechaHoraActual = date('Y-m-d H:i:s');
+
+            $consulta = "INSERT INTO login (Rol, idAdministrador, Email, Pass, Activacion, Estado )
+            VALUES ( $rol, $ultimo_id, '$email', '$passHash','$fechaHoraActual', 1 );";
 
             mysqli_query($conexion, $consulta);
         }
@@ -185,9 +188,11 @@ class dbUsuarios
     {
 
         global $dbConexion, $conexion;
+
         $id = $usuario['Id'];
         $rol = $usuario['Rol'];
         $idCliente = $usuario['IdCliente'];
+        $dni = trim($usuario['DNI']);
         $nombre = trim($usuario['Nombre']);
         $apellido = trim($usuario['Apellido']);
         $cargo = trim($usuario['Cargo']);
@@ -206,7 +211,7 @@ class dbUsuarios
                     WHERE id = $idCliente";
         } else if ($rol == 0) {
             $consulta2 = "UPDATE especialista 
-                    SET Nombre = '$nombre', Apellido = '$apellido', Cargo = '$cargo', Direccion = '$direccion', Telefono = '$telefono' 
+                    SET DNI = '$dni',  Nombre = '$nombre', Apellido = '$apellido', Cargo = '$cargo', Direccion = '$direccion', Telefono = '$telefono' 
                     WHERE id = $idCliente";
         }
 
