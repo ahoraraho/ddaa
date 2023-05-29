@@ -144,42 +144,53 @@ class dbUsuarios
     {
         global $conexion;
 
+        // Se obtienen y se trimean los valores del arreglo $usuario
         $nombre = trim($usuario['Nombre']);
         $apellido = trim($usuario['Apellido']);
         $direccion = trim($usuario['Direccion']);
         $telefono = trim($usuario['Telefono']);
+        $cargo = trim($usuario['Cargo']);
         $email = trim(strtolower($usuario['Email']));
         $pass = trim($usuario['Pass']);
+
+        // Se genera el hash de la contraseña
         $passHash = password_hash($pass, PASSWORD_BCRYPT, ["cost" => 11]);
-        $cargo = trim($usuario['Cargo']);
 
+
+        $idVinculante = "";
         $consulta = "";
-        if ($rol == 1) {
 
-            $consulta = "INSERT INTO administrador (Nombre, Apellido, Cargo, Direccion, Telefono)
-                    VALUES (?, ?, ?, ?, ?)";
+        // Se determina la tabla y los campos correspondientes según el valor de $rol
+        if ($rol == 1) {
+            $idVinculante = "idAdministrador";
+            $consulta = "INSERT INTO administrador (Nombre, Apellido, Cargo, Direccion, Telefono) VALUES (?, ?, ?, ?, ?)";
         } else if ($rol == 0) {
             $dni = trim($usuario['DNI']);
-            $consulta = "INSERT INTO especialista (DNI, Nombre, Apellido, Cargo, Direccion, Telefono)
-                    VALUES (?, ?, ?, ?, ?, ?)";
+            $idVinculante = "idEspecialista";
+            $consulta = "INSERT INTO especialista (DNI, Nombre, Apellido, Cargo, Direccion, Telefono) VALUES (?, ?, ?, ?, ?, ?)";
         }
 
+        // Si la consulta no está vacía, se prepara y se ejecuta
         if (!empty($consulta)) {
             $stmt = mysqli_prepare($conexion, $consulta);
             if ($stmt) {
+                // Se realiza el enlace de parámetros según el valor de $rol
                 if ($rol == 1) {
                     mysqli_stmt_bind_param($stmt, "sssss", $nombre, $apellido, $cargo, $direccion, $telefono);
                 } else if ($rol == 0) {
                     mysqli_stmt_bind_param($stmt, "ssssss", $dni, $nombre, $apellido, $cargo, $direccion, $telefono);
                 }
+
+                // Se ejecuta la consulta preparada y se cierra el statement
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
 
+                // Se obtiene el último id insertado y la fecha y hora actual
                 $ultimo_id = mysqli_insert_id($conexion);
                 $fechaHoraActual = date('Y-m-d H:i:s');
 
-                $consultaLogin = "INSERT INTO login (Rol, idAdministrador, Email, Pass, Activacion, Estado)
-                            VALUES (?, ?, ?, ?, ?, 1)";
+                // Se prepara y ejecuta la consulta para insertar en la tabla login
+                $consultaLogin = "INSERT INTO login (Rol, $idVinculante, Email, Pass, Activacion, Estado) VALUES (?, ?, ?, ?, ?, 1)";
                 $stmtLogin = mysqli_prepare($conexion, $consultaLogin);
                 if ($stmtLogin) {
                     mysqli_stmt_bind_param($stmtLogin, "iisss", $rol, $ultimo_id, $email, $passHash, $fechaHoraActual);
@@ -187,21 +198,23 @@ class dbUsuarios
                     mysqli_stmt_close($stmtLogin);
                 }
 
+                // Se devuelve el número de filas afectadas
                 return mysqli_affected_rows($conexion);
             }
         }
 
+        // Si ocurre algún error o la consulta está vacía, se devuelve false
         return false;
     }
+
 
 
     /*****************************************************************************
      *                ACTUALIZO EL USUARIO EN LA TABLA SEGUN EL ID
      *****************************************************************************/
-    public function UpdateUsuario($usuario)
+    public function updateUsuario($usuario)
     {
-
-        global $dbConexion, $conexion;
+        global $conexion;
 
         $id = $usuario['Id'];
         $rol = $usuario['Rol'];
@@ -213,88 +226,108 @@ class dbUsuarios
         $direccion = trim($usuario['Direccion']);
         $telefono = trim($usuario['Telefono']);
         $email = trim(strtolower($usuario['Email']));
-        $pass = trim($usuario['Pass']);
 
+        // Preparar la consulta para actualizar la tabla login
         $consulta1 = "UPDATE login
-                SET Email = '$email' 
-                WHERE IdUsuario = $id";
+                SET Email = ?
+                WHERE IdUsuario = ?";
+        $stmt1 = mysqli_prepare($conexion, $consulta1);
+        mysqli_stmt_bind_param($stmt1, "si", $email, $id);
+        mysqli_stmt_execute($stmt1);
+        $affectedRows = mysqli_stmt_affected_rows($stmt1);
+        mysqli_stmt_close($stmt1);
 
+        // Preparar la consulta para actualizar la tabla correspondiente según el rol
+        $consulta2 = "";
         if ($rol == 1) {
             $consulta2 = "UPDATE administrador
-                    SET Nombre = '$nombre', Apellido = '$apellido', Cargo = '$cargo', Direccion = '$direccion', Telefono = '$telefono' 
-                    WHERE id = $idCliente";
+                    SET Nombre = ?, Apellido = ?, Cargo = ?, Direccion = ?, Telefono = ?
+                    WHERE id = ?";
         } else if ($rol == 0) {
-            $consulta2 = "UPDATE especialista 
-                    SET DNI = '$dni',  Nombre = '$nombre', Apellido = '$apellido', Cargo = '$cargo', Direccion = '$direccion', Telefono = '$telefono' 
-                    WHERE id = $idCliente";
+            $consulta2 = "UPDATE especialista
+                    SET DNI = ?, Nombre = ?, Apellido = ?, Cargo = ?, Direccion = ?, Telefono = ?
+                    WHERE id = ?";
         }
 
-        mysqli_query($conexion, $consulta1);
-        //mysql_affected_rows: Obtener el número de filas afectadas en la operación anterior de MySQL
-        $affectedRows = mysqli_affected_rows($conexion);
-        mysqli_query($conexion, $consulta2);
-        $affectedRows += mysqli_affected_rows($conexion);
+        if (!empty($consulta2)) {
+            $stmt2 = mysqli_prepare($conexion, $consulta2);
+            if ($stmt2) {
+                if ($rol == 1) {
+                    mysqli_stmt_bind_param($stmt2, "sssssi", $nombre, $apellido, $cargo, $direccion, $telefono, $idCliente);
+                } else if ($rol == 0) {
+                    mysqli_stmt_bind_param($stmt2, "ssssssi", $dni, $nombre, $apellido, $cargo, $direccion, $telefono, $idCliente);
+                }
+                mysqli_stmt_execute($stmt2);
+                $affectedRows += mysqli_stmt_affected_rows($stmt2);
+                mysqli_stmt_close($stmt2);
+            }
+        }
 
         return $affectedRows;
-
-        //$dbConexion->close();
     }
+
 
     /*****************************************************************************
      *                ELIMINO EL USUARIO EN LA TABLA SEGUN EL ID
      *****************************************************************************/
-    public function DeleteUsuario($usuario)
+    public function deleteUsuario($usuario)
     {
-
-        global $dbConexion, $conexion;
+        global $conexion;
 
         $id = $usuario['Id'];
         $rol = $usuario['Rol'];
         $idCliente = $usuario['IdCliente'];
 
-        $consulta1 = "DELETE FROM login
-                WHERE IdUsuario = $id";
+        // Preparar la consulta para eliminar el registro de la tabla login
+        $consulta1 = "DELETE FROM login WHERE IdUsuario = ?";
+        $stmt1 = mysqli_prepare($conexion, $consulta1);
+        mysqli_stmt_bind_param($stmt1, "i", $id);
+        mysqli_stmt_execute($stmt1);
+        $affectedRows = mysqli_stmt_affected_rows($stmt1);
+        mysqli_stmt_close($stmt1);
 
+        // Preparar la consulta para eliminar el registro de la tabla correspondiente según el rol
+        $consulta2 = "";
         if ($rol == 1) {
-            $consulta2 = "DELETE FROM administrador
-                    WHERE id = $idCliente";
+            $consulta2 = "DELETE FROM administrador WHERE id = ?";
         } else if ($rol == 0) {
-            $consulta2 = "DELETE FROM especialista 
-                    WHERE id = $idCliente";
+            $consulta2 = "DELETE FROM especialista WHERE id = ?";
         }
 
-        mysqli_query($conexion, $consulta1);
-        $affectedRows = mysqli_affected_rows($conexion);
-        mysqli_query($conexion, $consulta2);
-        $affectedRows += mysqli_affected_rows($conexion);
-        return $affectedRows;
+        if (!empty($consulta2)) {
+            $stmt2 = mysqli_prepare($conexion, $consulta2);
+            if ($stmt2) {
+                mysqli_stmt_bind_param($stmt2, "i", $idCliente);
+                mysqli_stmt_execute($stmt2);
+                $affectedRows += mysqli_stmt_affected_rows($stmt2);
+                mysqli_stmt_close($stmt2);
+            }
+        }
 
-        //$dbConexion->close();
+        return $affectedRows;
     }
 
 
+    // PARA RESETEAR CONTRASEÑA NO LOGUEADO -> ABAJO 
     /*****************************************************************************
      *                        VERIFICA SI EXISTE EL MAIL
      *****************************************************************************/
     public function existMailUsuario($email)
     {
-
-        global $dbConexion, $conexion;
+        global $conexion;
 
         $email = trim(strtolower($email));
 
         $consulta = "SELECT Email FROM login
-                    WHERE Email = '$email'";
+                WHERE Email = ?";
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+        $rowCount = mysqli_stmt_num_rows($stmt);
+        mysqli_stmt_close($stmt);
 
-        $resultado = mysqli_query($conexion, $consulta);
-
-        if (mysqli_num_rows($resultado) > 0) {
-            return true;
-        } else {
-            return false;
-        }
-
-        //$dbConexion->close();
+        return $rowCount > 0;
     }
 
     /*****************************************************************************
@@ -302,24 +335,24 @@ class dbUsuarios
      *****************************************************************************/
     public function validarEmail($email)
     {
-
-        global $dbConexion, $conexion;
+        global $conexion;
 
         $email = trim(strtolower($email));
 
         $consulta = "SELECT idUsuario, rol FROM login
-                    WHERE Email = '$email' ";
-
-        $resultado = mysqli_query($conexion, $consulta);
+                WHERE Email = ?";
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($resultado) > 0) {
-            return mysqli_fetch_assoc($resultado); //Recupera una fila de resultados como un array asociativo
+            return mysqli_fetch_assoc($resultado);
         } else {
             return [];
         }
-
-        //$dbConexion->close();
     }
+
 
     /*****************************************************************************
      *           VERIFICA SEGUN EL MAIL: RESCATA EL ID, MAIL Y ROL
@@ -329,32 +362,43 @@ class dbUsuarios
         $id = $dataReset["Id"];
         $rol = $dataReset["Rol"];
 
-        global $dbConexion, $conexion;
+        global $conexion;
+
+        $consulta = "";
+        $tabla = "";
 
         if ($rol == 1) {
-            $consulta = "SELECT L.Email, B.telefono AS Telefono 
-                    FROM login AS L 
-                    LEFT JOIN especialista AS E ON L.idEspecialista = E.id 
-                    LEFT JOIN administrador AS B ON L.idAdministrador = B.id 
-                    WHERE L.idUsuario = $id";
+            $tabla = "administrador";
         } else if ($rol == 0) {
-            $consulta = "SELECT L.Email, E.telefono AS Telefono 
-                    FROM login AS L 
-                    LEFT JOIN especialista AS E ON L.idEspecialista = E.id 
-                    LEFT JOIN administrador AS B ON L.idAdministrador = B.id 
-                    WHERE L.idUsuario = $id";
+            $tabla = "especialista";
         }
 
-        $resultado = mysqli_query($conexion, $consulta);
+        $consulta = "SELECT L.Email, T.telefono AS Telefono 
+                FROM login AS L 
+                LEFT JOIN $tabla AS T ON L.idEspecialista = T.id 
+                WHERE L.idUsuario = ?";
 
-        if (mysqli_num_rows($resultado) > 0) {
-            return mysqli_fetch_assoc($resultado); //Recupera una fila de resultados como un array asociativo
-        } else {
-            return [];
+        if (!empty($consulta)) {
+            $stmt = mysqli_prepare($conexion, $consulta);
+            if ($stmt) {
+                mysqli_stmt_bind_param($stmt, "i", $id);
+                mysqli_stmt_execute($stmt);
+                $resultado = mysqli_stmt_get_result($stmt);
+                $data = mysqli_fetch_assoc($resultado);
+                mysqli_stmt_close($stmt);
+
+                if ($data) {
+                    return $data;
+                } else {
+                    return [];
+                }
+            }
         }
 
-        $dbConexion->close();
+        return [];
     }
+
+
 
 
     /*****************************************************************************
@@ -362,18 +406,24 @@ class dbUsuarios
      *****************************************************************************/
     public function ResetPassUsers($id, $email, $passOk)
     {
-        global $dbConexion, $conexion;
+        global $conexion;
 
         $passHash = password_hash($passOk, PASSWORD_BCRYPT, ["cost" => 11]);
 
         $consulta = "UPDATE login
-            SET Pass = '$passHash' 
-            WHERE IdUsuario = $id AND Email = '$email'";
+                    SET Pass = ?
+                    WHERE IdUsuario = ? AND Email = ?";
 
-        mysqli_query($conexion, $consulta);
+        $stmt = mysqli_prepare($conexion, $consulta);
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "sis", $passHash, $id, $email);
+            mysqli_stmt_execute($stmt);
+            $affectedRows = mysqli_stmt_affected_rows($stmt);
+            mysqli_stmt_close($stmt);
 
-        return mysqli_affected_rows($conexion) > 0;
+            return $affectedRows > 0;
+        }
 
-        //$dbConexion->close();
+        return false;
     }
 }
