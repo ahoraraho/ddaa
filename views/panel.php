@@ -18,37 +18,43 @@ if (isset($_GET['sesion']) && $_GET['sesion'] == 'cerrar') {
 <section class="panel-users">
     <nav class="nav-panel">
         <a href="?m=panel&mod=proyectos" class="<?= ($_GET['mod'] == 'proyectos') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-calendar2-event"></i>
+            <i class="bi bi-newspaper"></i>
             <span>Proyectos</span>
         </a>
+        <a href="?m=panel&mod=procesos" class="<?= ($_GET['mod'] == 'procesos') ? 'nav-active' : ''; ?>">
+            <!-- <i class="bi bi-building-gear"></i> -->
+            <i class="bi bi-motherboard"></i>
+            <span>Procesos</span>
+        </a>
         <a href="?m=panel&mod=empresas" class="<?= ($_GET['mod'] == 'empresas') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-box-seam"></i>
+            <i class="bi bi-buildings"></i>
             <span>Empresas</span>
         </a>
+        <a href="?m=panel&mod=objetos" class="<?= ($_GET['mod'] == 'objetos') ? 'nav-active' : ''; ?>">
+            <i class="bi bi-postcard"></i>
+            <span>Objetos</span>
+        </a>
         <a href="?m=panel&mod=especialidades" class="<?= ($_GET['mod'] == 'especialidades') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-tags"></i>
+            <i class="bi bi-calendar4-range"></i>
             <span>Especialidades</span>
         </a>
         <a href="?m=panel&mod=contactos" class="<?= ($_GET['mod'] == 'contactos') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-calendar2-event"></i>
+            <i class="bi bi-person-vcard"></i>
             <span>Contactos</span>
         </a>
         <a href="?m=panel&mod=documentos" class="<?= ($_GET['mod'] == 'documentos') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-view-list"></i>
+            <i class="bi bi-file-earmark-medical"></i>
             <span>Documentos</span>
         </a>
-        <a href="?m=panel&mod=objetos" class="<?= ($_GET['mod'] == 'objetos') ? 'nav-active' : ''; ?>">
-            <i class="i bi-handbag"></i>
-            <span>Objetos</span>
-        </a>
+
         <?php if ($_SESSION["Usuario"]["Administrador"]) : ?>
             <a href="?m=panel&mod=usuarios" class="<?= ($_GET['mod'] == 'usuarios') ? 'nav-active' : ''; ?>">
-                <i class="bi bi-people"></i>
+                <i class="bi bi-person-video2"></i>
                 <span>Usuarios</span>
             </a>
         <?php endif; ?>
         <a href="?m=panel&mod=cuenta" class="<?= ($_GET['mod'] == 'cuenta') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-gear"></i>
+            <i class="bi bi-nut"></i>
             <span>Configuracion</span>
         </a>
         <span class="separador"></span>

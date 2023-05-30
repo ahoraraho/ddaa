@@ -67,8 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i> Home</a>
-    <a href="#" title="Estas justo aqui" class="active"><i class="bi bi-gear"></i> Configuración</a>
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Configuración</a>
 </div>
 <?php
 if (isset($_GET['msj'])) {

@@ -1,10 +1,11 @@
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Usuarios</a>
+    <a href="#" title="Estas justo aqui" class="active">Procesos</a>
 </div>
-
-<h3>USUARIOS</h3>
+<?php
+?>
+<h3>PROCESOS</h3>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -20,7 +21,7 @@
     </div>
     <div class="f2">
         <a href="?m=panel&mod=categoria&action=add" class="button-link btn-new f-e">
-            <i class="abi bi bi-plus-square"></i><span>Nueva Usuario</span>
+            <i class="abi bi bi-plus-square"></i><span>Nueva Proceso</span>
         </a>
     </div>
 </div>

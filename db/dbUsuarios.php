@@ -408,15 +408,21 @@ class dbUsuarios
     {
         global $conexion;
 
+        date_default_timezone_set('America/Lima'); // Establece la zona horaria a Perú
+
+        $fechaHora = date('Y-m-d H:i:s'); // Obtiene la fecha y hora actual en el formato deseado
+
+        //echo "Fecha y hora en Perú: " . $fechaHora;
+
         $passHash = password_hash($passOk, PASSWORD_BCRYPT, ["cost" => 11]);
 
         $consulta = "UPDATE login
-                    SET Pass = ?
-                    WHERE IdUsuario = ? AND Email = ?";
+            SET Pass = ?, fechaModificacion = ?
+            WHERE IdUsuario = ? AND Email = ?";
 
         $stmt = mysqli_prepare($conexion, $consulta);
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "sis", $passHash, $id, $email);
+            mysqli_stmt_bind_param($stmt, "ssis", $passHash, $fechaHora, $id, $email);
             mysqli_stmt_execute($stmt);
             $affectedRows = mysqli_stmt_affected_rows($stmt);
             mysqli_stmt_close($stmt);

@@ -1,37 +1,9 @@
 <!-- ruta de acceso guia -->
 <div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i> Home</a>
-    <a href="#" title="Estas justo aqui" class="active"><i class="bi bi-tags"></i> Categorias</a>
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Contactos</a>
 </div>
-<?php
-if (isset($_GET['msj'])) {
-    $msj = $_GET['msj'];
-    $typeMsj = "";
-    switch ($msj) {
-        case '0x10':
-            $msj = "Categoria agregada!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check-circle";
-            break;
-        case '0x20':
-            $msj = "Categoria actualizada!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check2-circle";
-            break;
-        case '0x30':
-            $msj = "Categoria eliminada!";
-            $typeMsj = "msj-warning";
-            $iconoAlert = "bi-info-circle";
-            break;
-        case '0x1000':
-            $msj = "Hubo un error al intentar realizar la operación!";
-            $typeMsj = "msj-error";
-            $iconoAlert = "bi-bug";
-            break;
-    }
-    alertaResponDialog($typeMsj, $msj, $iconoAlert);
-}
-?>
+
 <h3>CONTACTOS</h3>
 <div class="numm">
     <div class="f1">
@@ -48,7 +20,7 @@ if (isset($_GET['msj'])) {
     </div>
     <div class="f2">
         <a href="?m=panel&mod=categoria&action=add" class="button-link btn-new f-e">
-            <i class="abi bi bi-plus-square"></i><span>Nueva Empresa</span>
+            <i class="abi bi bi-plus-square"></i><span>Nueva Contacto</span>
         </a>
     </div>
 </div>

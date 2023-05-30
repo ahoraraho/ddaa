@@ -32,7 +32,7 @@ CREATE TABLE `login` (
   `Pass` varchar(255) NOT NULL,
   `Activacion` varchar(100) NOT NULL,
   `Estado` tinyint(1) DEFAULT 0,
-  `fehcaModificacion` VARCHAR(100) DEFAULT 'No modificado'
+  `fechaModificacion` VARCHAR(100) DEFAULT 'No modificado'
   -- FOREIGN KEY (`idAdministrador`) REFERENCES `administrador` (`id`),
   -- FOREIGN KEY (`idEspecialista`) REFERENCES `especialista` (`id`)
 );
