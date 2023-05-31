@@ -36,7 +36,7 @@ class Conexion
 }
 
 
-$dbConexion = new Conexion("localhost", "root", "", "ddd");
+$dbConexion = new Conexion("localhost", "root", "", "ddaa");
 
 $dbConexion->connect();
 

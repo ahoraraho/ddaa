@@ -67,7 +67,7 @@ header {
 :root {
     --body-color: #ffffff;
     --nav-color: #efefef;
-    --side-nav: #d8ccb7;
+    --side-nav: #ffffff;
 
     --text-color-main: #000000;
     --text-color-main-hover: #D4AF37;
@@ -80,7 +80,7 @@ header {
 
 
     --color-btns: #0f284b;
-    --color-icono: #172654;
+    --color-icono: #D4AF37;
 
     --black: #000000;
     --fondo-social-icon: #000000;
@@ -89,7 +89,7 @@ header {
 body.dark {
     --body-color: #0a1c31;
     --nav-color: #000000;
-    --side-nav: #121e28;
+    --side-nav: #000000;
 
     --text-color-main: #D4AF37;
     --text-color-main-hover: #ffffff;
@@ -100,7 +100,7 @@ body.dark {
     --text-btn-color: #000000;
 
     --color-btns: #254830;
-    --color-icono: #00b6b0;
+    --color-icono: #ffffff;
 
     --black: #000000;
 

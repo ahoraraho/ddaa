@@ -59,7 +59,7 @@ if (isset($_POST['resetaPass'])) {
 ?>
 <div class="conten">
     <div class="center-small">
-        <h1 class="form_title">Reset Password</h1>
+        <h1 class="form_title">Restaurar contraseña</h1>
         <!-- <div class="notaReset">
             <p><?= $mensaje ?></p>
         </div> -->
@@ -72,14 +72,14 @@ if (isset($_POST['resetaPass'])) {
             </div>
             <div class="form_group">
                 <input type="password" id="txtPassword" name="pass" class="form_input" required autofocus>
-                <label for="password" class="form_label form_label-pass"><i class="bi bi-shield-lock"></i><span>New Password</span><sup>*</sup></label>
+                <label for="password" class="form_label form_label-pass"><i class="bi bi-shield-lock"></i><span>Nueva contraseña</span><sup>*</sup></label>
                 <div class="eyePass">
                     <i id="iconoEye" class="bi bi-eye"></i>
                 </div>
             </div>
             <div class="form_group">
-                <input type="password" id="txtPasswordOk" name="passOk" class="form_input" required autofocus>
-                <label for="password" class="form_label form_label-pass"><i class="bi bi-shield-lock"></i><span>Confirm Password</span><sup>*</sup></label>
+                <input type="password" id="txtPasswordOk" name="passOk" class="form_input" required>
+                <label for="password" class="form_label form_label-pass"><i class="bi bi-shield-lock"></i><span>Confirmar Nueva contraseña</span><sup>*</sup></label>
                 <div class="eyePass">
                     <i id="iconoEyeOk" class="bi bi-eye"></i>
                 </div>

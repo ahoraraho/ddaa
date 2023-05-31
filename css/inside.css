@@ -1,7 +1,6 @@
 /* ===== Colours ===== */
 :root {
 
-    --more-color: #1e354e;
     --more-color-hs: #1e354e;
     --more-color--hover: #147024;
     --colorLink: #7906b2;
@@ -9,22 +8,21 @@
     --colorTextRuta: #0f3765;
     --colorIconRuta: #000000;
 
-    --colorIconos: #16375b;
+    --colorIconos: #204062;
 
     --bg-drop: #ffffff;
 
 }
 
 body.dark {
-    --more-color: #3fb6b2;
     --more-color-hs: #0be5d6;
     --more-color--hover: #4de507;
     --colorLink: #03cb24;
 
-    --colorTextRuta: #b7d604;
-    --colorIconRuta: #0168b2;
+    --colorTextRuta: #D4AF37;
+    --colorIconRuta: #ffffff;
 
-    --colorIconos: #ffea00;
+    --colorIconos: #D4AF37;
 
     --bg-drop: #1a3b5e;
 }
@@ -310,10 +308,10 @@ input[type="file"] {
 }
 
 .nav-panel a:hover {
-    color: var(--text-color-a-hover);
+    color: var(--primary);
     font-weight: bold;
     /*negrita fuerte*/
-    font-size: 20px;
+    font-size: 18px;
     /* border-left: 6px solid cornflowerblue;
       padding-left: 18px; */
 }
@@ -321,10 +319,6 @@ input[type="file"] {
 .nav-panel a i {
     font-size: 28px;
     width: 50px;
-}
-
-.nav-panel a i ::before {
-    font-size: 28px;
 }
 
 .nav-panel .nav-active {
@@ -701,7 +695,7 @@ option {
 }
 
 .ruta a {
-    padding: 10px 16px 10px 10px;
+    padding: 10px 15px 10px 10px;
     display: inline-block;
     background-image: url("../svgs/next.svg");
     background-position: center right;
@@ -719,7 +713,7 @@ option {
 }
 
 .ruta a i {
-    margin-right: 5px;
+    margin-right: 0px;
     color: var(--colorIconRuta);
 }
 
@@ -864,7 +858,6 @@ option {
 
     .ruta .active {
         border: none;
-        color: var(--colorLink);
     }
 
     /*BOTON DE AGREGAR MAS ...*/

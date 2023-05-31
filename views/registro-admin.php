@@ -79,14 +79,14 @@ if (isset($_POST["registrar"])) {
 					echo "<div class='resultado'>" . $resultado . "</div>";
 				}
 				?>
-				<label class="control control-checkbox <?= $coo ?>"> I agree the <a target="_blank" href="?m=terminos">Terms and Conditions </a>
+				<label class="control control-checkbox <?= $coo ?>"> Acepto los <a target="_blank" href="?m=terminos">Terminos y Codiciones </a>
 					<input type="checkbox" id="checkbox" name="checkbox">
 					<div class="control_indicator "></div>
 				</label>
 			</div>
-			<button type="submit" name="registrar" id="registrar" class="form_singup-disabled">Register company</button>
+			<button type="submit" name="registrar" id="registrar" class="form_singup-disabled">Registrar Admin</button>
 		</form><br>
-		<a class="crear-cuenta" href="?m=ingreso">Iniciar Sesion</a><br>
-		<a class="crear-cuenta" href="?m=registro">Crear una cuenta personal</a>
+		<a class="crear-cuenta" href="?m=ingreso">ó, Iniciar Sesion</a><br>
+		<a class="crear-cuenta" href="?m=registro">Crear una cuenta de especialista</a>
 	</div>
 </div>

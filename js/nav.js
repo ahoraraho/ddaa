@@ -81,3 +81,14 @@ if (sidebarClose) {
   });
 }
 
+// Función para remover la clase "active" del nav si está presente automaticamete
+function removeActiveClass() {
+  if (window.innerWidth > 850 && nav.classList.contains("active")) {
+    nav.classList.remove("active");
+  }
+}
+
+// Agregar evento resize para detectar cambios en el tamaño de la pantalla
+window.addEventListener("resize", removeActiveClass);
+
+

@@ -187,13 +187,15 @@ class dbUsuarios
 
                 // Se obtiene el último id insertado y la fecha y hora actual
                 $ultimo_id = mysqli_insert_id($conexion);
-                $fechaHoraActual = date('Y-m-d H:i:s');
+
+                date_default_timezone_set('America/Lima'); // Establece la zona horaria a Perú
+                $fechaHora = date('Y-m-d H:i:s'); // Obtiene la fecha y hora actual en el formato deseado
 
                 // Se prepara y ejecuta la consulta para insertar en la tabla login
                 $consultaLogin = "INSERT INTO login (Rol, $idVinculante, Email, Pass, Activacion, Estado) VALUES (?, ?, ?, ?, ?, 1)";
                 $stmtLogin = mysqli_prepare($conexion, $consultaLogin);
                 if ($stmtLogin) {
-                    mysqli_stmt_bind_param($stmtLogin, "iisss", $rol, $ultimo_id, $email, $passHash, $fechaHoraActual);
+                    mysqli_stmt_bind_param($stmtLogin, "iisss", $rol, $ultimo_id, $email, $passHash, $fechaHora);
                     mysqli_stmt_execute($stmtLogin);
                     mysqli_stmt_close($stmtLogin);
                 }
@@ -366,16 +368,19 @@ class dbUsuarios
 
         $consulta = "";
         $tabla = "";
+        $idUser = "";
 
         if ($rol == 1) {
             $tabla = "administrador";
+            $idUser = "L.idAdministrador";
         } else if ($rol == 0) {
             $tabla = "especialista";
+            $idUser = "L.idEspecialista";
         }
 
-        $consulta = "SELECT L.Email, T.telefono AS Telefono 
+        $consulta = "SELECT L.Email, U.telefono AS Telefono 
                 FROM login AS L 
-                LEFT JOIN $tabla AS T ON L.idEspecialista = T.id 
+                LEFT JOIN $tabla AS U ON $idUser = u.id 
                 WHERE L.idUsuario = ?";
 
         if (!empty($consulta)) {

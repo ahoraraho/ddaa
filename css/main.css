@@ -408,16 +408,13 @@ reducir el tamaño de la etiqueta y mover hacia arriba
 
 /*# sourceMappingURL=main.css.map */
 
-
 /*VER CONTRASEÑA*/
-
-
 .eyePass {
   position: absolute;
   font-size: 1.5em;
   top: 1.1em;
   right: .58em;
-  color: var(--text-color);
+  color: var(--more-color);
   cursor: grab;
   font-weight: bold;
   border-radius: 50%;
