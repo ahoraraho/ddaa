@@ -103,7 +103,7 @@ if (isset($_GET['msj'])) {
 
 <div class="formularios">
     <div class="entradas">
-        <h3>Configuracion</h3>
+        <h3>CONFIGURACIÓN</h3>
         <div class="numm">
             <div class="f1">
 

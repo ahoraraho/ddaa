@@ -22,7 +22,7 @@ if (isset($_POST['restaurar'])) {
         $_email = $data["Email"];
 
         if ($dataInput["mail"] != $_email) {
-            header('location: ?m=reset&mesage=noMail');
+            header('location: ?m=reset&mesage=noMailf');
         } elseif ($dataInput["phone"] != $_telefono) {
             header('location: ?m=reset&mesage=noPhone');
         } else {

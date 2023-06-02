@@ -11,12 +11,12 @@ class dbUsuarios
 
         $consulta = "SELECT L.idUsuario, E.Nombre, E.Apellido, L.Email, 0 AS Rol 
                     FROM login AS L
-                    INNER JOIN especialista AS E ON L.idEspecialista = E.id
+                    INNER JOIN especialista AS E ON L.idEspecialista = E.idEspecialista
                     WHERE Email = ? AND Estado = 1
                     UNION ALL 
                     SELECT L.idUsuario, B.Nombre, B.Apellido, L.Email, 1 AS Rol 
                     FROM login AS L
-                    INNER JOIN administrador AS B ON L.idAdministrador = B.id
+                    INNER JOIN administrador AS B ON L.idAdministrador = B.idAdministrador
                     WHERE Email = ? AND Estado = 1";
 
         $stmt = mysqli_prepare($conexion, $consulta);
@@ -50,7 +50,7 @@ class dbUsuarios
 
         $email = trim(strtolower($email));
 
-        $consulta = "SELECT Pass FROM login WHERE Email = ?";
+        $consulta = "SELECT Contrasena FROM login WHERE Email = ?";
         $stmt = mysqli_prepare($conexion, $consulta);
 
         if ($stmt) {
@@ -60,7 +60,7 @@ class dbUsuarios
 
             if ($resultado && mysqli_num_rows($resultado) > 0) {
                 $resul = mysqli_fetch_assoc($resultado);
-                if (password_verify($pass, $resul["Pass"])) {
+                if (password_verify($pass, $resul["Contrasena"])) {
                     return true;
                 }
             }
@@ -79,7 +79,7 @@ class dbUsuarios
 
         $email = trim(strtolower($email));
 
-        $consulta = "SELECT Email, Pass FROM login
+        $consulta = "SELECT Email, Contrasena FROM login
                 WHERE idUsuario = ? AND Email = ?";
         $stmt = mysqli_prepare($conexion, $consulta);
 
@@ -90,7 +90,7 @@ class dbUsuarios
 
             if ($resultado && mysqli_num_rows($resultado) > 0) {
                 $resul = mysqli_fetch_assoc($resultado);
-                if (password_verify($oldPass, $resul["Pass"])) {
+                if (password_verify($oldPass, $resul["Contrasena"])) {
                     return true;
                 }
             }
@@ -108,16 +108,16 @@ class dbUsuarios
     {
         global $conexion;
 
-        $consulta = "SELECT L.Rol, L.Email, L.Pass, E.DNI,
-                IFNULL (B.id, E.id) AS IdCliente,
+        $consulta = "SELECT L.Rol, L.Email, L.Contrasena, E.DNI,
+                IFNULL (B.idAdministrador, E.idEspecialista) AS IdCliente,
                 IFNULL(B.Nombre, E.Nombre) AS Nombre, 
                 IFNULL(B.Apellido, E.Apellido) AS Apellido, 
                 IFNULL(B.Cargo, E.Cargo) AS Cargo, 
                 IFNULL(B.direccion, E.direccion) AS Direccion, 
                 IFNULL(B.telefono, E.telefono) AS Telefono 
             FROM login AS L 
-            LEFT JOIN especialista AS E ON L.idEspecialista = E.id 
-            LEFT JOIN administrador AS B ON L.idAdministrador = B.id 
+            LEFT JOIN especialista AS E ON L.idEspecialista = E.idEspecialista 
+            LEFT JOIN administrador AS B ON L.idAdministrador = B.idAdministrador 
             WHERE L.idUsuario = ?";
 
         $stmt = mysqli_prepare($conexion, $consulta);
@@ -151,7 +151,7 @@ class dbUsuarios
         $telefono = trim($usuario['Telefono']);
         $cargo = trim($usuario['Cargo']);
         $email = trim(strtolower($usuario['Email']));
-        $pass = trim($usuario['Pass']);
+        $pass = trim($usuario['Contrasena']);
 
         // Se genera el hash de la contraseña
         $passHash = password_hash($pass, PASSWORD_BCRYPT, ["cost" => 11]);
@@ -192,7 +192,7 @@ class dbUsuarios
                 $fechaHora = date('Y-m-d H:i:s'); // Obtiene la fecha y hora actual en el formato deseado
 
                 // Se prepara y ejecuta la consulta para insertar en la tabla login
-                $consultaLogin = "INSERT INTO login (Rol, $idVinculante, Email, Pass, Activacion, Estado) VALUES (?, ?, ?, ?, ?, 1)";
+                $consultaLogin = "INSERT INTO login (Rol, $idVinculante, Email, Contrasena, Activacion, Estado) VALUES (?, ?, ?, ?, ?, 1)";
                 $stmtLogin = mysqli_prepare($conexion, $consultaLogin);
                 if ($stmtLogin) {
                     mysqli_stmt_bind_param($stmtLogin, "iisss", $rol, $ultimo_id, $email, $passHash, $fechaHora);
@@ -229,12 +229,15 @@ class dbUsuarios
         $telefono = trim($usuario['Telefono']);
         $email = trim(strtolower($usuario['Email']));
 
+        date_default_timezone_set('America/Lima'); // Establece la zona horaria a Perú
+        $fechaHora = date('Y-m-d H:i:s'); // Obtiene la fecha y hora actual en el formato deseado
+
         // Preparar la consulta para actualizar la tabla login
         $consulta1 = "UPDATE login
-                SET Email = ?
+                SET Email = ?, fechaModificacionData = ?
                 WHERE IdUsuario = ?";
         $stmt1 = mysqli_prepare($conexion, $consulta1);
-        mysqli_stmt_bind_param($stmt1, "si", $email, $id);
+        mysqli_stmt_bind_param($stmt1, "ssi", $email,  $fechaHora, $id);
         mysqli_stmt_execute($stmt1);
         $affectedRows = mysqli_stmt_affected_rows($stmt1);
         mysqli_stmt_close($stmt1);
@@ -244,11 +247,11 @@ class dbUsuarios
         if ($rol == 1) {
             $consulta2 = "UPDATE administrador
                     SET Nombre = ?, Apellido = ?, Cargo = ?, Direccion = ?, Telefono = ?
-                    WHERE id = ?";
+                    WHERE idAdministrador = ?";
         } else if ($rol == 0) {
             $consulta2 = "UPDATE especialista
                     SET DNI = ?, Nombre = ?, Apellido = ?, Cargo = ?, Direccion = ?, Telefono = ?
-                    WHERE id = ?";
+                    WHERE idEspecialista = ?";
         }
 
         if (!empty($consulta2)) {
@@ -291,9 +294,9 @@ class dbUsuarios
         // Preparar la consulta para eliminar el registro de la tabla correspondiente según el rol
         $consulta2 = "";
         if ($rol == 1) {
-            $consulta2 = "DELETE FROM administrador WHERE id = ?";
+            $consulta2 = "DELETE FROM administrador WHERE idAdministrador = ?";
         } else if ($rol == 0) {
-            $consulta2 = "DELETE FROM especialista WHERE id = ?";
+            $consulta2 = "DELETE FROM especialista WHERE idEspecialista = ?";
         }
 
         if (!empty($consulta2)) {
@@ -369,18 +372,22 @@ class dbUsuarios
         $consulta = "";
         $tabla = "";
         $idUser = "";
+        $idd = "";
 
         if ($rol == 1) {
             $tabla = "administrador";
             $idUser = "L.idAdministrador";
+            $idd = "U.idAdministrador";
         } else if ($rol == 0) {
             $tabla = "especialista";
             $idUser = "L.idEspecialista";
+            $idd = "U.idEspecialista";
+
         }
 
         $consulta = "SELECT L.Email, U.telefono AS Telefono 
                 FROM login AS L 
-                LEFT JOIN $tabla AS U ON $idUser = u.id 
+                LEFT JOIN $tabla AS U ON $idUser = $idd
                 WHERE L.idUsuario = ?";
 
         if (!empty($consulta)) {
@@ -422,7 +429,7 @@ class dbUsuarios
         $passHash = password_hash($passOk, PASSWORD_BCRYPT, ["cost" => 11]);
 
         $consulta = "UPDATE login
-            SET Pass = ?, fechaModificacion = ?
+            SET Contrasena = ?, fechaModificacionPass = ?
             WHERE IdUsuario = ? AND Email = ?";
 
         $stmt = mysqli_prepare($conexion, $consulta);
