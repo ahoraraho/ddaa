@@ -4,6 +4,11 @@
     <a href="#" title="Estas justo aqui" class="active">Empresas</a>
 </div>
 
+<?php
+
+$id = 12;
+?>
+
 <h3>EMPRESAS</h3>
 <div class="numm">
     <div class="f1">
@@ -48,8 +53,8 @@
                 <td>99999999</td>
                 <td>correo@gmai.com</td>
                 <td>
-                    <a href="?m=panel&mod=categoria&action=update&id=2" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=categoria&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                    <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                    <a href="?m=panel&mod=empresa&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
                 </td>
             </tr>
         </tbody>
