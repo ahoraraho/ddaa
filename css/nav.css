@@ -807,8 +807,6 @@ a #wa {
 
     .btn-ingreso,
     .btn-registro {
-        background-color: var(--color-icono);
-        color: var(--text-btn-color);
         cursor: pointer;
         font-size: 18px;
         padding: 12px;
@@ -819,13 +817,32 @@ a #wa {
         height: 50px;
         width: 100% !important;
         font-weight: bold;
+        border: solid 1px;
     }
 
-    .btn-ingreso:hover,
-    .btn-registro:hover {
+
+    .btn-ingreso {
+        background-color: var(--dorado);
+        color: var(--negro);
+        border-color: var(--negro);
+    }
+
+    .btn-registro {
+        background-color: transparent;
+        color: var(--c_resgistro);
+        border-color: var(--c_resgistro);
+    }
+
+    .btn-ingreso:hover {
+        background-color: var(--negro);
+        color: var(--dorado);
+        border-color: var(--dorado);
+    }
+
+    /* .btn-registro:hover {
         background-color: var(--color-btns);
         color: var(--text-color-main-hover);
-    }
+    } */
 
     .nav-links li a {
         display: flex;

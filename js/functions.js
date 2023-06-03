@@ -25,8 +25,6 @@ const span = document.getElementsByClassName("close")[0];
 // obtenemos el elemento segun al id del boton back
 const back = document.getElementById("back");
 
-
-
 /*################################################################################################*/
 // /* DIV SE CIERRA AUTOMATICAMENTE O AL DARLE CLICK EN CERRAR (ALERTAS)  */
 window.addEventListener("load", init);

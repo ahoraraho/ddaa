@@ -32,11 +32,11 @@ CREATE TABLE login (
     FOREIGN KEY (idEspecialista) REFERENCES especialista (idEspecialista)
 );
 
-INSERT INTO administrador (idAdministrador, nombre, apellido, cargo, direccion, telefono) VALUES
-(1, 'Alan Atilio', 'Codori', 'Administrador', 'Arequipa', '936660120');
+INSERT INTO administrador (nombre, apellido, cargo, direccion, telefono) VALUES
+('Alan Atilio', 'Codori', 'Administrador', 'Arequipa', '936660120');
 
-INSERT INTO login (idUsuario, rol, idAdministrador, idEspecialista, Email, Contrasena, Activacion, Estado, fechaModificacionPass, fechaModificacionData) VALUES
-(1, 1, 1, NULL, 'admin@da.com', '$2y$11$8zACYbl4d3PGpLIgIlEnzOuKCvhtTk9FG5AfyIsZXSRg62WK19NJ2', '2023-05-30 14:46:55', 1, '2023-06-02 17:44:09', '2023-06-02 17:43:39');
+INSERT INTO login (rol, idAdministrador, idEspecialista, Email, Contrasena, Activacion, Estado, fechaModificacionPass, fechaModificacionData) VALUES
+(1, 1, NULL, 'admin@da.com', '$2y$11$8zACYbl4d3PGpLIgIlEnzOuKCvhtTk9FG5AfyIsZXSRg62WK19NJ2', '2023-05-30 14:46:55', 1, '2023-06-02 17:44:09', '2023-06-02 17:43:39');
 
 
 CREATE TABLE empresa (
