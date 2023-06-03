@@ -1129,19 +1129,25 @@ option {
     }
 
     /*PARA HACER QUE LA TABLA CATEGORIAS SEA RESPONSIVA*/
-    .responsive-categorias td:nth-of-type(1):before {
-        content: "Id Categoria";
+    .responsive-empresas td:nth-of-type(1):before {
+        content: "Id Empresa";
     }
 
-    .responsive-categorias td:nth-of-type(2):before {
-        content: "Nombre";
+    .responsive-empresas td:nth-of-type(2):before {
+        content: "Nombre Empresa";
     }
 
-    .responsive-categorias td:nth-of-type(3):before {
-        content: "Referencia";
+    .responsive-empresas td:nth-of-type(3):before {
+        content: "RUC";
     }
 
-    .responsive-categorias td:nth-of-type(4):before {
+    .responsive-empresas td:nth-of-type(4):before {
+        content: "Telefono";
+    }
+    .responsive-empresas td:nth-of-type(5):before {
+        content: "Correo";
+    }
+    .responsive-empresas td:nth-of-type(6):before {
         content: "Acciones";
     }
 

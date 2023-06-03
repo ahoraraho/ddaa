@@ -151,7 +151,7 @@ class dbUsuarios
         $telefono = trim($usuario['Telefono']);
         $cargo = trim($usuario['Cargo']);
         $email = trim(strtolower($usuario['Email']));
-        $pass = trim($usuario['Contrasena']);
+        $pass = trim($usuario['Pass']);
 
         // Se genera el hash de la contraseña
         $passHash = password_hash($pass, PASSWORD_BCRYPT, ["cost" => 11]);
