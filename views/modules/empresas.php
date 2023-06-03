@@ -27,12 +27,14 @@
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="responsive-empresas">
         <thead>
             <tr>
-                <th>Id Categoria</th>
-                <th>Nombre Categoria</th>
-                <th>Referencia a Otra Categoria</th>
+                <th>Id de Empresa</th>
+                <th>Nombre Empresa</th>
+                <th>RUC</th>
+                <th>Telefono</th>
+                <th>Correo</th>
                 <th colspan="2">Acciones</th>
             </tr>
         </thead>
@@ -41,8 +43,10 @@
 
             <tr>
                 <td>1</td>
-                <td>abc</td>
-                <td>mfjkdsj</td>
+                <td>Pat's inc.</td>
+                <td>744584855</td>
+                <td>99999999</td>
+                <td>correo@gmai.com</td>
                 <td>
                     <a href="?m=panel&mod=categoria&action=update&id=2" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
                     <a href="?m=panel&mod=categoria&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
