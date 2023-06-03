@@ -6,5 +6,6 @@
         <h2>Lo sentimos, ¡Página no encontrada!</h2>
         <p>Es posible que la página que está buscando haya sido eliminada debido a un cambio de nombre o no esté disponible temporalmente.</p>
         <a href="./">Ir a la pagin a de Inicio</a>
+        <h2>kjfkdjkjkjk</h2>
     </div>
 </div>
