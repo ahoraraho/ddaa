@@ -7,7 +7,7 @@ class dbUsuarios
      *****************************************************************************/
     public function loginUsuario($email)
     {
-        // global $conexion;
+        global $conexion;
 
         $consulta = "SELECT L.idUsuario, E.Nombre, E.Apellido, L.Email, 0 AS Rol 
                     FROM login AS L
@@ -46,7 +46,7 @@ class dbUsuarios
     /******************************************************************************/
     public function verificarPass($email, $pass)
     {
-        // global $conexion;
+        global $conexion;
 
         $email = trim(strtolower($email));
 
