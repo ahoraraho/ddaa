@@ -30,24 +30,31 @@
     <table class="responsive-categorias">
         <thead>
             <tr>
-                <th>Id Categoria</th>
-                <th>Nombre Categoria</th>
-                <th>Referencia a Otra Categoria</th>
+                <th>Id Objeto</th>
+                <th>Nombre del Objeto</th>
                 <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
-
-
-            <tr>
-                <td>1</td>
-                <td>abc</td>
-                <td>mfjkdsj</td>
-                <td>
-                    <a href="?m=panel&mod=categoria&action=update&id=2" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=categoria&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+        <?php
+            /*==========================================================================*/
+            /*                   Consulta de base de datos para tabla                   */
+            /*==========================================================================*/
+            $consulta = "SELECT * FROM objeto";
+            $resultado = $conexion->query($consulta);
+            if($resultado->num_rows > 0){
+                while($row = $resultado->fetch_assoc()){
+                    $idObjeto = $row["idObjeto"];
+                    $nombreObjeto = $row["nombre"];
+                    echo "<tr>";
+                    echo "<td>". $idObjeto ."</td>";
+                    echo "<td>". $nombreObjeto ."</td>";
+                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idObjeto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idObjeto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "</tr>";
+                }
+            } 
+        ?>
         </tbody>
     </table>
 </div>

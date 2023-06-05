@@ -30,24 +30,31 @@
     <table class="responsive-categorias">
         <thead>
             <tr>
-                <th>Id Categoria</th>
-                <th>Nombre Categoria</th>
-                <th>Referencia a Otra Categoria</th>
+                <th>Id Especialidad</th>
+                <th>Nombre de especialidad</th>
                 <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
-
-
-            <tr>
-                <td>1</td>
-                <td>abc</td>
-                <td>mfjkdsj</td>
-                <td>
-                    <a href="?m=panel&mod=categoria&action=update&id=2" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=categoria&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+        <?php
+            /*==========================================================================*/
+            /*                   Consulta de base de datos para tabla                   */
+            /*==========================================================================*/
+            $consulta = "SELECT * FROM especialidad";
+            $resultado = $conexion->query($consulta);
+            if($resultado->num_rows > 0){
+                while($row = $resultado->fetch_assoc()){
+                    $idEspecialidad = $row["idEspecialidad"];
+                    $nombreEspecialidad = $row["nombre"];
+                    echo "<tr>";
+                    echo "<td>". $idEspecialidad ."</td>";
+                    echo "<td>". $nombreEspecialidad ."</td>";
+                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idEspecialidad ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idEspecialidad ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "</tr>";
+                }
+            } 
+        ?>
         </tbody>
     </table>
 </div>

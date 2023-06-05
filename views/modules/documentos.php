@@ -30,24 +30,40 @@
     <table class="responsive-categorias">
         <thead>
             <tr>
-                <th>Id Categoria</th>
-                <th>Nombre Categoria</th>
-                <th>Referencia a Otra Categoria</th>
+                <th>Id Documento</th>
+                <th>Acta</th>
+                <th>constancia</th>
                 <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
-
-
-            <tr>
-                <td>1</td>
-                <td>abc</td>
-                <td>mfjkdsj</td>
-                <td>
-                    <a href="?m=panel&mod=categoria&action=update&id=2" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=categoria&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+        <?php
+            /*==========================================================================*/
+            /*                   Consulta de base de datos para tabla                   */
+            /*==========================================================================*/
+            $consulta = "SELECT * FROM documentos";
+            $resultado = $conexion->query($consulta);
+            if($resultado->num_rows > 0){
+                while($row = $resultado->fetch_assoc()){
+                    $idDocumento = $row["idDocumento"];
+                    $acta_de_recepcion = $row["acta_de_recepcion"];
+                    $resolucion_de_obra = $row["resolucion_de_obra"];
+                    $resolucion_deductivos = $row["resolucion_deductivos"];
+                    $resolucion_adicionales = $row["resolucion_adicionales"];
+                    $anexo_de_promesa_de_consorcio = $row["anexo_de_promesa_de_consorcio"];
+                    $constancia = $row["constancia"];
+                    $contrato_de_consorcio = $row["contrato_de_consorcio"];
+                    $contrato = $row["contrato"];
+                    echo "<tr>";
+                    echo "<td>". $idDocumento ."</td>";
+                    echo "<td>". $acta_de_recepcion ."</td>";
+                    echo "<td>". $constancia ."</td>";
+                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idDocumento ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idDocumento ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "</tr>";
+                }
+            } 
+        ?>
         </tbody>
     </table>
 </div>
