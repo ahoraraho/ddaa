@@ -63,8 +63,8 @@ $id = 12;
                     echo "<td>". $ruc ."</td>";
                     echo "<td>". $telefono ."</td>";
                     echo "<td>". $email ."</td>";
-                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idEmpresa ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idEmpresa ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "<td> <a href='?m=panel&mod=empresa&action=update&id=". $idEmpresa ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=empresa&action=delete&id=". $idEmpresa ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
                     echo "</tr>";
                 }
             } 

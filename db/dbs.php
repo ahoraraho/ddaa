@@ -22,7 +22,7 @@ class dbs
     // Resto del código de la clase DBS
 }
 
-$dbs = new dbs("localhost", "root", "", "ddd");
+$dbs = new dbs("localhost", "root", "", "da");
 $dbs->conectar();
 $conexion = $dbs->obtenerConexion();
 
