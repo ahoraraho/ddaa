@@ -44,7 +44,6 @@ $id = 12;
             </tr>
         </thead>
         <tbody>
-<<<<<<< HEAD
         <?php
             /*==========================================================================*/
             /*                   Consulta de base de datos para tabla                   */
@@ -70,21 +69,6 @@ $id = 12;
                 }
             } 
         ?>
-=======
-
-
-            <tr>
-                <td>1</td>
-                <td>Pat's inc.</td>
-                <td>744584855</td>
-                <td>99999999</td>
-                <td>correo@gmai.com</td>
-                <td>
-                    <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=empresa&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
->>>>>>> f82086df92b934ecdcd3893748a1712b13a22a48
         </tbody>
     </table>
 </div>

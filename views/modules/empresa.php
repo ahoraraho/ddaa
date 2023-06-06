@@ -30,11 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 <form action="?m=panel&mod=categoria&action=" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="">
                     <span> Id </span>
-<<<<<<< HEAD
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="Nombre" value="<?php $id ?>">
-=======
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="Nombre" value="<?= $id ?>">
->>>>>>> f82086df92b934ecdcd3893748a1712b13a22a48
                     <span> Nombre Empresa</span>
                     <input required type="text" name="Nombre" value="">
                     <span> RUC </span>
@@ -48,12 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     <span> MIPE </span>
                     <input required type="number" min="0" name="mipe" value="" >
                     <br><br>
-<<<<<<< HEAD
                     <button type="submit" name="action" id="ac" style="color:red;" class="form_login" value="Agregar">Agregar</button>
                     
-=======
-                    <button type=" submit" name="action" id="ac" style="color:red;" class="form_login" value="Agregar"><?= $Boton?></button>
->>>>>>> f82086df92b934ecdcd3893748a1712b13a22a48
                 </form>
             </div>
         </div>
