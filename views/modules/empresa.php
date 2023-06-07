@@ -1,6 +1,6 @@
 <?php
 // Crear una instancia de la clase dbEmpresa
-$dbEmpresas = new dbEmpresa();
+//$dbEmpresas = new dbEmpresa();
 
 // Obtener todas las empresas
 $empresas = $dbEmpresas->obtenerEmpresas();
@@ -42,7 +42,6 @@ $empresas = $dbEmpresas->obtenerEmpresas();
                         }
                     } else if ($action == "add") {
                         // Inicializar los valores en blanco para un nuevo registro
-                        $id = "";
                         $idEmpresa = "";
                         $nombreEmpresa = "";
                         $ruc = "";
@@ -55,19 +54,19 @@ $empresas = $dbEmpresas->obtenerEmpresas();
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Obtener los valores del formulario
-                    $id = $_POST["id"];
-                    $nombreEmpresa = $_POST["Nombre"];
+                    $idEmpresa = $_POST["id"];
+                    $nombreEmpresa = $_POST["nombreEmpresa"];
                     $ruc = $_POST["ruc"];
                     $telefono = $_POST["telefono"];
                     $email = $_POST["email"];
                     $num_partida = $_POST["num_partida"];
                     $mipe = $_POST["mipe"];
 
-                    //Verificar action
+                    // Verificar action
                     if ($action == "update") {
                         // Realizar la actualización utilizando el método updateEmpresa
                         $empresa = [
-                            'idEmpresa' => $id,
+                            'idEmpresa' => $idEmpresa,
                             'nombreEmpresa' => $nombreEmpresa,
                             'ruc' => $ruc,
                             'telefono' => $telefono,
@@ -101,7 +100,7 @@ $empresas = $dbEmpresas->obtenerEmpresas();
                         }
                     } else if ($action == "delete") {
                         // Realizar la eliminación utilizando el método deleteEmpresa
-                        $eliminado = $dbEmpresas->deleteEmpresa($id);
+                        $eliminado = $dbEmpresas->deleteEmpresa($idEmpresa);
                         if ($eliminado) {
                             // Eliminación exitosa, realizar alguna acción
                         } else {
@@ -112,12 +111,12 @@ $empresas = $dbEmpresas->obtenerEmpresas();
                 ?>
 
                 <form action="?m=panel&mod=empresa&action=" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="">
+                    <input type="hidden" name="id" value="<?php echo $idEmpresa; ?>">
                     <span> Id </span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="Nombre"
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEmpresa"
                         value="<?php echo $idEmpresa; ?>">
                     <span> Nombre Empresa</span>
-                    <input required type="text" name="Nombre" value="<?php echo $nombreEmpresa; ?>">
+                    <input required type="text" name="nombreEmpresa" value="<?php echo $nombreEmpresa; ?>">
                     <span> RUC </span>
                     <input required type="number" min="0" name="ruc" value="<?php echo $ruc; ?>">
                     <span> Telefono </span>

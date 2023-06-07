@@ -10,7 +10,7 @@ class dbEmpresa
     $ruc = trim($empresa['ruc']);
     $telefono = trim($empresa['telefono']);
     $email = trim(strtolower($empresa['email']));
-    $numeroPartida = trim($empresa['numeroPartida']);
+    $numeroPartida = trim($empresa['num_partida']);
     $mipe = trim($empresa['mipe']);
 
     $consulta = "INSERT INTO empresa (nombreEmpresa, ruc, telefono, email, numeroPartida, mipe) VALUES (?, ?, ?, ?, ?, ?)";
@@ -69,33 +69,27 @@ public function obtenerEmpresas()
 
     // Actualizar registro en la tabla empresa
     public function updateEmpresa($empresa)
-    {
-        global $conexion;
+{
+    global $conexion;
 
-        $idEmpresa = $empresa['idEmpresa'];
-        $nombreEmpresa = $empresa['nombreEmpresa'];
-        $ruc = $empresa['ruc'];
-        $telefono = $empresa['telefono'];
-        $email = $empresa['email'];
-        $numeroPartida = $empresa['numeroPartida'];
-        $mipe = $empresa['mipe'];
+    $idEmpresa = $empresa['idEmpresa'];
+    $nombreEmpresa = $empresa['nombreEmpresa'];
+    $ruc = $empresa['ruc'];
+    $telefono = $empresa['telefono'];
+    $email = $empresa['email'];
+    $num_partida = $empresa['numeroPartida'];
+    $mipe = $empresa['mipe'];
 
-        $consulta = "UPDATE empresa 
-                     SET nombreEmpresa = ?, ruc = ?, telefono = ?, email = ?, numeroPartida = ?, mipe = ? 
-                     WHERE idEmpresa = ?";
+    $consulta = "UPDATE empresa SET nombreEmpresa='$nombreEmpresa', ruc='$ruc', telefono='$telefono', email='$email', numeroPartida='$num_partida', mipe='$mipe' WHERE idEmpresa='$idEmpresa'";
+    $resultado = mysqli_query($conexion, $consulta);
 
-        $stmt = mysqli_prepare($conexion, $consulta);
-
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "ssssssi", $nombreEmpresa, $ruc, $telefono, $email, $numeroPartida, $mipe, $idEmpresa);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-
-            return true;
-        }
-
+    if ($resultado) {
+        return true;
+    } else {
         return false;
     }
+}
+
 
     // Eliminar registro en la tabla empresa
     public function deleteEmpresa($idEmpresa)
