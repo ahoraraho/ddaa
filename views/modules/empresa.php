@@ -9,6 +9,8 @@
         <div class="main">
             <div class="formm">
                     <?php
+                    // Valido que haya una accion a realizar, sino se irá a crear un nuevo producto
+                    $action = (isset($_GET["action"])) ? $_GET["action"] : "add";
                     $action = $_GET["action"];             
                     //====================================================================
                     //==            Mostrar los datos dentro del formulario             ==
@@ -95,4 +97,6 @@
             </div>
         </div>
     </div>
+    <?php
+    ?>
 </div>
