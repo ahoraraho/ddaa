@@ -49,8 +49,8 @@
                     echo "<tr>";
                     echo "<td>". $idObjeto ."</td>";
                     echo "<td>". $nombreObjeto ."</td>";
-                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idObjeto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idObjeto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "<td> <a href='?m=panel&mod=objeto&action=update&id=". $idObjeto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=objeto&action=delete&id=". $idObjeto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
                     echo "</tr>";
                 }
             } 

@@ -58,8 +58,8 @@
                     echo "<td>". $idDocumento ."</td>";
                     echo "<td>". $acta_de_recepcion ."</td>";
                     echo "<td>". $constancia ."</td>";
-                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idDocumento ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idDocumento ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "<td> <a href='?m=panel&mod=documento&action=update&id=". $idDocumento ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=documento&action=delete&id=". $idDocumento ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
                     echo "</tr>";
                 }
             } 
