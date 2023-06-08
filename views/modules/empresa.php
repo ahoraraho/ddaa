@@ -1,6 +1,6 @@
 <?php
 // Crear una instancia de la clase dbEmpresa
-//$dbEmpresas = new dbEmpresa();
+$dbEmpresas = new dbEmpresa();
 
 // Obtener todas las empresas
 $empresas = $dbEmpresas->obtenerEmpresas();
@@ -110,7 +110,8 @@ $empresas = $dbEmpresas->obtenerEmpresas();
                 }
                 ?>
 
-                <form action="?m=panel&mod=empresa&action=" method="POST" enctype="multipart/form-data">
+                <form action="?m=panel&mod=empresa&action=<?php echo $action; ?>" method="POST" enctype="multipart/form-data">
+
                     <input type="hidden" name="id" value="<?php echo $idEmpresa; ?>">
                     <span> Id </span>
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEmpresa"
