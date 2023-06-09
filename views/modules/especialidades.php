@@ -49,8 +49,8 @@
                     echo "<tr>";
                     echo "<td>". $idEspecialidad ."</td>";
                     echo "<td>". $nombreEspecialidad ."</td>";
-                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idEspecialidad ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idEspecialidad ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "<td> <a href='?m=panel&mod=especialidad&action=update&id=". $idEspecialidad ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=especialidad&action=delete&id=". $idEspecialidad ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
                     echo "</tr>";
                 }
             } 

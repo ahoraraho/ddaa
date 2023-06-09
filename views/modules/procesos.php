@@ -66,8 +66,8 @@
                     echo "<td>". $nombreClave ."</td>";
                     echo "<td>". $postores ."</td>";
                     echo "<td>". $encargado ."</td>";
-                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $numProceso ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $numProceso ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "<td> <a href='?m=panel&mod=proceso&action=update&id=". $numProceso ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=proceso&action=delete&id=". $numProceso ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
                     echo "</tr>";
                 }
             } 

@@ -61,8 +61,8 @@
                     echo "<td>". $email ."</td>";
                     echo "<td>". $celular ."</td>";
                     echo "<td>". $cargo ."</td>";
-                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idContacto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idContacto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "<td> <a href='?m=panel&mod=contacto&action=update&id=". $idContacto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=contacto&action=delete&id=". $idContacto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
                     echo "</tr>";
                 }
             } 
