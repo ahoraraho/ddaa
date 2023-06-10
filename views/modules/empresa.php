@@ -113,7 +113,7 @@ $empresas = $dbEmpresas->obtenerEmpresas();
                 <form action="?m=panel&mod=empresa&action=<?php echo $action; ?>" method="POST" enctype="multipart/form-data">
 
                     <input type="hidden" name="id" value="<?php echo $idEmpresa; ?>">
-                    <span> Id </span>
+                    <span> ID </span>
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEmpresa"
                         value="<?php echo $idEmpresa; ?>">
                     <span> Nombre Empresa</span>
