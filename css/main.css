@@ -96,6 +96,18 @@ sup {
   border: 1px solid var(--border-color);
 }
 
+/* Estilo específico para los input de tipo "date" */
+input[type="date"] {
+  /* Restablecer estilos predeterminados */
+  appearance: textfield;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  /* Agregar estilos personalizados */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 /* .form_group input[type="text"],
 .form_group input[type="email"],
 .form_group input[type="number"],

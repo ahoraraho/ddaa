@@ -12,5 +12,6 @@ require_once ('db/dbEspecialidades.php');
 require_once ('db/dbObjetos.php');
 require_once ('db/dbContactos.php');
 require_once ('db/dbProcesos.php');
+require_once ('db/dbProyectos.php');
 require_once ('functions/functions.php');
 ?>
