@@ -4,6 +4,37 @@
     <a href="#" title="Estas justo aqui" class="active">Objetos</a>
 </div>
 
+<?php
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
+    $typeMsj = "";
+    switch ($msj) {
+        case '0x10':
+            $msj = "Objeto agregado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check-circle";
+            break;
+        case '0x20':
+            $msj = "Objeto actualizado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check2-circle";
+            break;
+        case '0x30':
+            $msj = "Objeto eliminado!";
+            $typeMsj = "msj-warning";
+            $iconoAlert = "bi-info-circle";
+            break;
+        case '0x1000':
+            $msj = "Hubo un error al intentar realizar la operación!";
+            $typeMsj = "msj-error";
+            $iconoAlert = "bi-bug";
+            break;
+    }
+    alertaResponDialog($typeMsj, $msj, $iconoAlert);
+}
+
+?>
+
 <h3>OBJETOS</h3>
 <div class="numm">
     <div class="f1">
@@ -25,39 +56,40 @@
     </div>
 </div>
 
-<!-- tabla categorias -->
+
+
+<!-- tabla objetos -->
 <div class="contenido-tabla">
     <table class="responsive-categorias">
         <thead>
             <tr>
-                <th>Id Objeto</th>
+            <th>Id Objeto</th>
                 <th>Nombre del Objeto</th>
                 <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
-        <?php
-            /*==========================================================================*/
-            /*                   Consulta de base de datos para tabla                   */
-            /*==========================================================================*/
-            $consulta = "SELECT * FROM objeto";
-            $resultado = $conexion->query($consulta);
-            if($resultado->num_rows > 0){
-                while($row = $resultado->fetch_assoc()){
-                    $idObjeto = $row["idObjeto"];
-                    $nombreObjeto = $row["nombre"];
-                    echo "<tr>";
-                    echo "<td>". $idObjeto ."</td>";
-                    echo "<td>". $nombreObjeto ."</td>";
-                    echo "<td> <a href='?m=panel&mod=objeto&action=update&id=". $idObjeto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=objeto&action=delete&id=". $idObjeto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
-                    echo "</tr>";
-                }
-            } 
-        ?>
+
+            <?php
+            $objetos = $dbObjetos->selectObjetos();
+
+            foreach ($objetos as $objeto) {
+                $id = $objeto['idObjeto'];
+                $nombre = $objeto['nombre'];
+            ?>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td><?= $nombre ?></td>
+                    <td>
+                        <a href="?m=panel&mod=objeto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=objeto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                    </td>
+                </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
+
 <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
