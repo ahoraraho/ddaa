@@ -31,24 +31,47 @@
     <table class="responsive-categorias">
         <thead>
             <tr>
-                <th>Id Categoria</th>
-                <th>Nombre Categoria</th>
-                <th>Referencia a Otra Categoria</th>
+                <th>Numero de Proceso</th>
+                <th>Entidad</th>
+                <th>Nombre clave</th>
+                <th>Postores</th>
+                <th>Encargado</th>
                 <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
-
-
-            <tr>
-                <td>1</td>
-                <td>abc</td>
-                <td>mfjkdsj</td>
-                <td>
-                    <a href="?m=panel&mod=categoria&action=update&id=2" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=categoria&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+        <?php
+            /*==========================================================================*/
+            /*                   Consulta de base de datos para tabla                   */
+            /*==========================================================================*/
+            $consulta = "SELECT * FROM procesos";
+            $resultado = $conexion->query($consulta);
+            if($resultado->num_rows > 0){
+                while($row = $resultado->fetch_assoc()){
+                    $numProceso = $row["numProceso"];
+                    $entidad = $row["entidad"];
+                    $nomenclatura = $row["nomenclatura"];
+                    $nombreClave = $row["nombreClave"];
+                    $consultas = $row["consultas"];
+                    $integracion = $row["integracion"];
+                    $presentacion = $row["presentacion"];
+                    $buenaPro = $row["buenaPro"];
+                    $valorReferencial = $row["valorReferencial"];
+                    $postores = $row["postores"];
+                    $encargado = $row["encargado"];
+                    $observacionces = $row["observaciones"];
+                    echo "<tr>";
+                    echo "<td>". $numProceso ."</td>";
+                    echo "<td>". $entidad ."</td>";
+                    echo "<td>". $nombreClave ."</td>";
+                    echo "<td>". $postores ."</td>";
+                    echo "<td>". $encargado ."</td>";
+                    echo "<td> <a href='?m=panel&mod=proceso&action=update&id=". $numProceso ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=proceso&action=delete&id=". $numProceso ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "</tr>";
+                }
+            } 
+        ?>
         </tbody>
     </table>
 </div>

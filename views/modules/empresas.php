@@ -44,19 +44,31 @@ $id = 12;
             </tr>
         </thead>
         <tbody>
-
-
-            <tr>
-                <td>1</td>
-                <td>Pat's inc.</td>
-                <td>744584855</td>
-                <td>99999999</td>
-                <td>correo@gmai.com</td>
-                <td>
-                    <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=empresa&action=delete&id=3" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+        <?php
+            /*==========================================================================*/
+            /*                   Consulta de base de datos para tabla                   */
+            /*==========================================================================*/
+            $consulta = "SELECT * FROM empresa";
+            $resultado = $conexion->query($consulta);
+            if($resultado->num_rows > 0){
+                while($row = $resultado->fetch_assoc()){
+                    $idEmpresa = $row["idEmpresa"];
+                    $nombreEmpresa = $row["nombreEmpresa"];
+                    $ruc = $row["ruc"];
+                    $telefono = $row["telefono"];
+                    $email = $row["email"];
+                    echo "<tr>";
+                    echo "<td>". $idEmpresa ."</td>";
+                    echo "<td>". $nombreEmpresa ."</td>";
+                    echo "<td>". $ruc ."</td>";
+                    echo "<td>". $telefono ."</td>";
+                    echo "<td>". $email ."</td>";
+                    echo "<td> <a href='?m=panel&mod=empresa&action=update&id=". $idEmpresa ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
+                    echo "<a href='?m=panel&mod=empresa&action=delete&id=". $idEmpresa ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
+                    echo "</tr>";
+                }
+            } 
+        ?>
         </tbody>
     </table>
 </div>
