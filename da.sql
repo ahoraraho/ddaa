@@ -54,10 +54,31 @@ CREATE TABLE objeto (
     nombre VARCHAR(100) NOT NULL
 );
 
+INSERT INTO objeto (nombre) VALUES 
+('Obras'),
+('Servicios'),
+('Bienes'),
+('Consultorías');
+
 CREATE TABLE especialidad (
     idEspecialidad INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL
 );
+
+INSERT INTO especialidad (nombre) VALUES
+    ('Saneamiento'),
+    ('Colegio'),
+    ('Via'),
+    ('Canal'),
+    ('Edificación'),
+    ('Parque'),
+    ('Ciclovia'),
+    ('Puente'),
+    ('Electromecánica'),
+    ('Infraestructura'),
+    ('Infraestructura Parque'),
+    ('Infraestructura Deportiva');
+
 
 CREATE TABLE contacto (
     idContacto INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -122,9 +143,11 @@ CREATE TABLE procesos (
     valorReferencial VARCHAR(255) NOT NULL,
     postores INT(11) NOT NULL,
     encargado INT(11) NOT NULL,
+    objeto INT(11) NOT NULL,
     observaciones VARCHAR(255) DEFAULT NULL,
     FOREIGN KEY (postores) REFERENCES empresa (idEmpresa),
-    FOREIGN KEY (encargado) REFERENCES especialista (idEspecialista)
+    FOREIGN KEY (encargado) REFERENCES especialista (idEspecialista),
+    FOREIGN KEY (objeto) REFERENCES objeto (idObjeto)
 );
 
 CREATE TABLE empresa_proceso (
