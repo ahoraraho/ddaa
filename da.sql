@@ -58,7 +58,9 @@ INSERT INTO objeto (nombre) VALUES
 ('Obras'),
 ('Servicios'),
 ('Bienes'),
+('Consultoria de Obra'),
 ('Consultorías');
+
 
 CREATE TABLE especialidad (
     idEspecialidad INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -145,6 +147,7 @@ CREATE TABLE procesos (
     encargado INT(11) NOT NULL,
     objeto INT(11) NOT NULL,
     observaciones VARCHAR(255) DEFAULT NULL,
+    
     FOREIGN KEY (postores) REFERENCES empresa (idEmpresa),
     FOREIGN KEY (encargado) REFERENCES especialista (idEspecialista),
     FOREIGN KEY (objeto) REFERENCES objeto (idObjeto)
