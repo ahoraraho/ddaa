@@ -137,25 +137,67 @@ CREATE TABLE procesos (
     numProceso INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     entidad VARCHAR(100) NOT NULL,
     nomenclatura VARCHAR(100) NOT NULL,
+    objeto INT(11) NOT NULL,
     nombreClave VARCHAR(255) NOT NULL,
     consultas DATETIME,
     integracion DATETIME,
     presentacion DATETIME,
     buenaPro DATETIME,
-    valorReferencial VARCHAR(255) NOT NULL,
     postores INT(11) NOT NULL,
+    valorReferencial DECIMAL(20, 2) NOT NULL,
     encargado INT(11) NOT NULL,
-    objeto INT(11) NOT NULL,
+    estado VARCHAR(55) DEFAULT NULL,
     observaciones VARCHAR(255) DEFAULT NULL,
     
     FOREIGN KEY (postores) REFERENCES empresa (idEmpresa),
     FOREIGN KEY (encargado) REFERENCES especialista (idEspecialista),
     FOREIGN KEY (objeto) REFERENCES objeto (idObjeto)
 );
-
 CREATE TABLE empresa_proceso (
     idEmpresa INT(11) NOT NULL,
     numProceso INT(11) NOT NULL,
     FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa),
     FOREIGN KEY (numProceso) REFERENCES procesos (numProceso)
 );
+
+INSERT INTO especialista (dni, nombre, apellido, cargo, direccion, telefono)
+VALUES 
+    ('12345678', 'Karol', 'Apellido 1', 'Especialista', 'Dirección 1', '987654321'),
+    ('23456789', 'Nisha', 'Apellido 2', 'Especialista', 'Dirección 2', '876543210'),
+    ('34567890', 'Yomira', 'Apellido 3', 'Especialista', 'Dirección 3', '765432109'),
+    ('45678901', 'User', 'Apellido 4', 'Especialista', 'Dirección 4', '654321098');
+
+
+INSERT INTO empresa (nombreEmpresa, ruc, telefono, email, numeroPartida, mipe)
+VALUES 
+    ('Empresa 1', '12345678901', '987654321', 'empresa1@example.com', '12345678', 'N'),
+    ('Empresa 2', '23456789012', '876543210', 'empresa2@example.com', '23456789', 'N'),
+    ('Empresa 3', '34567890123', '765432109', 'empresa3@example.com', '34567890', 'S'),
+    ('Empresa 4', '45678901234', '654321098', 'empresa4@example.com', '45678901', 'N'),
+    ('Empresa 5', '56789012345', '543210987', 'empresa5@example.com', '56789012', 'N');
+
+
+INSERT INTO contacto (dni, nombre, email, celular, cargo)
+VALUES 
+    ('12345678', 'Contacto 1', 'contacto1@example.com', '987654321', 'Cargo 1'),
+    ('23456789', 'Contacto 2', 'contacto2@example.com', '876543210', 'Cargo 2'),
+    ('34567890', 'Contacto 3', 'contacto3@example.com', '765432109', 'Cargo 3'),
+    ('45678901', 'Contacto 4', 'contacto4@example.com', '654321098', 'Cargo 4'),
+    ('56789012', 'Contacto 5', 'contacto5@example.com', '543210987', 'Cargo 5');
+
+
+/*datos de prueva*/
+INSERT INTO procesos (entidad, nomenclatura, objeto, nombreClave, consultas, integracion, presentacion, buenaPro, postores, valorReferencial, encargado, estado, observaciones)
+VALUES 
+    ('Entidad 1', 'Nomenc 1', 1, 'Nombre Clave 1', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 1, 1587896.25, 1, 'Estado 1', 'Observación 1'),
+    ('Entidad 2', 'Nomenc 2', 2, 'Nombre Clave 2', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 2, 2398745.50, 2, 'Estado 2', 'Observación 2'),
+    ('Entidad 3', 'Nomenc 3', 3, 'Nombre Clave 3', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1258946.75, 3, 'Estado 3', 'Observación 3'),
+    ('Entidad 4', 'Nomenc 4', 4, 'Nombre Clave 4', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 4, 3756489.30, 1, 'Estado 4', 'Observación 4'),
+    ('Entidad 5', 'Nomenc 5', 5, 'Nombre Clave 5', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 5, 1987456.80, 2, 'Estado 5', 'Observación 5'),
+    ('Entidad 6', 'Nomenc 6', 1, 'Nombre Clave 6', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 1, 897562.40, 3, 'Estado 6', 'Observación 6'),
+    ('Entidad 7', 'Nomenc 7', 2, 'Nombre Clave 7', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1795478.25, 2, 'Estado 7', 'Observación 7'),
+    ('Entidad 8', 'Nomenc 8', 3, 'Nombre Clave 8', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 2, 1245897.30, 1, 'Estado 8', 'Observación 8'),
+    ('Entidad 9', 'Nomenc 9', 4, 'Nombre Clave 9', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1758964.50, 2, 'Estado 9', 'Observación 9'),
+    ('Entidad 10', 'Nomenc 10', 1, 'Nombre Clave 10', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 1, 986574.80, 3, 'Estado 10', 'Observación 10'),
+    ('Entidad 11', 'Nomenc 11', 2, 'Nombre Clave 11', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 2, 2245897.60, 1, 'Estado 11', 'Observación 11'),
+    ('Entidad 12', 'Nomenc 12', 3, 'Nombre Clave 12', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1264589.90, 2, 'Estado 12', 'Observación 12');
