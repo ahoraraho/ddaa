@@ -4,6 +4,36 @@
     <a href="#" title="Estas justo aqui" class="active">Proyectos</a>
 </div>
 
+<?php
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
+    $typeMsj = "";
+    switch ($msj) {
+        case '0x10':
+            $msj = "Proyecto agregado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check-circle";
+            break;
+        case '0x20':
+            $msj = "Proyecto actualizado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check2-circle";
+            break;
+        case '0x30':
+            $msj = "Proyecto eliminado!";
+            $typeMsj = "msj-warning";
+            $iconoAlert = "bi-info-circle";
+            break;
+        case '0x1000':
+            $msj = "Hubo un error al intentar realizar la operación!";
+            $typeMsj = "msj-error";
+            $iconoAlert = "bi-bug";
+            break;
+    }
+    alertaResponDialog($typeMsj, $msj, $iconoAlert);
+}
+?>
+
 <h3>PROYECTOS</h3>
 <div class="numm">
     <div class="f1">
@@ -38,42 +68,38 @@
             </tr>
         </thead>
         <tbody>
-        <?php
-            /*==========================================================================*/
-            /*                   Consulta de base de datos para tabla                   */
-            /*==========================================================================*/
-            $consulta = "SELECT * FROM proyectos";
-            $resultado = $conexion->query($consulta);
-            if($resultado->num_rows > 0){
-                while($row = $resultado->fetch_assoc()){
-                    $idProyecto = $row["idProyecto"];
-                    $nombre_empresa = $row["nombre_empresa"];
-                    $nombre_proyecto = $row["nombre_proyecto"];
-                    $numero_contrato = $row["numero_contrato"];
-                    $entidad = $row["entidad"];
-                    $fecha_firma = $row["fecha_firma"];
-                    $monto_contrato_original = $row["monto_contrato_original"];
-                    $porcentaje_de_participacion = $row["porcentaje_de_participacion"];
-                    $adicionales_de_la_obra = $row["adicionales_de_la_obra"];
-                    $deductivos_de_obra = $row["deductivos_de_obra"];
-                    $monto_final_del_contrato = $row["monto_final_del_contrato"];
-                    $miembro_del_consorcio = $row["miembro_del_consorcio"];
-                    $observaciones = $row["observaciones"];
-                    $contacto = $row["contacto"];
-                    $objeto = $row["objeto"];
-                    $especialidad = $row["especialidad"];
+            <?php
+            $proyectos = $dbProyectos->selectProyectos();
 
-                    echo "<tr>";
-                    echo "<td>". $idProyecto ."</td>";
-                    echo "<td>". $nombre_empresa ."</td>";
-                    echo "<td>". $nombre_proyecto ."</td>";
-                    echo "<td>". $numero_contrato ."</td>";
-                    echo "<td> <a href='?m=panel&mod=categoria&action=update&id=". $idContacto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=categoria&action=delete&id=". $idContacto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
-                    echo "</tr>";
-                }
-            } 
-        ?>
+            foreach ($proyectos as $proyecto){
+                $id = $proyecto['idProyecto'];
+                $nombre_empresa = $proyecto['nombre_empresa'];
+                $nombre_proyecto = $proyecto['nombre_proyecto'];
+                $numero_contrato = $proyecto['numero_contrato'];
+                $entidad = $proyecto['entidad'];
+                $fecha_firma = $proyecto['fecha_firma'];
+                $monto_contrato_original = $proyecto['monto_contrato_original'];
+                $porcentaje_de_participacion = $proyecto['porcentaje_de_participacion'];
+                $adicionales_de_la_obra = $proyecto['adicionales_de_la_obra'];
+                $deductivos_de_obra = $proyecto['deductivos_de_obra'];
+                $monto_final_del_contrato = $proyecto['monto_final_del_contrato'];
+                $miembro_del_consorcio = $proyecto['miembro_del_consorcio'];
+                $observaciones = $proyecto['observaciones'];
+                $contacto = $proyecto['contacto'];
+                $objeto = $proyecto['objeto'];
+                $especialidad = $proyecto['especialidad'];
+            ?>
+            <tr>
+                <td><?= $id ?></td>
+                <td><?= $nombre_empresa ?></td>
+                <td><?= $nombre_proyecto ?></td>
+                <td><?= $numero_contrato ?></td>
+                <td>
+                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                    </td>
+            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>

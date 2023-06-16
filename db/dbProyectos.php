@@ -2,48 +2,8 @@
 
 class dbProyectos
 {
-        // Insertar registro en la tabla proyectos
-        public function insertarProyecto($proyecto)
-        {
-            global $conexion;
-    
-            $idProyecto = $proyecto['idProyecto'];
-            $nombreEmpresa = $proyecto['nombre_empresa'];
-            $nombreProyecto = $proyecto['nombre_proyecto'];
-            $numeroContrato = $proyecto['numero_contrato'];
-            $entidad = $proyecto['entidad'];
-            $fechaFirma = $proyecto['fecha_firma'];
-            $montoContratoOriginal = $proyecto['monto_contrato_original'];
-            $porcentajeParticipacion = $proyecto['porcentaje_de_participacion'];
-            $adicionalesObra = $proyecto['adicionales_de_la_obra'];
-            $deductivosObra = $proyecto['deductivos_de_la_obra'];
-            $montoFinalContrato = $proyecto['monto_final_del_contrato'];
-            $miembroConsorcio = $proyecto['miembro_del_consorcio'];
-            $observaciones = $proyecto['observaciones'];
-            $contrato = $proyecto['contrato'];
-            $objeto = $proyecto['objeto'];
-            $especialidad = $proyecto['especialidad'];
-    
-            $consulta = "INSERT INTO proyectos (idProyecto, nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contrato, objeto, especialidad) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt = mysqli_prepare($conexion, $consulta);
-    
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "issisddddssssssii", $idProyecto, $nombreEmpresa, $nombreProyecto, $numeroContrato, $entidad, $fechaFirma, $montoContratoOriginal, $porcentajeParticipacion, $adicionalesObra, $deductivosObra, $montoFinalContrato, $miembroConsorcio, $observaciones, $contrato, $objeto, $especialidad);
-                if (mysqli_stmt_execute($stmt)) {
-                    $idInsertado = mysqli_insert_id($conexion);
-                    mysqli_stmt_close($stmt);
-                    return $idInsertado;
-                } else {
-                    mysqli_stmt_close($stmt);
-                    return false;
-                }
-            }
-    
-            return false;
-        }
-    
         // Obtener registros de la tabla proyectos
-        public function obtenerProyectos()
+        public function selectProyectos()
         {
             global $conexion;
     
@@ -82,66 +42,89 @@ class dbProyectos
     
             return [];
         }
+
+        //insertar registros
+        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad){
+
+            global $conexion;
+
+            $consulta = "INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad)
+                        VALUES (  
+                        '$nombre_empresa', 
+                        '$nombre_proyecto', 
+                        '$numero_contrato', 
+                        '$entidad', 
+                        '$fecha_firma', 
+                        '$monto_contrato_original', 
+                        '$porcentaje_de_participacion', 
+                        '$adicionales_de_la_obra', 
+                        '$deductivos_de_obra', 
+                        '$monto_final_del_contrato', 
+                        '$miembro_del_consorcio', 
+                        '$observaciones', 
+                        '$contacto', 
+                        '$objeto', 
+                        '$especialidad')";
+
+            mysqli_query($conexion, $consulta);
+
+            return mysqli_affected_rows($conexion);
+        }
     
         // Actualizar registro en la tabla proyectos
-        public function updateProyecto($proyecto)
+        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad)
         {
             global $conexion;
     
-            $idProyecto = $proyecto['idProyecto'];
-            $nombreEmpresa = $proyecto['nombre_empresa'];
-            $nombreProyecto = $proyecto['nombre_proyecto'];
-            $numeroContrato = $proyecto['numero_contrato'];
-            $entidad = $proyecto['entidad'];
-            $fechaFirma = $proyecto['fecha_firma'];
-            $montoContratoOriginal = $proyecto['monto_contrato_original'];
-            $porcentajeParticipacion = $proyecto['porcentaje_de_participacion'];
-            $adicionalesObra = $proyecto['adicionales_de_la_obra'];
-            $deductivosObra = $proyecto['deductivos_de_obra'];
-            $montoFinalContrato = $proyecto['monto_final_del_contrato'];
-            $miembroConsorcio = $proyecto['miembro_del_consorcio'];
-            $observaciones = $proyecto['observaciones'];
-            $contrato = $proyecto['contrato'];
-            $objeto = $proyecto['objeto'];
-            $especialidad = $proyecto['especialidad'];
-    
-            $consulta = "UPDATE proyectos SET nombre_empresa=?, nombre_proyecto=?, numero_contrato=?, entidad=?, fecha_firma=?, monto_contrato_original=?, porcentaje_de_participacion=?, adicionales_de_la_obra=?, deductivos_de_obra=?, monto_final_del_contrato=?, miembro_del_consorcio=?, observaciones=?, contrato=?, objeto=?, especialidad=? WHERE idProyecto=?";
-            $stmt = mysqli_prepare($conexion, $consulta);
-    
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ssssssddddssssii", $nombreEmpresa, $nombreProyecto, $numeroContrato, $entidad, $fechaFirma, $montoContratoOriginal, $porcentajeParticipacion, $adicionalesObra, $deductivosObra, $montoFinalContrato, $miembroConsorcio, $observaciones, $contrato, $objeto, $especialidad, $idProyecto);
-                mysqli_stmt_execute($stmt);
-    
-                if (mysqli_stmt_affected_rows($stmt) > 0) {
-                    mysqli_stmt_close($stmt);
-                    return true;
-                }
-            }
-    
-            return false;
+            $consulta = "UPDATE proyectos
+                    SET nombre_empresa='$nombre_empresa',
+                    nombre_proyecto='$nombre_proyecto',
+                    numero_contrato='$numero_contrato',
+                    entidad='$entidad',
+                    fecha_firma='$fecha_firma',
+                    monto_contrato_original='$monto_contrato_original',
+                    porcentaje_de_participacion='$porcentaje_de_participacion',
+                    adicionales_de_la_obra='$adicionales_de_la_obra',
+                    deductivos_de_obra='$deductivos_de_obra',
+                    monto_final_del_contrato='$monto_final_del_contrato',
+                    miembro_del_consorcio='$miembro_del_consorcio',
+                    observaciones='$observaciones',
+                    contacto='$contacto',
+                    objeto='$objeto',
+                    especialidad='$especialidad'
+                    
+                    WHERE idProyecto = $idProyecto";
+
+            mysqli_query($conexion, $consulta);
+
+            return mysqli_affected_rows($conexion);
         }
     
         // Eliminar registro en la tabla proyectos
         public function deleteProyecto($idProyecto)
         {
             global $conexion;
-    
-            $consulta = "DELETE FROM proyectos WHERE idProyecto = ?";
-            $stmt = mysqli_prepare($conexion, $consulta);
-    
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "i", $idProyecto);
-                mysqli_stmt_execute($stmt);
-    
-                if (mysqli_stmt_affected_rows($stmt) > 0) {
-                    mysqli_stmt_close($stmt);
-                    return true;
-                }
-    
-                mysqli_stmt_close($stmt);
-            }
-    
-            return false;
+
+            $consulta = "DELETE FROM proyectos WHERE idProyecto = $idProyecto";
+
+            mysqli_query($conexion, $consulta);
+
+            return mysqli_affected_rows($conexion);
         }
+
+        public function MayorIdProyecto()
+    {
+        global $conexion;
+
+        $consulta = "SELECT MAX(idProyecto) as maxId FROM proyectos";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        if (mysqli_num_rows($resultado) > 0) {
+            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+        } else {
+            return [];
+        }
+    }
     }
 ?>

@@ -4,6 +4,37 @@
     <a href="#" title="Estas justo aqui" class="active">Contactos</a>
 </div>
 
+<?php
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
+    $typeMsj = "";
+    switch ($msj) {
+        case '0x10':
+            $msj = "Contacto agregado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check-circle";
+            break;
+        case '0x20':
+            $msj = "Contacto actualizado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check2-circle";
+            break;
+        case '0x30':
+            $msj = "Contacto eliminado!";
+            $typeMsj = "msj-warning";
+            $iconoAlert = "bi-info-circle";
+            break;
+        case '0x1000':
+            $msj = "Hubo un error al intentar realizar la operación!";
+            $typeMsj = "msj-error";
+            $iconoAlert = "bi-bug";
+            break;
+    }
+    alertaResponDialog($typeMsj, $msj, $iconoAlert);
+}
+
+?>
+
 <h3>CONTACTOS</h3>
 <div class="numm">
     <div class="f1">
@@ -40,33 +71,31 @@
             </tr>
         </thead>
         <tbody>
-        <?php
-            /*==========================================================================*/
-            /*                   Consulta de base de datos para tabla                   */
-            /*==========================================================================*/
-            $consulta = "SELECT * FROM contacto";
-            $resultado = $conexion->query($consulta);
-            if($resultado->num_rows > 0){
-                while($row = $resultado->fetch_assoc()){
-                    $idContacto = $row["idContacto"];
-                    $dni = $row["dni"];
-                    $nombre = $row["nombre"];
-                    $email = $row["email"];
-                    $celular = $row["celular"];
-                    $cargo = $row["cargo"];
-                    echo "<tr>";
-                    echo "<td>". $idContacto ."</td>";
-                    echo "<td>". $nombre ."</td>";
-                    echo "<td>". $dni ."</td>";
-                    echo "<td>". $email ."</td>";
-                    echo "<td>". $celular ."</td>";
-                    echo "<td>". $cargo ."</td>";
-                    echo "<td> <a href='?m=panel&mod=contacto&action=update&id=". $idContacto ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=contacto&action=delete&id=". $idContacto ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
-                    echo "</tr>";
-                }
-            } 
-        ?>
+            
+            <?php
+            $contactos = $dbContactos->selectContactos();
+
+            foreach ($contactos as $contacto){
+                $id= $contacto['idContacto'];
+                $dni= $contacto['dni'];
+                $nombre= $contacto['nombre'];
+                $email= $contacto['email'];
+                $celular= $contacto['celular'];
+                $cargo= $contacto['cargo'];
+            ?>
+            <tr>
+                <td><?= $id ?></td>
+                <td><?= $nombre ?></td>
+                <td><?= $dni ?></td>
+                <td><?= $email ?></td>
+                <td><?= $celular ?></td>
+                <td><?= $cargo ?></td>
+                <td>
+                    <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                    <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                </td>
+            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
