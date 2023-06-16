@@ -4,6 +4,37 @@
     <a href="#" title="Estas justo aqui" class="active">Especialidades</a>
 </div>
 
+<?php
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
+    $typeMsj = "";
+    switch ($msj) {
+        case '0x10':
+            $msj = "Objeto agregado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check-circle";
+            break;
+        case '0x20':
+            $msj = "Objeto actualizado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check2-circle";
+            break;
+        case '0x30':
+            $msj = "Objeto eliminado!";
+            $typeMsj = "msj-warning";
+            $iconoAlert = "bi-info-circle";
+            break;
+        case '0x1000':
+            $msj = "Hubo un error al intentar realizar la operación!";
+            $typeMsj = "msj-error";
+            $iconoAlert = "bi-bug";
+            break;
+    }
+    alertaResponDialog($typeMsj, $msj, $iconoAlert);
+}
+
+?>
+
 <h3>ESPECIALIDADES</h3>
 <div class="numm">
     <div class="f1">
@@ -25,6 +56,8 @@
     </div>
 </div>
 
+
+
 <!-- tabla categorias -->
 <div class="contenido-tabla">
     <table class="responsive-categorias">
@@ -36,25 +69,23 @@
             </tr>
         </thead>
         <tbody>
-        <?php
-            /*==========================================================================*/
-            /*                   Consulta de base de datos para tabla                   */
-            /*==========================================================================*/
-            $consulta = "SELECT * FROM especialidad";
-            $resultado = $conexion->query($consulta);
-            if($resultado->num_rows > 0){
-                while($row = $resultado->fetch_assoc()){
-                    $idEspecialidad = $row["idEspecialidad"];
-                    $nombreEspecialidad = $row["nombre"];
-                    echo "<tr>";
-                    echo "<td>". $idEspecialidad ."</td>";
-                    echo "<td>". $nombreEspecialidad ."</td>";
-                    echo "<td> <a href='?m=panel&mod=especialidad&action=update&id=". $idEspecialidad ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=especialidad&action=delete&id=". $idEspecialidad ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
-                    echo "</tr>";
-                }
-            } 
-        ?>
+
+            <?php
+            $especialidades = $dbEspecialidades->selectEspecialidades();
+
+            foreach($especialidades as $especialidad){
+                $id = $especialidad['idEspecialidad'];
+                $nombre = $especialidad['nombre'];
+            ?>
+                <tr>
+                    <td> <?= $id ?></td>
+                    <td> <?= $nombre ?></td>
+                    <td>
+                            <a href="?m=panel&mod=especialidad&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                            <a href="?m=panel&mod=especialidad&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        </td>
+                </tr>
+                <?php } ?>
         </tbody>
     </table>
 </div>

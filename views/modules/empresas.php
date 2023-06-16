@@ -5,8 +5,34 @@
 </div>
 
 <?php
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
+    $typeMsj = "";
+    switch ($msj) {
+        case '0x10':
+            $msj = "Objeto agregado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check-circle";
+            break;
+        case '0x20':
+            $msj = "Objeto actualizado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check2-circle";
+            break;
+        case '0x30':
+            $msj = "Objeto eliminado!";
+            $typeMsj = "msj-warning";
+            $iconoAlert = "bi-info-circle";
+            break;
+        case '0x1000':
+            $msj = "Hubo un error al intentar realizar la operación!";
+            $typeMsj = "msj-error";
+            $iconoAlert = "bi-bug";
+            break;
+    }
+    alertaResponDialog($typeMsj, $msj, $iconoAlert);
+}
 
-$id = 12;
 ?>
 
 <h3>EMPRESAS</h3>
@@ -44,31 +70,30 @@ $id = 12;
             </tr>
         </thead>
         <tbody>
-        <?php
-            /*==========================================================================*/
-            /*                   Consulta de base de datos para tabla                   */
-            /*==========================================================================*/
-            $consulta = "SELECT * FROM empresa";
-            $resultado = $conexion->query($consulta);
-            if($resultado->num_rows > 0){
-                while($row = $resultado->fetch_assoc()){
-                    $idEmpresa = $row["idEmpresa"];
-                    $nombreEmpresa = $row["nombreEmpresa"];
-                    $ruc = $row["ruc"];
-                    $telefono = $row["telefono"];
-                    $email = $row["email"];
-                    echo "<tr>";
-                    echo "<td>". $idEmpresa ."</td>";
-                    echo "<td>". $nombreEmpresa ."</td>";
-                    echo "<td>". $ruc ."</td>";
-                    echo "<td>". $telefono ."</td>";
-                    echo "<td>". $email ."</td>";
-                    echo "<td> <a href='?m=panel&mod=empresa&action=update&id=". $idEmpresa ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=empresa&action=delete&id=". $idEmpresa ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
-                    echo "</tr>";
-                }
-            } 
-        ?>
+            <?php
+                $empresas = $dbEmpresas->selectEmpresas();
+
+                foreach($empresas as $empresa){
+                    $id=$empresa['idEmpresa'];
+                    $nombreEmpresa=$empresa['nombreEmpresa'];
+                    $ruc=$empresa['ruc'];
+                    $telefono=$empresa['telefono'];
+                    $email=$empresa['email'];
+                    $numeroPartida=$empresa['numeroPartida'];
+                    $mipe=$empresa['mipe'];
+            ?>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td><?= $nombreEmpresa ?></td>
+                    <td><?= $ruc ?></td>
+                    <td><?= $telefono ?></td>
+                    <td><?= $email ?></td>
+                    <td>
+                        <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=empresa&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                    </td>
+                </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>

@@ -1,45 +1,28 @@
 <?php
 class dbContactos
 {
-    private $conexion;
-
-    public function __construct($conexion)
-    {
-        $this->conexion = $conexion;
-    }
 
     // Insertar registro en la tabla contacto
-    public function insertarContacto($contacto)
+    public function InsertarContacto($dni, $nombre, $email, $celular, $cargo)
     {
-        $dni = $contacto['dni'];
-        $nombre = $contacto['nombre'];
-        $email = $contacto['email'];
-        $celular = $contacto['celular'];
-        $cargo = $contacto['cargo'];
+        global $conexion;
 
-        $consulta = "INSERT INTO contacto (dni, nombre, email, celular, cargo) VALUES (?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($this->conexion, $consulta);
+        $consulta = "INSERT INTO contacto 
+                    (dni, nombre, email, celular, cargo) 
+                    VALUES ('$dni','$nombre','$email','$celular','$cargo')";
 
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "sssss", $dni, $nombre, $email, $celular, $cargo);
-            if (mysqli_stmt_execute($stmt)) {
-                $idInsertado = mysqli_insert_id($this->conexion);
-                mysqli_stmt_close($stmt);
-                return $idInsertado;
-            } else {
-                mysqli_stmt_close($stmt);
-                return false;
-            }
-        }
+        mysqli_query($conexion, $consulta);
+        return mysqli_affected_rows($conexion);
 
-        return false;
     }
 
     // Obtener todos los contactos de la tabla contacto
-    public function obtenerContactos()
+    public function selectContactos()
     {
+        global $conexion;
+
         $consulta = "SELECT * FROM contacto";
-        $resultado = mysqli_query($this->conexion, $consulta);
+        $resultado = mysqli_query($conexion, $consulta);
 
         $contactos = array();
 
@@ -56,8 +39,10 @@ class dbContactos
     // Seleccionar un contacto por su ID de la tabla contacto
     public function selectContacto($id)
     {
+        global $conexion;
+
         $consulta = "SELECT * FROM contacto WHERE idContacto = ?";
-        $stmt = mysqli_prepare($this->conexion, $consulta);
+        $stmt = mysqli_prepare($conexion, $consulta);
 
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "i", $id);
@@ -73,50 +58,48 @@ class dbContactos
     }
 
     // Actualizar un registro en la tabla contacto
-    public function updateContacto($contacto)
+    public function UpdateContacto($id,$dni,$nombre,$email,$celular,$cargo)
     {
-        $idContacto = $contacto['idContacto'];
-        $dni = $contacto['dni'];
-        $nombre = $contacto['nombre'];
-        $email = $contacto['email'];
-        $celular = $contacto['celular'];
-        $cargo = $contacto['cargo'];
+        global $conexion;
 
-        $consulta = "UPDATE contacto SET dni=?, nombre=?, email=?, celular=?, cargo=? WHERE idContacto=?";
-        $stmt = mysqli_prepare($this->conexion, $consulta);
+        $consulta = "UPDATE contacto
+                    SET dni= '$dni',
+                    nombre= '$nombre',
+                    email= '$email',
+                    celular= '$celular',
+                    cargo='$cargo'
+                    WHERE idContacto = '$id'";
 
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "sssssi", $dni, $nombre, $email, $celular, $cargo, $idContacto);
-            mysqli_stmt_execute($stmt);
+        mysqli_query($conexion, $consulta);
 
-            if (mysqli_stmt_affected_rows($stmt) > 0) {
-                mysqli_stmt_close($stmt);
-                return true;
-            }
-        }
-
-        return false;
+        return mysqli_affected_rows($conexion);
     }
 
     // Eliminar un registro de la tabla contacto
-    public function deleteContacto($idContacto)
+    public function deleteContacto($id)
     {
-        $consulta = "DELETE FROM contacto WHERE idContacto = ?";
-        $stmt = mysqli_prepare($this->conexion, $consulta);
+        global $conexion;
 
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $idContacto);
-            mysqli_stmt_execute($stmt);
+        $consulta = "DELETE FROM contacto WHERE idContacto = $id";
 
-            if (mysqli_stmt_affected_rows($stmt) > 0) {
-                mysqli_stmt_close($stmt);
-                return true;
-            }
-            
-            mysqli_stmt_close($stmt);
+        mysqli_query($conexion, $consulta);
+
+        return mysqli_affected_rows($conexion);
+    }
+
+    public function MayorContacto()
+    {
+        global $conexion;
+
+        $consulta = "SELECT MAX(idContacto) as maxId FROM contacto";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        if (mysqli_num_rows($resultado) > 0) {
+            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+        } else {
+            return [];
         }
-
-        return false;
     }
 }
 ?>

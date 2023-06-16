@@ -3,7 +3,36 @@
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="#" title="Estas justo aqui" class="active">Procesos</a>
 </div>
+
 <?php
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
+    $typeMsj = "";
+    switch ($msj) {
+        case '0x10':
+            $msj = "Objeto agregado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check-circle";
+            break;
+        case '0x20':
+            $msj = "Objeto actualizado!";
+            $typeMsj = "msj-ok";
+            $iconoAlert = "bi-check2-circle";
+            break;
+        case '0x30':
+            $msj = "Objeto eliminado!";
+            $typeMsj = "msj-warning";
+            $iconoAlert = "bi-info-circle";
+            break;
+        case '0x1000':
+            $msj = "Hubo un error al intentar realizar la operación!";
+            $typeMsj = "msj-error";
+            $iconoAlert = "bi-bug";
+            break;
+    }
+    alertaResponDialog($typeMsj, $msj, $iconoAlert);
+}
+
 ?>
 <h3>PROCESOS</h3>
 <div class="numm">
@@ -40,39 +69,38 @@
             </tr>
         </thead>
         <tbody>
-        <?php
-            /*==========================================================================*/
-            /*                   Consulta de base de datos para tabla                   */
-            /*==========================================================================*/
-            $consulta = "SELECT * FROM procesos";
-            $resultado = $conexion->query($consulta);
-            if($resultado->num_rows > 0){
-                while($row = $resultado->fetch_assoc()){
-                    $numProceso = $row["numProceso"];
-                    $entidad = $row["entidad"];
-                    $nomenclatura = $row["nomenclatura"];
-                    $nombreClave = $row["nombreClave"];
-                    $consultas = $row["consultas"];
-                    $integracion = $row["integracion"];
-                    $presentacion = $row["presentacion"];
-                    $buenaPro = $row["buenaPro"];
-                    $valorReferencial = $row["valorReferencial"];
-                    $postores = $row["postores"];
-                    $encargado = $row["encargado"];
-                    $observacionces = $row["observaciones"];
-                    echo "<tr>";
-                    echo "<td>". $numProceso ."</td>";
-                    echo "<td>". $entidad ."</td>";
-                    echo "<td>". $nombreClave ."</td>";
-                    echo "<td>". $postores ."</td>";
-                    echo "<td>". $encargado ."</td>";
-                    echo "<td> <a href='?m=panel&mod=proceso&action=update&id=". $numProceso ."' title='Modificar'><i class='edid bi-pencil-square'><b></i></a>";
-                    echo "<a href='?m=panel&mod=proceso&action=delete&id=". $numProceso ."' title='Eliminar'><i class='delete bi-trash'><b></i></a> </td>";
-                    echo "</tr>";
-                }
-            } 
-        ?>
+
+            <?php
+            $procesos = $dbProcesos->selectProcesos();
+
+            foreach ($procesos as $proceso){
+                $id = $proceso['numProceso'];
+                $entidad = $proceso['entidad'];
+                $nomenclatura = $proceso['nomenclatura'];
+                $nombreClave = $proceso['nombreClave'];
+                $consultas = $proceso['consultas'];
+                $integracion = $proceso['integracion'];
+                $presentacion = $proceso['presentacion'];
+                $buenaPro = $proceso['buenaPro'];
+                $valorReferencial = $proceso['valorReferencial'];
+                $postores = $proceso['postores'];
+                $encargado = $proceso['encargado'];
+                $objeto = $proceso['objeto'];
+                $observaciones = $proceso['observaciones'];            
+            ?>
+            <tr>
+                <td><?= $id ?></td>
+                <td><?= $entidad ?></td>
+                <td><?= $nombreClave ?></td>
+                <td><?= $postores ?></td>
+                <td><?= $encargado ?></td>
+                <td>
+                        <a href="?m=panel&mod=proceso&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=proceso&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                    </td>
+            </tr>
         </tbody>
+        <?php } ?>
     </table>
 </div>
 <div class="piePagina">

@@ -2,42 +2,19 @@
 class dbProcesos
 {
     // Insertar registro en la tabla procesos
-    public function insertarProceso($proceso)
+    public function insertarProceso($entidad, $nomenclatura, $nombreClave, $consultas, $integracion, $presentacion, $buenaPro, $valorReferencial, $postores, $encargado, $objeto, $observaciones)
     {
         global $conexion;
 
-        $entidad = $proceso['entidad'];
-        $nomenclatura = $proceso['nomenclatura'];
-        $nombreClave = $proceso['nombreClave'];
-        $consultas = $proceso['consultas'];
-        $integracion = $proceso['integracion'];
-        $presentacion = $proceso['presentacion'];
-        $buenaPro = $proceso['buenaPro'];
-        $valorReferencial = $proceso['valorReferencial'];
-        $postores = $proceso['postores'];
-        $encargado = $proceso['encargado'];
-        $observaciones = $proceso['observaciones'];
+        $consulta = "INSERT INTO procesos (entidad, nomenclatura, nombreClave, consultas, integracion, presentacion, buenaPro, valorReferencial, postores, encargado, objeto, observaciones) VALUES ('$entidad', '$nomenclatura', '$nombreClave', '$consultas', '$integracion', '$presentacion', '$buenaPro', '$valorReferencial', $postores, $encargado, $objeto, '$observaciones')";
 
-        $consulta = "INSERT INTO procesos (entidad, nomenclatura, nombreClave, consultas, integracion, presentacion, buenaPro, valorReferencial, postores, encargado, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_query($conexion, $consulta);
 
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "ssssssssiss", $entidad, $nomenclatura, $nombreClave, $consultas, $integracion, $presentacion, $buenaPro, $valorReferencial, $postores, $encargado, $observaciones);
-            if (mysqli_stmt_execute($stmt)) {
-                $idInsertado = mysqli_insert_id($conexion);
-                mysqli_stmt_close($stmt);
-                return $idInsertado;
-            } else {
-                mysqli_stmt_close($stmt);
-                return false;
-            }
-        }
-
-        return false;
+        return mysqli_affected_rows($conexion);
     }
 
     // Obtener registros de la tabla procesos
-    public function obtenerProcesos()
+    public function selectProcesos()
     {
         global $conexion;
 
@@ -78,37 +55,28 @@ class dbProcesos
     }
 
     // Actualizar registro en la tabla procesos
-    public function updateProceso($proceso)
+    public function updateProceso($numProceso,$entidad, $nomenclatura, $nombreClave, $consultas, $integracion, $presentacion, $buenaPro, $valorReferencial, $postores, $encargado, $objeto, $observaciones)
     {
         global $conexion;
 
-        $numProceso = $proceso['numProceso'];
-        $entidad = $proceso['entidad'];
-        $nomenclatura = $proceso['nomenclatura'];
-        $nombreClave = $proceso['nombreClave'];
-        $consultas = $proceso['consultas'];
-        $integracion = $proceso['integracion'];
-        $presentacion = $proceso['presentacion'];
-        $buenaPro = $proceso['buenaPro'];
-        $valorReferencial = $proceso['valorReferencial'];
-        $postores = $proceso['postores'];
-        $encargado = $proceso['encargado'];
-        $observaciones = $proceso['observaciones'];
+        $consulta = "UPDATE procesos
+             SET entidad = '$entidad',
+             nomenclatura='$nomenclatura',
+             nombreClave='$nombreClave',
+             consultas='$consultas',
+             integracion='$integracion',
+             presentacion='$presentacion',
+             buenaPro='$buenaPro',
+             valorReferencial='$valorReferencial',
+             postores='$postores',
+             encargado='$encargado',
+             objeto='$objeto',
+             observaciones='$observaciones'
+             WHERE numProceso = $numProceso";
+       
+        mysqli_query($conexion, $consulta);
 
-        $consulta = "UPDATE procesos SET entidad=?, nomenclatura=?, nombreClave=?, consultas=?, integracion=?, presentacion=?, buenaPro=?, valorReferencial=?, postores=?, encargado=?, observaciones=? WHERE numProceso=?";
-        $stmt = mysqli_prepare($conexion, $consulta);
-
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "ssssssssissi", $entidad, $nomenclatura, $nombreClave, $consultas, $integracion, $presentacion, $buenaPro, $valorReferencial, $postores, $encargado, $observaciones, $numProceso);
-            mysqli_stmt_execute($stmt);
-
-            if (mysqli_stmt_affected_rows($stmt) > 0) {
-                mysqli_stmt_close($stmt);
-                return true;
-            }
-        }
-
-        return false;
+        return mysqli_affected_rows($conexion);
     }
 
     // Eliminar registro en la tabla procesos
@@ -116,22 +84,26 @@ class dbProcesos
     {
         global $conexion;
 
-        $consulta = "DELETE FROM procesos WHERE numProceso = ?";
-        $stmt = mysqli_prepare($conexion, $consulta);
+        $consulta = "DELETE FROM procesos WHERE numProceso = $numProceso";
 
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $numProceso);
-            mysqli_stmt_execute($stmt);
+        mysqli_query($conexion, $consulta);
 
-            if (mysqli_stmt_affected_rows($stmt) > 0) {
-                mysqli_stmt_close($stmt);
-                return true;
-            }
+        return mysqli_affected_rows($conexion);
+    }
 
-            mysqli_stmt_close($stmt);
+    public function MayorIdProceso()
+    {
+        global $conexion;
+
+        $consulta = "SELECT MAX(numProceso) as maxId FROM procesos";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        if (mysqli_num_rows($resultado) > 0) {
+            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+        } else {
+            return [];
         }
-
-        return false;
     }
 }
 ?>

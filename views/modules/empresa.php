@@ -1,9 +1,109 @@
 <?php
-// Crear una instancia de la clase dbEmpresa
-$dbEmpresas = new dbEmpresa();
+if (isset($_GET["action"])) {
+    $action = $_GET["action"];
+} else {
+    $action = "add";
+}
 
-// Obtener todas las empresas
-$empresas = $dbEmpresas->obtenerEmpresas();
+// Valido que tipo de peticion invoca al mod
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Aca se deben procesar los datos del formulario ejecutado
+    $id = $_POST["id"];
+    $nombreEmpresa = $_POST["nombreEmpresa"];
+    $ruc = $_POST["ruc"];
+    $telefono = $_POST["telefono"];
+    $email = $_POST["email"];
+    $numeroPartida = $_POST["numeroPartida"];
+    $mipe = $_POST["mipe"];
+
+    switch ($action) {
+        case 'add':
+
+            $msj = "0x1000";
+            $affectedRows = $dbEmpresas->InsertEmpresa($nombreEmpresa,$ruc,$telefono,$email,$numeroPartida,$mipe);
+            if ($affectedRows > 0) {
+                $msj = "0x10";
+            }
+            break;
+
+        case 'update':
+
+            $msj = "0x20";
+            $affectedRows = $dbEmpresas->UpdateEmpresa($id, $nombreEmpresa, $ruc, $telefono, $email, $numeroPartida, $mipe);
+            if ($affectedRows == 0) {
+                $msj = "0x1000";
+            }
+            break;
+
+        case 'delete':
+            $msj = "0x1000";
+            if ($dbEmpresas->DeleteEmpresa($id) > 0) {
+                $msj = "0x30";
+            }
+            break;
+    }
+    header('location: ?m=panel&mod=empresas&msj=' . $msj);
+} else {
+    // Preparar el formulario para: Agregar - Modificar - Eliminar
+    switch ($action) {
+        case 'add':
+            //optiene el id mayor de la tabla categorias
+            $maxid = $dbEmpresas->MayorIdEmpresa();
+            foreach ($maxid as $iddd) {
+                $id = $iddd["maxId"];
+            }
+            $id = ($id + 1);
+            $btn = "Agregar";
+            $status = null;
+            $empresa = array(
+                "idEmpresa" => $id,
+                "nombreEmpresa" => "",
+                "ruc" => "",
+                "telefono" => "",
+                "email" => "",
+                "numeroPartida" => "",
+                "mipe" => ""
+            );
+            break;
+
+        case 'update':
+            $id = $_GET["id"];
+            $btn = "Actualizar";
+            $status = null;
+            $empresa = $dbEmpresas->selectEmpresa($id);
+            break;
+
+        case 'delete':
+            $id = $_GET["id"];
+            $btn = "Eliminar";
+            $status = "disabled";
+            $empresa = $dbEmpresas->selectEmpresa($id);
+            break;
+    }
+}
+?>
+<?php
+switch ($btn) {
+    case 'Eliminar':
+        $style = "background-color:crimson";
+        $styleImage = "display: none !importans; ";
+        $hacer = "Eliminar Objeto";
+        // $icono = "bi bi-trash";
+        break;
+    case 'Agregar':
+        $style = "background-color:rgb(0, 176, 26)";
+        $hacer = "Agregar Objeto";
+        // $icono = "bi bi-plus-square";
+        break;
+    case 'Actualizar':
+        $style = "background-color:rgb(9, 109, 149)";
+        $hacer = "Actualizar Objeto";
+        // $icono = "bi bi-pencil-square";
+        break;
+    default:
+        # code...
+        break;
+}
 ?>
 
 <div class="ruta">
@@ -16,130 +116,24 @@ $empresas = $dbEmpresas->obtenerEmpresas();
         <h3>EMPRESA</h3>
         <div class="main">
             <div class="formm">
-                <?php
-                // Valido que haya una acción a realizar, sino se irá a crear un nuevo producto
-                $action = isset($_GET["action"]) ? $_GET["action"] : "add";
-                $action = $_GET["action"];
-
-                //====================================================================
-                //==            Mostrar los datos dentro del formulario             ==
-                //====================================================================
-                if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                    // Aca se deben procesar los datos del formulario ejecutado
-                    $id = isset($_GET["id"]) ? $_GET["id"] : "";
-
-                    if ($action == "update" || $action == "delete") {
-                        $empresa = $dbEmpresas->selectEmpresa($id);
-
-                        if (!empty($empresa)) {
-                            $idEmpresa = $empresa["idEmpresa"];
-                            $nombreEmpresa = $empresa["nombreEmpresa"];
-                            $ruc = $empresa["ruc"];
-                            $telefono = $empresa["telefono"];
-                            $email = $empresa["email"];
-                            $num_partida = $empresa["numeroPartida"];
-                            $mipe = $empresa["mipe"];
-                        }
-                    } else if ($action == "add") {
-                        // Inicializar los valores en blanco para un nuevo registro
-                        $idEmpresa = "";
-                        $nombreEmpresa = "";
-                        $ruc = "";
-                        $telefono = "";
-                        $email = "";
-                        $num_partida = "";
-                        $mipe = "";
-                    }
-                }
-
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    // Obtener los valores del formulario
-                    $idEmpresa = $_POST["id"];
-                    $nombreEmpresa = $_POST["nombreEmpresa"];
-                    $ruc = $_POST["ruc"];
-                    $telefono = $_POST["telefono"];
-                    $email = $_POST["email"];
-                    $num_partida = $_POST["num_partida"];
-                    $mipe = $_POST["mipe"];
-
-                    // Verificar action
-                    if ($action == "update") {
-                        // Realizar la actualización utilizando el método updateEmpresa
-                        $empresa = [
-                            'idEmpresa' => $idEmpresa,
-                            'nombreEmpresa' => $nombreEmpresa,
-                            'ruc' => $ruc,
-                            'telefono' => $telefono,
-                            'email' => $email,
-                            'numeroPartida' => $num_partida,
-                            'mipe' => $mipe
-                        ];
-
-                        $actualizado = $dbEmpresas->updateEmpresa($empresa);
-                        if ($actualizado) {
-                            // Actualización exitosa, realizar alguna acción
-                        } else {
-                            // Error al actualizar, manejar el caso apropiado
-                        }
-                    } else if ($action == "add") {
-                        // Realizar la inserción utilizando el método insertarEmpresa
-                        $empresa = [
-                            'nombreEmpresa' => $nombreEmpresa,
-                            'ruc' => $ruc,
-                            'telefono' => $telefono,
-                            'email' => $email,
-                            'numeroPartida' => $num_partida,
-                            'mipe' => $mipe
-                        ];
-
-                        $idInsertado = $dbEmpresas->insertarEmpresa($empresa);
-                        if ($idInsertado) {
-                            // Inserción exitosa, realizar alguna acción
-                        } else {
-                            // Error al insertar, manejar el caso apropiado
-                        }
-                    } else if ($action == "delete") {
-                        // Realizar la eliminación utilizando el método deleteEmpresa
-                        $eliminado = $dbEmpresas->deleteEmpresa($idEmpresa);
-                        if ($eliminado) {
-                            // Eliminación exitosa, realizar alguna acción
-                        } else {
-                            // Error al eliminar, manejar el caso apropiado
-                        }
-                    }
-                }
-                ?>
-
-                <form action="?m=panel&mod=empresa&action=<?php echo $action; ?>" method="POST" enctype="multipart/form-data">
-
-                    <input type="hidden" name="id" value="<?php echo $idEmpresa; ?>">
-                    <span> ID </span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEmpresa"
-                        value="<?php echo $idEmpresa; ?>">
+                <form action="?m=panel&mod=empresa&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?= $empresa["idEmpresa"]; ?>">
+                    <span> ID Empresa</span>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $empresa["idEmpresa"] ?>" <?= $status ?>>
                     <span> Nombre Empresa</span>
-                    <input required type="text" name="nombreEmpresa" value="<?php echo $nombreEmpresa; ?>">
+                    <input required type="text" name="nombreEmpresa" value="<?= $empresa["nombreEmpresa"] ?>" <?= $status ?>>
                     <span> RUC </span>
-                    <input required type="number" min="0" name="ruc" value="<?php echo $ruc; ?>">
+                    <input required type="number" min="0" name="ruc" value="<?= $empresa["ruc"] ?>"<?= $status ?>>
                     <span> Telefono </span>
-                    <input required type="number" min="0" name="telefono" value="<?php echo $telefono; ?>">
+                    <input required type="number" min="0" name="telefono" value="<?= $empresa["telefono"] ?>"<?= $status ?>>
                     <span> Email </span>
-                    <input required type="text" min="0" name="email" value="<?php echo $email; ?>">
+                    <input required type="text" min="0" name="email" value="<?= $empresa["email"] ?>"<?= $status ?>>
                     <span> Numero de Partida </span>
-                    <input required type="text" min="0" name="num_partida" value="<?php echo $num_partida; ?>">
+                    <input required type="text" min="0" name="numeroPartida" value="<?= $empresa["numeroPartida"] ?>"<?= $status ?>>
                     <span> MIPE </span>
-                    <input required type="number" min="0" name="mipe" value="<?php echo $mipe; ?>">
+                    <input required type="number" min="0" name="mipe" value="<?= $empresa["mipe"] ?>"<?= $status ?>>
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="color:red;" class="form_login" value="">
-                        <?php
-                        if ($action == "update") {
-                            echo "Actualizar";
-                        } else if ($action == "add") {
-                            echo "Agregar";
-                        } else if ($action == "delete") {
-                            echo "Eliminar";
-                        }
-                        ?>
-                    </button>
+                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
             </div>
         </div>
