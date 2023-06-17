@@ -73,7 +73,7 @@ if (isset($_GET['msj'])) {
 
             foreach ($proyectos as $proyecto){
                 $id = $proyecto['idProyecto'];
-                $nombre_empresa = $proyecto['nombre_empresa'];
+                $nombre_empresa = $proyecto['NomEmpresa'];
                 $nombre_proyecto = $proyecto['nombre_proyecto'];
                 $numero_contrato = $proyecto['numero_contrato'];
                 $entidad = $proyecto['entidad'];

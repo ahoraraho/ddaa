@@ -7,7 +7,7 @@ class dbProyectos
         {
             global $conexion;
     
-            $consulta = "SELECT * FROM proyectos";
+            $consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa";
             $resultado = mysqli_query($conexion, $consulta);
     
             $proyectos = array();

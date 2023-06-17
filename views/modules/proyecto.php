@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $monto_final_del_contrato = $_POST["montoFinalContrato"];
     $miembro_del_consorcio = $_POST["miembroConsorcio"];
     $observaciones = $_POST["observaciones"];
-    $contacto = $_POST["contrato"];
+    $contacto = $_POST["contacto"];
     $objeto = $_POST["objeto"];
     $especialidad = $_POST["especialidad"];
 
@@ -138,15 +138,24 @@ switch ($btn) {
                     <input type="hidden" name="idProyecto" value="<?= $proyecto["idProyecto"]; ?>">
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idProyecto" value="<?= $proyecto["idProyecto"]; ?>" <?= $status ?>>
                     <span> Nombre Empresa </span>
-                    <input required type="text" name="nombreEmpresa" value="<?= $proyecto["nombre_empresa"]; ?>" <?= $status ?>>
+                    <select name="nombreEmpresa" value="<?= $proyecto["nombre_empresa"]; ?>"<?= $status ?>>
+                            <?php
+                            $empresas = $dbEmpresas->selectEmpresas();
+                            foreach ($empresas as $empresa) {
+                                $selected = ($empresa["idEmpresa"] == $proyecto["nombre_empresa"]) ? "selected" : ""; ?>
+                                <option value="<?= $empresa["idEmpresa"] ?>" <?= $selected ?>><?= $empresa["nombreEmpresa"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select>
                     <span> Nombre Proyecto </span>
-                    <input required type="text" name="nombreProyecto" value="<?= $proyecto["nombre_proyecto"]; ?>" <?= $status ?>>
+                    <input required type="text" name="nombreProyecto" value="<?= $proyecto["nombre_proyecto"]; ?>" <?= $status ?>> 
                     <span> Número de Contrato </span>
                     <input required type="text" name="numeroContrato" value="<?= $proyecto["numero_contrato"]; ?>"<?= $status ?>>
                     <span> Entidad </span>
                     <input required type="text" name="entidad" value="<?= $proyecto["entidad"]; ?>"<?= $status ?>>
                     <span> Fecha de Firma </span>
-                    <input required type="text" name="fechaFirma" value="<?= $proyecto["fecha_firma"]; ?>"<?= $status ?>>
+                    <input required type="text"  placeholder="aaaa-mm-dd" name="fechaFirma" value="<?= $proyecto["fecha_firma"]; ?>"<?= $status ?>>
                     <span> Monto Contrato Original </span>
                     <input required type="text" name="montoContratoOriginal" value="<?= $proyecto["monto_contrato_original"]; ?>"<?= $status ?>>
                     <span> Porcentaje de Participación </span>
@@ -161,12 +170,39 @@ switch ($btn) {
                     <input required type="text" name="miembroConsorcio" value="<?= $proyecto["miembro_del_consorcio"]; ?>"<?= $status ?>>
                     <span> Observaciones </span>
                     <input required type="text" name="observaciones" value="<?= $proyecto["observaciones"]; ?>"<?= $status ?>>
-                    <span> Contrato </span>
-                    <input required type="text" name="contrato" value="<?= $proyecto["contacto"]; ?>"<?= $status ?>>
+                    <span> Contacto </span>
+                    <select name="contacto" value="<?= $proyecto["contacto"]; ?>"<?= $status ?>>
+                            <?php
+                            $contactos = $dbContactos->selectContactos();
+                            foreach ($contactos as $contacto) {
+                                $selected = ($contacto["idEmpresa"] == $proyecto["contacto"]) ? "selected" : ""; ?>
+                                <option value="<?= $contacto["idContacto"] ?>" <?= $selected ?>><?= $contacto["nombre"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select>
                     <span> Objeto </span>
-                    <input required type="text" name="objeto" value="<?= $proyecto["objeto"]; ?>"<?= $status ?>>
+                    <select name="objeto" value="<?= $proyecto["objeto"]; ?>" <?= $status ?>>
+                            <?php
+                            $objetos = $dbObjetos->selectObjetos();
+                            foreach ($objetos as $objeto) {
+                                $selected = ($objeto["idEmpresa"] == $proyecto["objeto"]) ? "selected" : ""; ?>
+                                <option value="<?= $objeto["idObjeto"] ?>" <?= $selected ?>><?= $objeto["nombre"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select>
                     <span> Especialidad </span>
-                    <input required type="text" name="especialidad" value="<?= $proyecto["especialidad"]; ?>"<?= $status ?>>
+                    <select name="especialidad" value="<?= $proyecto["especialidad"]; ?>" <?= $status ?>>
+                            <?php
+                            $especialidades = $dbEspecialidades->selectEspecialidades();
+                            foreach ($especialidades as $especialidad) {
+                                $selected = ($especialidad["idEspecialidad"] == $proyecto["especialidad"]) ? "selected" : ""; ?>
+                                <option value="<?= $especialidad["idEspecialidad"] ?>" <?= $selected ?>><?= $especialidad["nombre"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
             </div>
