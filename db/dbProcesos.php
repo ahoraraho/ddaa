@@ -18,7 +18,12 @@ class dbProcesos
     {
         global $conexion;
 
-        $consulta = "SELECT * FROM procesos";
+        $consulta = "SELECT *, e.nombreEmpresa AS nomPostor, o.nombre AS nomObjeto, es.nombre AS nomEncargado
+        FROM procesos p
+        INNER JOIN empresa e ON p.postores = e.idEmpresa
+        INNER JOIN objeto o ON p.objeto = o.idObjeto
+        INNER JOIN especialista es ON p.encargado = es.idEspecialista
+        ORDER BY p.numProceso;";
         $resultado = mysqli_query($conexion, $consulta);
 
         $procesos = array();
