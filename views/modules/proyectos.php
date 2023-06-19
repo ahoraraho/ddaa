@@ -57,7 +57,7 @@ if (isset($_GET['msj'])) {
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="responsive-proyectos">
         <thead>
             <tr>
                 <th>Id Proyecto</th>
@@ -95,9 +95,9 @@ if (isset($_GET['msj'])) {
                 <td><?= $nombre_proyecto ?></td>
                 <td><?= $numero_contrato ?></td>
                 <td>
-                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                    </td>
+                    <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                    <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                </td>
             </tr>
             <?php } ?>
         </tbody>

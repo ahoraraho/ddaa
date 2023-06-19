@@ -57,7 +57,7 @@ if (isset($_GET['msj'])) {
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="responsive-procesos">
         <thead>
             <tr>
                 <th>Numero de Proceso</th>

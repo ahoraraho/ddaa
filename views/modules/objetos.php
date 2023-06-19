@@ -60,7 +60,7 @@ if (isset($_GET['msj'])) {
 
 <!-- tabla objetos -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="responsive-objetos">
         <thead>
             <tr>
             <th>Id Objeto</th>
