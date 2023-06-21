@@ -94,6 +94,21 @@ textarea {
     margin: 15px 0px;
     border-radius: 8px;
     color: var(--text-color);
+    overflow: hidden;
+}
+
+input[type="file"] {
+    font-size: 17px;
+    background: transparent;
+    border: 1px solid var(--text-color);
+    outline-color: rgb(0, 40, 108);
+    pointer-events: rgba(56, 20, 103, 0) 0px 5px 20px 0px;
+    width: 25%;
+    padding: 15px;
+    margin: 15px 0px;
+    border-radius: 8px;
+    color: var(--text-color);
+    overflow: hidden;
 }
 
 /*input[type="search"] {
@@ -112,9 +127,9 @@ textarea {
     border: 1px solid var(--text-color);
 }
 
-input[type="file"] {
+/* input[type="file"] {
     display: none;
-}
+} */
 
 
 /*campo de no edicion de datos*/

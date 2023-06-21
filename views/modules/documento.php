@@ -140,19 +140,19 @@ switch ($btn) {
                     <span>Acta de Recepción</span>
                     <input required type="file" min="0" name="acta_de_recepcion" value="<?= $documento["acta_de_recepcion"] ?>" <?= $status ?>>
                     <span>Resolución de Obra</span>
-                    <input required type="text" min="0" name="resolucion_de_obra" value="<?= $documento["resolucion_de_obra"] ?>" <?= $status ?>>
+                    <input required type="file" min="0" name="resolucion_de_obra" value="<?= $documento["resolucion_de_obra"] ?>" <?= $status ?>>
                     <span>Resolución de Deductivos</span>
-                    <input required type="text" min="0" name="resolucion_deductivos" value="<?= $documento["resolucion_deductivos"] ?>" <?= $status ?>>
+                    <input required type="file" min="0" name="resolucion_deductivos" value="<?= $documento["resolucion_deductivos"] ?>" <?= $status ?>>
                     <span>Resolución Adicionales</span>
-                    <input required type="text" min="0" name="resolucion_adicionales" value="<?= $documento["resolucion_adicionales"] ?>" <?= $status ?>>
+                    <input required type="file" min="0" name="resolucion_adicionales" value="<?= $documento["resolucion_adicionales"] ?>" <?= $status ?>>
                     <span>Anexo de Promesa de Consorcio</span>
-                    <input required type="text" min="0" name="anexo_de_promesa_de_consorcio" value="<?= $documento["anexo_de_promesa_de_consorcio"] ?>" <?= $status ?>>
+                    <input required type="file" min="0" name="anexo_de_promesa_de_consorcio" value="<?= $documento["anexo_de_promesa_de_consorcio"] ?>" <?= $status ?>>
                     <span>Constancia</span>
-                    <input required type="text" min="0" name="constancia" value="<?= $documento["constancia"] ?>" <?= $status ?>>
+                    <input required type="file" min="0" name="constancia" value="<?= $documento["constancia"] ?>" <?= $status ?>>
                     <span>Contrato de Consorcio</span>
-                    <input required type="text" min="0" name="contrato_de_consorcio" value="<?= $documento["contrato_de_consorcio"] ?>" <?= $status ?>>
+                    <input required type="file" min="0" name="contrato_de_consorcio" value="<?= $documento["contrato_de_consorcio"] ?>" <?= $status ?>>
                     <span>Contrato</span>
-                    <input required type="text" min="0" name="contrato" value="<?= $documento["contrato"] ?>" <?= $status ?>>
+                    <input required type="file" min="0" name="contrato" value="<?= $documento["contrato"] ?>" <?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
