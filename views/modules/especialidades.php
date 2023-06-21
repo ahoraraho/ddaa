@@ -60,7 +60,7 @@ if (isset($_GET['msj'])) {
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="responsive-especialidades">
         <thead>
             <tr>
                 <th>Id Especialidad</th>

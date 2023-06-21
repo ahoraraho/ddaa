@@ -36,7 +36,11 @@ class Conexion
 }
 
 
+<<<<<<< HEAD
 $dbConexion = new Conexion("localhost", "root", "", "");
+=======
+$dbConexion = new Conexion("localhost", "root", "", "ddaa");
+>>>>>>> master
 
 $dbConexion->connect();
 

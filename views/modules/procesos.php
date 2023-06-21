@@ -57,7 +57,7 @@ if (isset($_GET['msj'])) {
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="responsive-procesos">
         <thead>
             <tr>
                 <th>Numero de Proceso</th>
@@ -83,9 +83,9 @@ if (isset($_GET['msj'])) {
                 $presentacion = $proceso['presentacion'];
                 $buenaPro = $proceso['buenaPro'];
                 $valorReferencial = $proceso['valorReferencial'];
-                $postores = $proceso['postores'];
-                $encargado = $proceso['encargado'];
-                $objeto = $proceso['objeto'];
+                $postores = $proceso['nomPostor'];
+                $encargado = $proceso['nomEncargado'];
+                $objeto = $proceso['nomObjeto'];
                 $observaciones = $proceso['observaciones'];            
             ?>
             <tr>

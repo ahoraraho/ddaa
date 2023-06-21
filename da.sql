@@ -93,14 +93,14 @@ CREATE TABLE contacto (
 
 CREATE TABLE documentos (
     idDocumento INT PRIMARY KEY AUTO_INCREMENT,
-    acta_de_recepcion LONGBLOB,
-    resolucion_de_obra LONGBLOB,
-    resolucion_deductivos LONGBLOB,
-    resolucion_adicionales LONGBLOB,
-    anexo_de_promesa_de_consorcio LONGBLOB,
-    constancia LONGBLOB,
-    contrato_de_consorcio LONGBLOB,
-    contrato LONGBLOB
+    acta_de_recepcion VARCHAR(100),
+    resolucion_de_obra VARCHAR(100),
+    resolucion_deductivos VARCHAR(100),
+    resolucion_adicionales VARCHAR(100),
+    anexo_de_promesa_de_consorcio VARCHAR(100),
+    constancia VARCHAR(100),
+    contrato_de_consorcio VARCHAR(100),
+    contrato VARCHAR(100)
 );
 
 CREATE TABLE proyectos (

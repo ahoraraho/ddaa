@@ -159,13 +159,40 @@ switch ($btn) {
                     <input required type="text" name="valorReferencial" value="<?= $proceso["valorReferencial"]; ?>"<?= $status ?>>
                     
                     <span>Postores:</span>
-                    <input required type="number" name="postores" value="<?= $proceso["postores"]; ?>"<?= $status ?>>
+                    <select name="postores" value="<?= $proceso["postores"]; ?>"<?= $status ?>>
+                            <?php
+                            $empresas = $dbEmpresas->selectEmpresas();
+                            foreach ($empresas as $empresa) {
+                                $selected = ($empresa["idObjeto"] == $proceso["postores"]) ? "selected" : ""; ?>
+                                <option value="<?= $empresa["idEmpresa"] ?>" <?= $selected ?>><?= $empresa["nombreEmpresa"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select>
                     
                     <span>Encargado:</span>
-                    <input required type="number" name="encargado" value="<?= $proceso["encargado"]; ?>"<?= $status ?>>
+                    <select name="encargado" value="<?= $proceso["encargado"]; ?>"<?= $status ?>>
+                            <?php
+                            $especialistas = $dbEspecialistas->selectEspecialistas();
+                            foreach ($especialistas as $especialista) {
+                                $selected = ($especialista["idEspecialista"] == $proceso["encargado"]) ? "selected" : ""; ?>
+                                <option value="<?= $especialista["idEspecialista"] ?>" <?= $selected ?>><?= $especialista["nombre"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select>
                     
                     <span>Objeto:</span>
-                    <input required type="number" name="objeto" value="<?= $proceso["objeto"]; ?>"<?= $status ?>>
+                    <select name="objeto" value="<?= $proceso["objeto"]; ?>"<?= $status ?>>
+                            <?php
+                            $objetos = $dbObjetos->selectObjetos();
+                            foreach ($objetos as $objeto) {
+                                $selected = ($objeto["idObjeto"] == $proceso["objeto"]) ? "selected" : ""; ?>
+                                <option value="<?= $objeto["idObjeto"] ?>" <?= $selected ?>><?= $objeto["nombre"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select>
 
                     <span>Observaciones:</span>
                     <input required type="text" name="observaciones" value="<?= $proceso["observaciones"]; ?>"<?= $status ?>>

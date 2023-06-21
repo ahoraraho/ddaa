@@ -101,4 +101,19 @@ class dbEmpresa
             return [];
         }
     }
+
+    /*public function getEmpresas()
+    {
+        $empresas = $this->selectEmpresas();
+        
+        $options = '';
+
+        foreach ($empresas as $empresa) {
+            $id = $empresa['idEmpresa'];
+            $nombre = $empresa['nombreEmpresa'];
+            $options .= "<option value='$id'>$nombre</option>";
+        }
+
+        return $options;
+    }*/
 }

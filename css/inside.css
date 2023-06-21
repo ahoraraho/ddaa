@@ -94,6 +94,21 @@ textarea {
     margin: 15px 0px;
     border-radius: 8px;
     color: var(--text-color);
+    overflow: hidden;
+}
+
+input[type="file"] {
+    font-size: 17px;
+    background: transparent;
+    border: 1px solid var(--text-color);
+    outline-color: rgb(0, 40, 108);
+    pointer-events: rgba(56, 20, 103, 0) 0px 5px 20px 0px;
+    width: 25%;
+    padding: 15px;
+    margin: 15px 0px;
+    border-radius: 8px;
+    color: var(--text-color);
+    overflow: hidden;
 }
 
 /*input[type="search"] {
@@ -112,9 +127,9 @@ textarea {
     border: 1px solid var(--text-color);
 }
 
-input[type="file"] {
+/* input[type="file"] {
     display: none;
-}
+} */
 
 
 /*campo de no edicion de datos*/
@@ -1152,18 +1167,106 @@ option {
         content: "Acciones";
     }
 
-    /*PARA HACER QUE LA TABLA MARCAS SEA RESPONSIVA*/
-    .responsive-marcas td:nth-of-type(1):before {
-        content: "Id Marca";
+    /*PARA HACER QUE LA TABLA PROYECTOS SEA RESPONSIVA*/
+    .responsive-proyectos td:nth-of-type(1):before {
+        content: "Id Proyecto";
     }
 
-    .responsive-marcas td:nth-of-type(2):before {
-        content: "Nombre";
+    .responsive-proyectos td:nth-of-type(2):before {
+        content: "Nombre de empresa";
     }
 
-    .responsive-marcas td:nth-of-type(3):before {
+    .responsive-proyectos td:nth-of-type(3):before {
+        content: "Nombre de Proyecto";
+    }
+
+    .responsive-proyectos td:nth-of-type(4):before {
+        content: "Numero de Contrato";
+    }
+    .responsive-proyectos td:nth-of-type(5):before {
         content: "Acciones";
     }
+
+    /*PARA HACER QUE LA TABLA PROCESOS SEA RESPONSIVA*/
+    .responsive-procesos td:nth-of-type(1):before {
+        content: "Id Proceso";
+    }
+
+    .responsive-procesos td:nth-of-type(2):before {
+        content: "Entidad";
+    }
+
+    .responsive-procesos td:nth-of-type(3):before {
+        content: "Nombre Clave";
+    }
+
+    .responsive-procesos td:nth-of-type(4):before {
+        content: "Empresa";
+    }
+
+    .responsive-procesos td:nth-of-type(5):before {
+        content: "Encargado";
+    }
+
+    .responsive-procesos td:nth-of-type(6):before {
+        content: "Acciones";
+    }
+
+    /*PARA HACER QUE LA TABLA OBJETO SEA RESPONSIVA*/
+    .responsive-objetos td:nth-of-type(1):before {
+        content: "Id Objeto";
+    }
+
+    .responsive-objetos td:nth-of-type(2):before {
+        content: "Nombre Objeto";
+    }
+
+    .responsive-objetos td:nth-of-type(3):before {
+        content: "Acciones";
+    }
+
+    /*PARA HACER QUE LA TABLA CONTACTOS SEA RESPONSIVA*/
+    .responsive-contactos td:nth-of-type(1):before {
+        content: "Id Contacto";
+    }
+
+    .responsive-contactos td:nth-of-type(2):before {
+        content: "Nombre Contacto";
+    }
+
+    .responsive-contactos td:nth-of-type(3):before {
+        content: "DNI";
+    }
+
+    .responsive-contactos td:nth-of-type(4):before {
+        content: "Correo";
+    }
+
+    .responsive-contactos td:nth-of-type(5):before {
+        content: "Telefono";
+    }
+
+    .responsive-contactos td:nth-of-type(6):before {
+        content: "Cargo";
+    }
+
+    .responsive-contactos td:nth-of-type(7):before {
+        content: "Acciones";
+    }
+
+    /*PARA HACER QUE LA TABLA ESPECIALIDADES SEA RESPONSIVA*/
+    .responsive-especialidades td:nth-of-type(1):before {
+        content: "Id Especialidad";
+    }
+
+    .responsive-especialidades td:nth-of-type(2):before {
+        content: "Nombre de Especialidad";
+    }
+
+    .responsive-especialidades td:nth-of-type(3):before {
+        content: "Acciones";
+    }
+
 
     /*PARA HACER QUE LA TABLA USUARIO SEA RESPONSIVA*/
     .responsive-usuarios td:nth-of-type(1):before {
