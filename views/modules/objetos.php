@@ -56,8 +56,6 @@ if (isset($_GET['msj'])) {
     </div>
 </div>
 
-
-
 <!-- tabla objetos -->
 <div class="contenido-tabla">
     <table class="responsive-objetos">

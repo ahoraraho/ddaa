@@ -10,6 +10,7 @@ $dbContactos = new dbContactos();
 $dbProcesos = new dbProcesos();
 $dbProyectos = new dbProyectos();
 $dbEspecialistas = new dbEspecialistas();
+$dbDocumentos = new dbDocumentos();
 // $dbProductos = new dbProductos();
 // $dbCarrito = new dbCarrito();
 // $dbCategorias = new dbCategorias(); 

@@ -131,7 +131,7 @@ switch ($btn) {
                     <span> Numero de Partida </span>
                     <input required type="text" min="0" name="numeroPartida" value="<?= $empresa["numeroPartida"] ?>"<?= $status ?>>
                     <span> MIPE </span>
-                    <input required type="number" min="0" name="mipe" value="<?= $empresa["mipe"] ?>"<?= $status ?>>
+                    <input required type="text" min="0" name="mipe" value="<?= $empresa["mipe"] ?>"<?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
