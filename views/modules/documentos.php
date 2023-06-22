@@ -63,7 +63,7 @@ if (isset($_GET['msj'])) {
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="tabla-responsive">
         <thead>
             <tr>
                 <th>Id</th>
