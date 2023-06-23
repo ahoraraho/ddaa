@@ -97,18 +97,58 @@ textarea {
     overflow: hidden;
 }
 
+/* Estilo específico para los input de tipo "date" */
+input[type="date"] {
+    /* Restablecer estilos predeterminados */
+    appearance: textfield;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    /* Agregar estilos personalizados */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 input[type="file"] {
-    font-size: 17px;
     background: transparent;
-    border: 1px solid var(--text-color);
+    border: none;
     outline-color: rgb(0, 40, 108);
     pointer-events: rgba(56, 20, 103, 0) 0px 5px 20px 0px;
-    width: 25%;
-    padding: 15px;
-    margin: 15px 0px;
-    border-radius: 8px;
+    width: 100%;
+    padding: 5px;
+    margin: 0px;
+    border-radius: 5px;
     color: var(--text-color);
     overflow: hidden;
+    display: none;
+}
+
+.btn-action-doc {
+    padding: 5px;
+    background-color: var(--secondary);
+    color: var(--primary);
+    border-radius: 5px;
+    cursor: alias;
+}
+
+/*botones de añadir, descargar y ver archivo*/
+.btn-action-doc:hover {
+    color: var(--secondary);
+    background-color: var(--primary);
+}
+
+.btn-add-pdf {
+    padding: 5px;
+    color: var(--secondary);
+    background-color: var(--primary);
+    border-radius: 5px;
+    cursor: progress;
+}
+
+.btn-add-pdf:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+    font-weight: bold;
 }
 
 /*input[type="search"] {
@@ -518,15 +558,17 @@ textarea {
 .contenido-tabla table .edid,
 .contenido-tabla table .ok,
 .contenido-tabla table .nok,
-.contenido-tabla table .delete {
-    margin: 0;
+.contenido-tabla table .delete,
+.contenido-tabla table .donwload,
+.contenido-tabla table .view {
+    margin: 0px 5px;
     font-size: 30px;
     width: 30px;
     height: 30px;
 }
 
 .contenido-tabla table .edid {
-    margin-right: 20px;
+    /* margin-right: 20px; */
     color: rgb(13, 57, 133);
 }
 
@@ -534,6 +576,14 @@ textarea {
     color: rgb(180, 6, 6);
 }
 
+.contenido-tabla table .donwload {
+    /* margin-right: 20px; */
+    color: rgb(4, 141, 77);
+}
+
+.contenido-tabla table .view {
+    color: rgb(0, 0, 0);
+}
 
 .contenido-tabla table .ok {
     margin-right: 20px;
@@ -1160,9 +1210,11 @@ option {
     .responsive-empresas td:nth-of-type(4):before {
         content: "Telefono";
     }
+
     .responsive-empresas td:nth-of-type(5):before {
         content: "Correo";
     }
+
     .responsive-empresas td:nth-of-type(6):before {
         content: "Acciones";
     }
@@ -1183,6 +1235,7 @@ option {
     .responsive-proyectos td:nth-of-type(4):before {
         content: "Numero de Contrato";
     }
+
     .responsive-proyectos td:nth-of-type(5):before {
         content: "Acciones";
     }
