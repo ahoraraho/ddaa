@@ -8,31 +8,20 @@ if (isset($_GET["action"])) {
 // Validar qué tipo de petición invoca al módulo
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Procesar los datos del formulario ejecutado
-    $id = $_POST["id"];
+    $idEspecialista = $_POST["id"];
     $dni = $_POST["dni"];
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];
-    $email = $_POST["email"];
     $direccion = $_POST["direccion"];
     $telefono = $_POST["telefono"];
+    $email = $_POST["email"];
     $contrasena = $_POST["contrasena"];
     $estado = $_POST["estado"];
-    $idUsuario = $_POST['idUsuario'];
 
     switch ($action) {
         case 'add':
             $msj = "0x1000";
-            $affectedRows = $dbEspecialistas->insertUsuario(array(
-                'idUsuario' => $idUsuario,
-                'Email' => $email,
-                'pass' => $contrasena,
-                'id' => $id,
-                'dni' => $dni,
-                'nombre' => $nombre,
-                'apellido' => $apellido,
-                'direccion' => $direccion,
-                'telefono' => $telefono
-            ));
+            $affectedRows = $dbEspecialistas->insertUsuario->insertUsuario($idEspecialista ,$dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
             if ($affectedRows > 0) {
                 $msj = "0x10";
             }
@@ -40,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'update':
             $msj = "0x20";
-            $affectedRows = $dbEspecialistas->updateEspecialista($id, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena);
+            $affectedRows = $dbEspecialistas->updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
             if ($affectedRows == 0) {
                 $msj = "0x1000";
             }
@@ -48,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'delete':
             $msj = "0x1000";
-            if ($dbEspecialistas->deleteEspecialista($id) > 0) {
+            if ($dbEspecialistas->deleteEspecialista($idEspecialista) > 0) {
                 $msj = "0x30";
             }
             break;
@@ -61,20 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Obtener el id mayor de la tabla especialista
             $maxid = $dbEspecialistas->MayorIdEspecialista();
             foreach ($maxid as $iddd) {
-                $id = $iddd["maxId"];
+                $idEspecialista = $iddd["maxId"];
             }
-            // Obtener el id mayor de la tabla login
-            $maxid = $dbEspecialistas->MayorIdUsuarios();
-            foreach ($maxid as $idddUser) {
-                $idUsuario = $idddUser["maxId"];
-            }
-            $id = ($id + 1);
-            $idUsuario = ($idUsuario + 1);
+            $idEspecialista = ($idEspecialista + 1);
             $btn = "Agregar";
             $status = null;
             $especialista = array(
-                "idEspecialista" => $id,
-                "idUsuario" => $idUsuario,
+                "idEspecialista" => $idEspecialista,
                 "dni" => "",
                 "nombre" => "",
                 "apellido" => "",
@@ -82,21 +64,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "telefono" => "",
                 "Email" => "",
                 "Contrasena" => "",
+                "Estado" =>"",
             );
             break;
 
         case 'update':
-            $id = $_GET["id"];
+            $idEspecialista = $_GET["id"];
             $btn = "Actualizar";
             $status = null;
-            $especialista = $dbEspecialistas->selectEspecialista($id);
+            $especialista = $dbEspecialistas->selectEspecialista($idEspecialista);
             break;
 
         case 'delete':
-            $id = $_GET["id"];
+            $idEspecialista = $_GET["id"];
             $btn = "Eliminar";
             $status = "disabled";
-            $especialista = $dbEspecialistas->selectEspecialista($id);
+            $especialista = $dbEspecialistas->selectEspecialista($idEspecialista);
             break;
     }
 }
@@ -134,10 +117,9 @@ switch ($btn) {
         <div class="main">
             <div class="formm">
                 <form action="?m=panel&mod=usuarios&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $id ?>">
-                    <input type="hidden" name="idUsuario" value="<?= intval($especialista['idUsuario']) ?>">
+                    <input type="hidden" name="id" value="<?= $especialista['idEspecialista'] ?>">
                     <span>Id</span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEspecialista" value="<?= intval($especialista['idEspecialista']) ?>"<?= $status ?>>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEspecialista" value="<?= $especialista['idEspecialista'] ?>"<?= $status ?>>
                     <span>DNI</span>
                     <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>"<?= $status ?>>
                     <span>Nombre</span>
@@ -152,6 +134,8 @@ switch ($btn) {
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>"<?= $status ?>>
                     <span>Contraseña</span>
                     <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
+                    <span>Estado</span>
+                    <input required type="text" min="0" name="estado" value="<?= $especialista['Estado'] ?>"<?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
                 </form>
