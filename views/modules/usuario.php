@@ -15,14 +15,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $direccion = $_POST["direccion"];
     $telefono = $_POST["telefono"];
-    $contrasena = $_POST["constrasena"];
+    $contrasena = $_POST["contrasena"];
     $estado = $_POST["estado"];
-    $idEspecialista = $_POST['id'];
+    $idUsuario = $_POST['idUsuario'];
 
     switch ($action) {
         case 'add':
             $msj = "0x1000";
-            $affectedRows = $dbEspecialistas->insertEspecialista($dni, $nombre, $apellido, $cargo, $direccion, $telefono, $email, $contrasena, $activacion, $idEspecialista);
+            $affectedRows = $dbEspecialistas->insertUsuario(array(
+                'idUsuario' => $idUsuario,
+                'Email' => $email,
+                'pass' => $contrasena,
+                'id' => $id,
+                'dni' => $dni,
+                'nombre' => $nombre,
+                'apellido' => $apellido,
+                'direccion' => $direccion,
+                'telefono' => $telefono
+            ));
             if ($affectedRows > 0) {
                 $msj = "0x10";
             }
@@ -30,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'update':
             $msj = "0x20";
-            $affectedRows = $dbEspecialistas->updateEspecialista($id, $dni, $nombre, $apellido, $cargo, $direccion, $telefono, $email, $contrasena, $activacion);
+            $affectedRows = $dbEspecialistas->updateEspecialista($id, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena);
             if ($affectedRows == 0) {
                 $msj = "0x1000";
             }
@@ -43,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             break;
     }
-    header('location: ?m=panel&mod=empresas&msj=' . $msj);
+    header('location: ?m=panel&mod=usuarios&msj=' . $msj);
 } else {
     // Preparar el formulario para: Agregar - Modificar - Eliminar
     switch ($action) {
@@ -53,11 +63,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             foreach ($maxid as $iddd) {
                 $id = $iddd["maxId"];
             }
+            // Obtener el id mayor de la tabla login
+            $maxid = $dbEspecialistas->MayorIdUsuarios();
+            foreach ($maxid as $idddUser) {
+                $idUsuario = $idddUser["maxId"];
+            }
             $id = ($id + 1);
+            $idUsuario = ($idUsuario + 1);
             $btn = "Agregar";
             $status = null;
             $especialista = array(
-                "idEspecialista"=>$id,
+                "idEspecialista" => $id,
+                "idUsuario" => $idUsuario,
                 "dni" => "",
                 "nombre" => "",
                 "apellido" => "",
@@ -118,22 +135,23 @@ switch ($btn) {
             <div class="formm">
                 <form action="?m=panel&mod=usuarios&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $id ?>">
+                    <input type="hidden" name="idUsuario" value="<?= intval($especialista['idUsuario']) ?>">
                     <span>Id</span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEspecialista" value="<?= intval($especialista['idEspecialista']) ?>">
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEspecialista" value="<?= intval($especialista['idEspecialista']) ?>"<?= $status ?>>
                     <span>DNI</span>
-                    <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>">
+                    <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>"<?= $status ?>>
                     <span>Nombre</span>
-                    <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>">
+                    <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>"<?= $status ?>>
                     <span>Apellido</span>
-                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>">
+                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"<?= $status ?>>
                     <span>Dirección</span>
-                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>">
+                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"<?= $status ?>>
                     <span>Teléfono</span>
-                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>">
+                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"<?= $status ?>>
                     <span>Email</span>
-                    <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>">
+                    <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>"<?= $status ?>>
                     <span>Contraseña</span>
-                    <input required type="password" min="0" name="constrasena" value="<?= $especialista['Contrasena'] ?>">
+                    <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
                 </form>

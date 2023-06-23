@@ -43,74 +43,101 @@ class dbEspecialistas
 
         return [];
     }
-    //============================================================================
-    //
-    //                  Hasta aca todo bien... pero luego XD
-    //
-    //============================================================================
 
-    public function insertUsuario($idUsuario, $Email, $pass,$idEspecialista,$dni,$nombre, $apellido, $direccion, $telefono)
-{
-    global $conexion;
-    $passHash = password_hash($pass, PASSWORD_BCRYPT, ["cost" => 11]);
-    date_default_timezone_set('America/Lima'); // Establece la zona horaria a Perú
-    $fechaHora = date('Y-m-d H:i:s'); // Obtiene la fecha y hora actual en el formato deseado
+    public function insertUsuario($usuario)
+    {
+        global $conexion;
+        $passHash = password_hash($usuario['pass'], PASSWORD_BCRYPT, ["cost" => 11]);
+        date_default_timezone_set('America/Lima');
+        $fechaHora = date('Y-m-d H:i:s');
 
-    $consulta_Especialistas = "INSERT INTO especialistas (dni,nombre,apellido,cargo,direccion,telefono)
-                            VALUES ('$dni','$nombre','$apellido','Especialista','$direccion','$telefono')";
-    mysqli_query($conexion, $consulta_Especialistas);
+        $consulta_Especialistas = "INSERT INTO especialista (dni, nombre, apellido, cargo, direccion, telefono)
+                                VALUES (?, ?, ?, 'Especialista', ?, ?)";
+        $stmt = mysqli_prepare($conexion, $consulta_Especialistas);
+        mysqli_stmt_bind_param($stmt, "sssss", $usuario['dni'], $usuario['nombre'], $usuario['apellido'], $usuario['direccion'], $usuario['telefono']);
+        mysqli_stmt_execute($stmt);
 
-    $consulta_Login = "INSERT INTO login (rol,idEspecialista,Email,contrasena,activacion,estado)
-                    VALUE (0,'$idEspecialista','$Email','$passHash','$fechaHora',1)";
-    mysqli_query($conexion, $consulta_Login);
+        $idEspecialista = mysqli_insert_id($conexion); // Obtener el ID generado automáticamente
 
-    return mysqli_affected_rows($conexion);
-}
+        $consulta_Login = "INSERT INTO login (rol, idEspecialista, Email, contrasena, activacion, estado)
+                        VALUE (0, ?, ?, ?, ?, 1)";
+        $stmt = mysqli_prepare($conexion, $consulta_Login);
+        mysqli_stmt_bind_param($stmt, "issss", $idEspecialista, $usuario['Email'], $passHash, $fechaHora);
+        mysqli_stmt_execute($stmt);
+
+        return mysqli_affected_rows($conexion);
+    }
 
 
     public function updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena)
     {
         global $conexion;
-        
-        $consulta_especialista = "UPDATE especialista
-                    SET dni = '$dni',
-                    nombre = '$nombre',
-                    apellido = '$apellido',
-                    direccion = '$direccion',
-                    telefono = '$telefono'
-                    WHERE idEspecialista = $idEspecialista";
 
-        mysqli_query($conexion, $consulta_especialista);
+        $consulta_especialista = "UPDATE especialista
+                    SET dni = ?,
+                    nombre = ?,
+                    apellido = ?,
+                    direccion = ?,
+                    telefono = ?,
+                    Email = ?
+                    WHERE idEspecialista = ?";
+
+        $stmt = mysqli_prepare($conexion, $consulta_especialista);
+        mysqli_stmt_bind_param($stmt, "ssssssi", $dni, $nombre, $apellido, $direccion, $telefono, $email, $idEspecialista);
+        mysqli_stmt_execute($stmt);
 
         $passHash = password_hash($contrasena, PASSWORD_BCRYPT, ["cost" => 11]);
 
         $consulta_login = "UPDATE login
-                    SET Email = '$email',
-                    contrasena = '$passHash',
-                    WHERE idEspecialista = $idEspecialista";
+                    SET Email = ?,
+                    contrasena = ?
+                    WHERE idEspecialista = ?";
 
-        mysqli_query($conexion, $consulta_login);
+        $stmt = mysqli_prepare($conexion, $consulta_login);
+        mysqli_stmt_bind_param($stmt, "ssi", $email, $passHash, $idEspecialista);
+        mysqli_stmt_execute($stmt);
+
         return mysqli_affected_rows($conexion);
     }
+
 
     public function deleteEspecialista($idEspecialista)
     {
         global $conexion;
 
-        $consulta_especialista = "DELETE FROM especialista WHERE idEspecialista = $idEspecialista";
-        mysqli_query($conexion, $consulta_especialista);
+        $consulta_especialista = "DELETE FROM especialista WHERE idEspecialista = ?";
+        $stmt = mysqli_prepare($conexion, $consulta_especialista);
+        mysqli_stmt_bind_param($stmt, "i", $idEspecialista);
+        mysqli_stmt_execute($stmt);
 
-        $consulta_login = "DELETE FROM login WHERE idEspecialista = $idEspecialista";
-        mysqli_query($conexion, $consulta_login);
+        $consulta_login = "DELETE FROM login WHERE idEspecialista = ?";
+        $stmt = mysqli_prepare($conexion, $consulta_login);
+        mysqli_stmt_bind_param($stmt, "i", $idEspecialista);
+        mysqli_stmt_execute($stmt);
 
         return mysqli_affected_rows($conexion);
     }
 
-    function MayorIdEspecialista() {
-    global $conexion;
+    public function MayorIdEspecialista()
+    {
+        global $conexion;
 
-    $consulta = "SELECT MAX(idEspecialista) as maxId FROM especialista";
-    $resultado = mysqli_query($conexion, $consulta);
+        $consulta = "SELECT MAX(idEspecialista) as maxId FROM especialista";
+        $resultado = mysqli_query($conexion, $consulta);
+
+        if (mysqli_num_rows($resultado) > 0) {
+            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+        } else {
+            return [];
+        }
+    }
+
+    public function MayorIdUsuarios()
+    {
+        global $conexion;
+
+        $consulta = "SELECT MAX(idUsuario) as maxId FROM login";
+        $resultado = mysqli_query($conexion, $consulta);
 
         if (mysqli_num_rows($resultado) > 0) {
             return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
