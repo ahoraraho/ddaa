@@ -17,12 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefono = $_POST["telefono"];
     $contrasena = $_POST["constrasena"];
     $estado = $_POST["estado"];
+    $idUsuario = $_POST['idUsuario'];
     $idEspecialista = $_POST['id'];
 
     switch ($action) {
         case 'add':
             $msj = "0x1000";
-            $affectedRows = $dbEspecialistas->insertEspecialista($dni, $nombre, $apellido, $cargo, $direccion, $telefono, $email, $contrasena, $activacion, $idEspecialista);
+            $affectedRows = $dbEspecialistas->insertEspecialista($idUsuario, $Email, $pass,$idEspecialista,$dni,$nombre, $apellido, $direccion, $telefono);
             if ($affectedRows > 0) {
                 $msj = "0x10";
             }
