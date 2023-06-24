@@ -126,28 +126,23 @@ switch ($btn) {
                     <span>Nombre</span>
                     <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>"<?= $status ?>>
                     <span>Apellido</span>
-                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"
-                        <?= $status ?>>
+                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"<?= $status ?>>
                     <span>Dirección</span>
-                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"
-                        <?= $status ?>>
+                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"<?= $status ?>>
                     <span>Teléfono</span>
-                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"
-                        <?= $status ?>>
+                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"<?= $status ?>>
                     <span>Email</span>
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>"<?= $status ?>>
                     <span>Contraseña</span>
                     <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
                     <span>Estado</span>
-                    <input required type="text" min="0" name="estado" value="<?= $especialista['Estado'] ?>"<?= $status ?>>
-
-                    <select name="estado" value="<?= $especialista["estado"]; ?>" <?= $status ?>>                                
-                                <option value="1">Habilitado</option>
-                                <option value="0">Inhabilitado</option>
+                    <select name="estado" <?= $status ?>>
+                        <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
+                        <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
                     </select>
 
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $hacer ?></button>
                 </form>
             </div>
         </div>
