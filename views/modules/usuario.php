@@ -134,7 +134,7 @@ switch ($btn) {
                     <span>Email</span>
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>"<?= $status ?>>
                     <span>Contraseña</span>
-                    <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
+                    <input required type="password" min="0" name="contrasena" value="">
                     <span>Estado</span>
                     <select name="estado" <?= $status ?>>
                         <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
@@ -142,7 +142,7 @@ switch ($btn) {
                     </select>
 
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $hacer ?></button>
+                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
             </div>
         </div>
