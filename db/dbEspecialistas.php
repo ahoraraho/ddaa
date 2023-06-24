@@ -54,7 +54,7 @@ class dbEspecialistas
 
         mysqli_query($conexion, $consulta_especialista);
 
-        $consulta_login = "INSERT INTO login (idEspecialista, Email, Contrasena, Activacion, Estado, rol) VALUES ('$idEspecialista','$email','$passHash','$fechaHora',1 ,0);";
+        $consulta_login = "INSERT INTO login (idEspecialista, Email, Contrasena, Activacion, Estado, rol) VALUES ($idEspecialista,'$email','$passHash','$fechaHora',1 ,0);";
 
         mysqli_query($conexion, $consulta_login);
 
@@ -111,11 +111,11 @@ class dbEspecialistas
     }
 
 
-    function MayorIdEspecialista() {
-    global $conexion;
+    public function MayorIdEspecialista() {
+        global $conexion;
 
-    $consulta = "SELECT MAX(idEspecialista) as maxId FROM especialista";
-    $resultado = mysqli_query($conexion, $consulta);
+        $consulta = "SELECT MAX(idEspecialista) as maxId FROM especialista";
+        $resultado = mysqli_query($conexion, $consulta);
 
         if (mysqli_num_rows($resultado) > 0) {
             return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
@@ -124,17 +124,17 @@ class dbEspecialistas
         }
     }
 
-    function MayorIdUsuarios() {
+    public function MayorIdUsuarios() {
         global $conexion;
-    
+
         $consulta = "SELECT MAX(idUsuario) as maxId FROM login";
         $resultado = mysqli_query($conexion, $consulta);
-    
-            if (mysqli_num_rows($resultado) > 0) {
-                return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
-            } else {
-                return [];
-            }
+
+        if (mysqli_num_rows($resultado) > 0) {
+            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+        } else {
+            return [];
         }
+    }
 }
 ?>

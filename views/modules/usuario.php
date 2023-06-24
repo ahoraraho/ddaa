@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($action) {
         case 'add':
             $msj = "0x1000";
-            $affectedRows = $dbEspecialistas->insertUsuario->insertUsuario($idEspecialista ,$dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
+            $affectedRows = $dbEspecialistas->insertUsuario($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
             if ($affectedRows > 0) {
                 $msj = "0x10";
             }
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "telefono" => "",
                 "Email" => "",
                 "Contrasena" => "",
-                "Estado" =>"",
+                "Estado" => "",
             );
             break;
 
@@ -119,23 +119,33 @@ switch ($btn) {
                 <form action="?m=panel&mod=usuarios&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $especialista['idEspecialista'] ?>">
                     <span>Id</span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idEspecialista" value="<?= $especialista['idEspecialista'] ?>"<?= $status ?>>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id"
+                        value="<?= $especialista['idEspecialista'] ?>"<?= $status ?>>
                     <span>DNI</span>
                     <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>"<?= $status ?>>
                     <span>Nombre</span>
                     <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>"<?= $status ?>>
                     <span>Apellido</span>
-                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"<?= $status ?>>
+                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"
+                        <?= $status ?>>
                     <span>Dirección</span>
-                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"<?= $status ?>>
+                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"
+                        <?= $status ?>>
                     <span>Teléfono</span>
-                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"<?= $status ?>>
+                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"
+                        <?= $status ?>>
                     <span>Email</span>
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>"<?= $status ?>>
                     <span>Contraseña</span>
                     <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
                     <span>Estado</span>
                     <input required type="text" min="0" name="estado" value="<?= $especialista['Estado'] ?>"<?= $status ?>>
+
+                    <select name="estado" value="<?= $especialista["estado"]; ?>" <?= $status ?>>                                
+                                <option value="1">Habilitado</option>
+                                <option value="0">Inhabilitado</option>
+                    </select>
+
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
                 </form>
