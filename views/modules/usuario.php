@@ -21,8 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($action) {
         case 'add':
             $msj = "0x1000";
-            $affectedRows = $dbEspecialistas->insertUsuario($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
-            if ($affectedRows > 0) {
+            $affectedRows = $dbEspecialistas->insertEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
+            if ($affectedRows) {
                 $msj = "0x10";
             }
             break;
@@ -30,14 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         case 'update':
             $msj = "0x20";
             $affectedRows = $dbEspecialistas->updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
-            if ($affectedRows == 0) {
-                $msj = "0x1000";
+            if ($affectedRows) {
+                $msj = "0x30";
             }
             break;
 
         case 'delete':
             $msj = "0x1000";
-            if ($dbEspecialistas->deleteEspecialista($idEspecialista) > 0) {
+            $affectedRows = $dbEspecialistas->deleteEspecialista($idEspecialista);
+            if ($affectedRows) {
                 $msj = "0x30";
             }
             break;
@@ -48,11 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($action) {
         case 'add':
             // Obtener el id mayor de la tabla especialista
-            $maxid = $dbEspecialistas->MayorIdEspecialista();
-            foreach ($maxid as $iddd) {
-                $idEspecialista = $iddd["maxId"];
-            }
-            $idEspecialista = ($idEspecialista + 1);
+            $idEspecialista = $dbEspecialistas->MayorIdEspecialista() + 1;
             $btn = "Agregar";
             $status = null;
             $especialista = array(
@@ -134,13 +131,12 @@ switch ($btn) {
                     <span>Email</span>
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>"<?= $status ?>>
                     <span>Contraseña</span>
-                    <input required type="password" min="0" name="contrasena" value="">
+                    <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
                     <span>Estado</span>
                     <select name="estado" <?= $status ?>>
                         <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
                         <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
                     </select>
-
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>

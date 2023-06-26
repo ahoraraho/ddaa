@@ -43,25 +43,45 @@ class dbEspecialistas
         return [];
     }
 
-    public function insertUsuario($idEspecialista ,$dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado)
+//
+//                      Hasta aca
+//                   si funciona XD
+//
+    public function insertEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado)
     {
         global $conexion;
         $passHash = password_hash($contrasena, PASSWORD_BCRYPT, ["cost" => 11]);
         date_default_timezone_set('America/Lima');
         $fechaHora = date('Y-m-d H:i:s');
 
-        $consulta_especialista = "INSERT INTO especialista (dni, nombre, apellido, cargo, direccion, telefono) VALUES ('$dni','$nombre','$apellido','Especialista','$direccion','$telefono');";
+        $consulta_especialista = "INSERT INTO especialista (dni, nombre, apellido, cargo, direccion, telefono) VALUES (?, ?, ?, 'Especialista', ?, ?);";
+        $stmt_especialista = mysqli_prepare($conexion, $consulta_especialista);
 
-        mysqli_query($conexion, $consulta_especialista);
+        if ($stmt_especialista) {
+            mysqli_stmt_bind_param($stmt_especialista, "sssss", $dni, $nombre, $apellido, $direccion, $telefono);
+            mysqli_stmt_execute($stmt_especialista);
+            mysqli_stmt_close($stmt_especialista);
+        } else {
+            // Manejar el error de consulta
+            // Ejemplo: error_log(mysqli_error($conexion));
+            return 0;
+        }
 
-        $consulta_login = "INSERT INTO login (idEspecialista, Email, Contrasena, Activacion, Estado, rol) VALUES ($idEspecialista,'$email','$passHash','$fechaHora',1 ,0);";
+        $consulta_login = "INSERT INTO login (idEspecialista, Email, Contrasena, Activacion, Estado, rol) VALUES (?, ?, ?, ?, 1, 0);";
+        $stmt_login = mysqli_prepare($conexion, $consulta_login);
 
-        mysqli_query($conexion, $consulta_login);
+        if ($stmt_login) {
+            mysqli_stmt_bind_param($stmt_login, "isss", $idEspecialista, $email, $passHash, $fechaHora);
+            mysqli_stmt_execute($stmt_login);
+            mysqli_stmt_close($stmt_login);
+        } else {
+            // Manejar el error de consulta
+            // Ejemplo: error_log(mysqli_error($conexion));
+            return 0;
+        }
 
         return mysqli_affected_rows($conexion);
-
     }
-
 
     public function updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado)
     {
@@ -70,45 +90,80 @@ class dbEspecialistas
         date_default_timezone_set('America/Lima');
         $fechaHora = date('Y-m-d H:i:s');
 
-        $consulta_especialista="UPDATE especialista
-                                SET dni = '$dni',
-                                nombre = '$nombre',
-                                apellido = '$apellido',
-                                direccion = '$direccion',
-                                telefono = '$telefono'
-                                WHERE idEspecialista = $idEspecialista;";
+        $consulta_especialista = "UPDATE especialista
+                                SET dni = ?,
+                                nombre = ?,
+                                apellido = ?,
+                                direccion = ?,
+                                telefono = ?
+                                WHERE idEspecialista = ?;";
+        $stmt_especialista = mysqli_prepare($conexion, $consulta_especialista);
 
-        mysqli_query($conexion, $consulta_especialista);
+        if ($stmt_especialista) {
+            mysqli_stmt_bind_param($stmt_especialista, "sssssi", $dni, $nombre, $apellido, $direccion, $telefono, $idEspecialista);
+            mysqli_stmt_execute($stmt_especialista);
+            mysqli_stmt_close($stmt_especialista);
+        } else {
+            // Manejar el error de consulta
+            // Ejemplo: error_log(mysqli_error($conexion));
+            return 0;
+        }
 
-        $consulta_login="UPDATE login
-                        SET Email = '$email',
-                        Contrasena = '$passHash',
-                        Estado = $estado,
-                        fechaModificacionPass = '$fechaHora',
-                        fechaModificacionData = '$fechaHora'
-                        WHERE idEspecialista = $idEspecialista;";
-        
-        mysqli_query($conexion, $consulta_login);
+        $consulta_login = "UPDATE login
+                        SET Email = ?,
+                        Contrasena = ?,
+                        Estado = ?,
+                        fechaModificacionPass = ?,
+                        fechaModificacionData = ?
+                        WHERE idEspecialista = ?;";
+        $stmt_login = mysqli_prepare($conexion, $consulta_login);
+
+        if ($stmt_login) {
+            mysqli_stmt_bind_param($stmt_login, "sssisi", $email, $passHash, $estado, $fechaHora, $fechaHora, $idEspecialista);
+            mysqli_stmt_execute($stmt_login);
+            mysqli_stmt_close($stmt_login);
+        } else {
+            // Manejar el error de consulta
+            // Ejemplo: error_log(mysqli_error($conexion));
+            return 0;
+        }
 
         return mysqli_affected_rows($conexion);
     }
-    
 
     public function deleteEspecialista($idEspecialista)
     {
         global $conexion;
 
-        $consulta_login="DELETE FROM login WHERE idEspecialista = $idEspecialista;";
+        $consulta_login = "DELETE FROM login WHERE idEspecialista = ?;";
+        $stmt_login = mysqli_prepare($conexion, $consulta_login);
 
-        mysqli_query($conexion, $consulta_login);
+        if ($stmt_login) {
+            mysqli_stmt_bind_param($stmt_login, "i", $idEspecialista);
+            mysqli_stmt_execute($stmt_login);
+            mysqli_stmt_close($stmt_login);
+        } else {
+            // Manejar el error de consulta
+            // Ejemplo: error_log(mysqli_error($conexion));
+            return 0;
+        }
 
-        $consulta_especialista="DELETE FROM especialista WHERE idEspecialista = $idEspecialista;";
+        $consulta_especialista = "DELETE FROM especialista WHERE idEspecialista = ?;";
+        $stmt_especialista = mysqli_prepare($conexion, $consulta_especialista);
 
-        mysqli_query($conexion, $consulta_especialista);
+        if ($stmt_especialista) {
+            mysqli_stmt_bind_param($stmt_especialista, "i", $idEspecialista);
+            mysqli_stmt_execute($stmt_especialista);
+            mysqli_stmt_close($stmt_especialista);
+        } else {
+            // Manejar el error de consulta
+            // Ejemplo: error_log(mysqli_error($conexion));
+            return 0;
+        }
 
         return mysqli_affected_rows($conexion);
-
     }
+
 
 
     public function MayorIdEspecialista() {
