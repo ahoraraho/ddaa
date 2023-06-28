@@ -25,6 +25,8 @@ class dbActualizaciones
         return $procesos;
     }
 
+    /* CRUD BASI */
+
     public function selectActualizaciones()
     {
         global $conexion;
@@ -44,7 +46,7 @@ class dbActualizaciones
         return $procesos;
     }
 
-    public function selectNew($id)
+    public function selectActulizacion($id)
     {
         global $conexion;
 
@@ -64,7 +66,7 @@ class dbActualizaciones
         return [];
     }
 
-    public function insertNew($descripcion, $tipo, $nombreArchivo)
+    public function InsertActualizacion($descripcion, $tipo, $nombreArchivo)
     {
         global $conexion;
 
@@ -75,6 +77,49 @@ class dbActualizaciones
         return mysqli_affected_rows($conexion);
     }
 
+    public function UpdateActualizacion($id, $descripcion, $tipo, $pdf)
+    {
+        global $conexion;
+
+        $consulta = "UPDATE actualizaciones
+                    SET descripcion = '$descripcion',
+                    tipo = '$tipo',
+                    archivo = '$pdf'
+                    WHERE idActualizacion = $id";
+
+        mysqli_query($conexion, $consulta);
+
+        return mysqli_affected_rows($conexion);
+    }
+    public function DeleteActualizacion($id)
+    {
+        global $conexion;
+
+        $consulta = "DELETE FROM actualizaciones WHERE idActualizacion = $id";
+
+        mysqli_query($conexion, $consulta);
+
+        return mysqli_affected_rows($conexion);
+    }
+
+    public function MayorIdActualizacion()
+    {
+        global $conexion;
+
+        $consulta = "SELECT MAX(idActualizacion) as maxx FROM actualizaciones";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        if ($resultado && mysqli_num_rows($resultado) > 0) {
+            $fila = mysqli_fetch_assoc($resultado);
+            return $fila['maxx'];
+        } else {
+            return 0;
+        }
+    }
+
+
+    /*CODIGO PARA RESCATAR QUE TIPO DE ACTUALIZACION ES */
     public function selectTipos()
     {
         global $conexion;

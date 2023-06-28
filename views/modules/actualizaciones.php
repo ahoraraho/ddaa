@@ -10,17 +10,17 @@ if (isset($_GET['msj'])) {
     $typeMsj = "";
     switch ($msj) {
         case '0x10':
-            $msj = "Actualizaciones agregado!";
+            $msj = "Actualización agregado!";
             $typeMsj = "msj-ok";
             $iconoAlert = "bi-check-circle";
             break;
         case '0x20':
-            $msj = "Actualizaciones actualizado!";
+            $msj = "Actualización actualizado!";
             $typeMsj = "msj-ok";
             $iconoAlert = "bi-check2-circle";
             break;
         case '0x30':
-            $msj = "Actualizaciones eliminado!";
+            $msj = "Actualización eliminado!";
             $typeMsj = "msj-warning";
             $iconoAlert = "bi-info-circle";
             break;
@@ -32,7 +32,23 @@ if (isset($_GET['msj'])) {
     }
     alertaResponDialog($typeMsj, $msj, $iconoAlert);
 }
+// descarga el archivo
+if (isset($_GET['file'])) {
+    $archivo = $_GET['file'];
 
+    $ruta_archivo = "pdfsActualizaciones/" . $archivo;
+
+    // Verificar que el archivo exista en el servidor
+    if (file_exists($ruta_archivo)) {
+        // Enviar el archivo al navegador// Descargar archivo PDF
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $archivo . '"');
+
+        readfile($ruta_archivo);
+    } else {
+        echo "El archivo no existe en el servidor.";
+    }
+}
 ?>
 
 <h3>Actualizaciones</h3>
@@ -79,10 +95,10 @@ if (isset($_GET['msj'])) {
                     <td><?= $id ?></td>
                     <td style="text-align: start;   width: max-content;"><?= $descripcion ?></td>
                     <td style="text-align: end;   width: min-content;">
-                        <a title="Ver" target="_blank" href="files/<?= $archivo ?>">
+                        <a title="Ver" target="_blank" href="pdfsActualizaciones/<?= $archivo ?>">
                             <i class="view bi bi-file-earmark-pdf"></i>
                         </a>
-                        <a title="Descargar" href="?m=actuall&cod=<?= $id ?>">
+                        <a title="Descargar" href="?m=panel&mod=actualizaciones&file=<?= $archivo ?>">
                             <i class="donwload bi bi-download"></i>
                         </a>
                         <a href="?m=panel&mod=actualizacion&action=update&id=<?= $id ?>" title="Modificar">
