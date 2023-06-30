@@ -18,12 +18,13 @@ if (isset($_GET['sesion']) && $_GET['sesion'] == 'cerrar') {
 <section class="panel-users">
     <nav class="nav-panel">
         <a href="?m=panel&mod=proyectos" class="<?= ($_GET['mod'] == 'proyectos') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-newspaper"></i>
+            <i class="bi bi-motherboard"></i>
             <span>Proyectos</span>
         </a>
         <a href="?m=panel&mod=procesos" class="<?= ($_GET['mod'] == 'procesos') ? 'nav-active' : ''; ?>">
             <!-- <i class="bi bi-building-gear"></i> -->
-            <i class="bi bi-motherboard"></i>
+            <!-- <i class="bi bi-columns-gap"></i> -->
+            <i class="bi bi-layout-text-window-reverse"></i>
             <span>Procesos</span>
         </a>
         <a href="?m=panel&mod=empresas" class="<?= ($_GET['mod'] == 'empresas') ? 'nav-active' : ''; ?>">
@@ -42,9 +43,13 @@ if (isset($_GET['sesion']) && $_GET['sesion'] == 'cerrar') {
             <i class="bi bi-person-vcard"></i>
             <span>Contactos</span>
         </a>
-        <a href="?m=panel&mod=documentos" class="<?= ($_GET['mod'] == 'documentos') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-file-earmark-medical"></i>
-            <span>Documentos</span>
+        <a href="?m=panel&mod=actualizaciones" class="<?= ($_GET['mod'] == 'actualizaciones') ? 'nav-active' : ''; ?>">
+            <i class="bi bi-menu-button-wide"></i>
+            <span>Actualizaciones</span>
+        </a>
+        <a href="?m=panel&mod=noticias" class="<?= ($_GET['mod'] == 'noticias') ? 'nav-active' : ''; ?>">
+            <i class="bi bi-newspaper"></i>
+            <span>Noticias</span>
         </a>
 
         <?php if ($_SESSION["Usuario"]["Administrador"]) : ?>

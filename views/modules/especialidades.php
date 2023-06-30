@@ -56,9 +56,6 @@ if (isset($_GET['msj'])) {
     </div>
 </div>
 
-
-
-<!-- tabla categorias -->
 <div class="contenido-tabla">
     <table class="responsive-especialidades">
         <thead>
