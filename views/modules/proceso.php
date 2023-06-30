@@ -1,4 +1,10 @@
 <?php
+
+if (!$_SESSION["Usuario"]) {
+    header('location: ./');
+    exit;
+}
+
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {
@@ -121,7 +127,7 @@ switch ($btn) {
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=categorias" title="Ir a Marcas">Procesos</a>
-    <a href="#" title="Estas justo aqui" class="active">Proceso</a>
+    <a href="#" title="Estas justo aqui" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
     <div class="entradas">

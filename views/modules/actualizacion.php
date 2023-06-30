@@ -1,6 +1,6 @@
 <?php
 // Valido que el usuario sea administrador
-if (!$_SESSION["Usuario"]["Administrador"]) {
+if (!$_SESSION["Usuario"]) {
     header('location: ./');
     exit;
 }
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         case 'update':
             $id = $_GET["id"];
-            $btn = "Actualizar";
+            $btn = "Guardar";
             $status = null;
             $actualizacion = $dbActualizaciones->selectActulizacion($id);
             break;

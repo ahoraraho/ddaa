@@ -1,10 +1,9 @@
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Objetos</a>
-</div>
-
 <?php
+if (!$_SESSION["Usuario"]) {
+    header('location: ./');
+    exit;
+}
+
 if (isset($_GET['msj'])) {
     $msj = $_GET['msj'];
     $typeMsj = "";
@@ -34,6 +33,12 @@ if (isset($_GET['msj'])) {
 }
 
 ?>
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Objetos</a>
+</div>
+
 
 <h3>OBJETOS</h3>
 <div class="numm">

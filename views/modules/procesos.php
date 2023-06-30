@@ -1,10 +1,9 @@
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Procesos</a>
-</div>
-
 <?php
+if (!$_SESSION["Usuario"]) {
+    header('location: ./');
+    exit;
+}
+
 if (isset($_GET['msj'])) {
     $msj = $_GET['msj'];
     $typeMsj = "";
@@ -34,6 +33,12 @@ if (isset($_GET['msj'])) {
 }
 
 ?>
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Procesos</a>
+</div>
+
 <h3>PROCESOS</h3>
 <div class="numm">
     <div class="f1">
@@ -73,7 +78,7 @@ if (isset($_GET['msj'])) {
             <?php
             $procesos = $dbProcesos->selectProcesos();
 
-            foreach ($procesos as $proceso){
+            foreach ($procesos as $proceso) {
                 $id = $proceso['numProceso'];
                 $entidad = $proceso['entidad'];
                 $nomenclatura = $proceso['nomenclatura'];
@@ -86,21 +91,21 @@ if (isset($_GET['msj'])) {
                 $postores = $proceso['nomPostor'];
                 $encargado = $proceso['nomEncargado'];
                 $objeto = $proceso['nomObjeto'];
-                $observaciones = $proceso['observaciones'];            
+                $observaciones = $proceso['observaciones'];
             ?>
-            <tr>
-                <td><?= $id ?></td>
-                <td><?= $entidad ?></td>
-                <td><?= $nombreClave ?></td>
-                <td><?= $postores ?></td>
-                <td><?= $encargado ?></td>
-                <td>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td><?= $entidad ?></td>
+                    <td><?= $nombreClave ?></td>
+                    <td><?= $postores ?></td>
+                    <td><?= $encargado ?></td>
+                    <td>
                         <a href="?m=panel&mod=proceso&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
                         <a href="?m=panel&mod=proceso&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
                     </td>
-            </tr>
+                </tr>
         </tbody>
-        <?php } ?>
+    <?php } ?>
     </table>
 </div>
 <div class="piePagina">
@@ -111,9 +116,9 @@ if (isset($_GET['msj'])) {
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

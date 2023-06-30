@@ -1,9 +1,3 @@
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Especialidades</a>
-</div>
-
 <?php
 if (isset($_GET['msj'])) {
     $msj = $_GET['msj'];
@@ -34,6 +28,12 @@ if (isset($_GET['msj'])) {
 }
 
 ?>
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Especialidades</a>
+</div>
+
 
 <h3>ESPECIALIDADES</h3>
 <div class="numm">

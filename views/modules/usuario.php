@@ -1,4 +1,9 @@
 <?php
+if (!$_SESSION["Usuario"]["Administrador"]) {
+    header('location: ./');
+    exit;
+}
+
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {
@@ -91,15 +96,15 @@ switch ($btn) {
     case 'Eliminar':
         $style = "background-color: crimson";
         $styleImage = "display: none !important;";
-        $hacer = "Eliminar Usuario";
+        $hacer = "Eliminar Especialista";
         break;
     case 'Agregar':
         $style = "background-color: rgb(0, 176, 26)";
-        $hacer = "Agregar Usuario";
+        $hacer = "Agregar Especialista";
         break;
     case 'Actualizar':
         $style = "background-color: rgb(9, 109, 149)";
-        $hacer = "Actualizar Usuario";
+        $hacer = "Actualizar Especialista";
         break;
     default:
         # code...
@@ -110,7 +115,7 @@ switch ($btn) {
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=usuarios" title="Ir a Usuarios">Usuarios</a>
-    <a href="#" title="Estás justo aquí" class="active">Usuario</a>
+    <a href="#" title="Estás justo aquí" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
     <div class="entradas">

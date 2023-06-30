@@ -1,10 +1,9 @@
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Empresas</a>
-</div>
-
 <?php
+if (!$_SESSION["Usuario"]) {
+    header('location: ./');
+    exit;
+}
+
 if (isset($_GET['msj'])) {
     $msj = $_GET['msj'];
     $typeMsj = "";
@@ -34,6 +33,12 @@ if (isset($_GET['msj'])) {
 }
 
 ?>
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Empresas</a>
+</div>
+
 
 <h3>EMPRESAS</h3>
 <div class="numm">
@@ -71,16 +76,16 @@ if (isset($_GET['msj'])) {
         </thead>
         <tbody>
             <?php
-                $empresas = $dbEmpresas->selectEmpresas();
+            $empresas = $dbEmpresas->selectEmpresas();
 
-                foreach($empresas as $empresa){
-                    $id=$empresa['idEmpresa'];
-                    $nombreEmpresa=$empresa['nombreEmpresa'];
-                    $ruc=$empresa['ruc'];
-                    $telefono=$empresa['telefono'];
-                    $email=$empresa['email'];
-                    $numeroPartida=$empresa['numeroPartida'];
-                    $mipe=$empresa['mipe'];
+            foreach ($empresas as $empresa) {
+                $id = $empresa['idEmpresa'];
+                $nombreEmpresa = $empresa['nombreEmpresa'];
+                $ruc = $empresa['ruc'];
+                $telefono = $empresa['telefono'];
+                $email = $empresa['email'];
+                $numeroPartida = $empresa['numeroPartida'];
+                $mipe = $empresa['mipe'];
             ?>
                 <tr>
                     <td><?= $id ?></td>
@@ -105,9 +110,9 @@ if (isset($_GET['msj'])) {
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

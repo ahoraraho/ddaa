@@ -1,4 +1,9 @@
 <?php
+if (!$_SESSION["Usuario"]) {
+    header('location: ./');
+    exit;
+}
+
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {
@@ -28,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         case 'update':
 
             $msj = "0x20";
-            $affectedRows = $dbContactos->UpdateContacto($id,$dni,$nombre,$email,$celular,$cargo);
+            $affectedRows = $dbContactos->UpdateContacto($id, $dni, $nombre, $email, $celular, $cargo);
             if ($affectedRows == 0) {
                 $msj = "0x1000";
             }
@@ -108,27 +113,27 @@ switch ($btn) {
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=categorias" title="Ir a Contactos">Contactos</a>
-    <a href="#" title="Estás aquí" class="active">Contacto</a>
+    <a href="#" title="Estás aquí" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
     <div class="entradas">
         <h3>CONTACTO</h3>
         <div class="main">
             <div class="formm">
-               
+
                 <form action="?m=panel&mod=contacto&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $contacto["idContacto"] ?>">
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $contacto["idContacto"] ?>" <?= $status ?>>
                     <span> DNI </span>
-                    <input required type="text" name="dni" value="<?= $contacto["dni"] ?>"<?= $status ?>>
+                    <input required type="text" name="dni" value="<?= $contacto["dni"] ?>" <?= $status ?>>
                     <span> Nombre </span>
-                    <input required type="text" name="nombre" value="<?= $contacto["nombre"] ?>"<?= $status ?>>
+                    <input required type="text" name="nombre" value="<?= $contacto["nombre"] ?>" <?= $status ?>>
                     <span> Email </span>
-                    <input required type="email" name="email" value="<?= $contacto["email"] ?>"<?= $status ?>>
+                    <input required type="email" name="email" value="<?= $contacto["email"] ?>" <?= $status ?>>
                     <span> Celular </span>
-                    <input required type="text" name="celular" value="<?= $contacto["celular"] ?>"<?= $status ?>>
+                    <input required type="text" name="celular" value="<?= $contacto["celular"] ?>" <?= $status ?>>
                     </i><span> Cargo </span>
-                    <input required type="text" name="cargo" value="<?= $contacto["cargo"] ?>"<?= $status ?>>
+                    <input required type="text" name="cargo" value="<?= $contacto["cargo"] ?>" <?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
