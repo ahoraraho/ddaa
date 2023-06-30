@@ -161,12 +161,6 @@ class dbEspecialistas
         return mysqli_affected_rows($conexion);
     }
 
-<<<<<<< HEAD
-=======
-    function MayorIdEspecialista() 
-    {
-    global $conexion;
->>>>>>> main
 
 
     public function MayorIdEspecialista() {

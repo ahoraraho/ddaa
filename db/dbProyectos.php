@@ -44,11 +44,11 @@ class dbProyectos
         }
 
         //insertar registros
-        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad){
+        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos){
 
             global $conexion;
 
-            $consulta = "INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad)
+            $consulta = "INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad, archivos)
                         VALUES (  
                         '$nombre_empresa', 
                         '$nombre_proyecto', 
@@ -64,7 +64,8 @@ class dbProyectos
                         '$observaciones', 
                         '$contacto', 
                         '$objeto', 
-                        '$especialidad')";
+                        '$especialidad',
+                        $archivos)";
 
             mysqli_query($conexion, $consulta);
 
@@ -72,7 +73,7 @@ class dbProyectos
         }
     
         // Actualizar registro en la tabla proyectos
-        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad)
+        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos)
         {
             global $conexion;
     
@@ -91,7 +92,8 @@ class dbProyectos
                     observaciones='$observaciones',
                     contacto='$contacto',
                     objeto='$objeto',
-                    especialidad='$especialidad'
+                    especialidad='$especialidad',
+                    archivos = $archivos
                     
                     WHERE idProyecto = $idProyecto";
 

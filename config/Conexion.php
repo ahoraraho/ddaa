@@ -35,17 +35,7 @@ class Conexion
     }
 }
 
-<<<<<<< HEAD
 $dbConexion = new Conexion("localhost", "root", "", "ddd");
-=======
-<<<<<<< HEAD
-
-$dbConexion = new Conexion("localhost", "root", "", "da");
-//$dbConexion = new Conexion("localhost", "root", "", "ddaa");
-=======
-$dbConexion = new Conexion("localhost", "root", "", "ddd");
->>>>>>> 2a51c7d7c32530b04fb37d68f9a6494dbb751e48
->>>>>>> main
 
 $dbConexion->connect();
 
