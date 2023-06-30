@@ -15,5 +15,10 @@ require_once ('db/dbProcesos.php');
 require_once ('db/dbProyectos.php');
 require_once ('db/dbEspecialistas.php');
 require_once ('db/dbDocumentos.php');
+
+require_once ('db/dbActualizaciones.php');
+require_once ('db/dbNoticias.php');
+
 require_once ('functions/functions.php');
+
 ?>

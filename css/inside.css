@@ -68,6 +68,40 @@ tr:nth-child(odd) td {
     color: var(--text-color);
 }
 
+/*TABLAS PARA CONTENER LA VISTA DOCUEMTOS*/
+.contenedor_pdf {
+    margin: 0;
+    padding: 0;
+    /* background-color: rgb(189, 171, 171); */
+}
+
+.contenedor_pdf table {
+    width: 100%;
+    padding: 5px;
+    border-collapse: collapse;
+    color: var(--text-color);
+
+}
+
+.contenedor_pdf th {
+    display: none;
+}
+
+.contenedor_pdf tr,
+.contenedor_pdf th,
+.contenedor_pdf td {
+    /*border: 1px solid;
+    border-color: black;*/
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.contenedor_pdf .description {
+    text-align: start;
+}
+
+
+
 /*FORMULARION DE ENTRADA DE DATOS DE TODO TIPO*/
 
 form {
@@ -558,15 +592,17 @@ textarea {
 .contenido-tabla table .edid,
 .contenido-tabla table .ok,
 .contenido-tabla table .nok,
-.contenido-tabla table .delete {
-    margin: 0;
+.contenido-tabla table .delete,
+.contenido-tabla table .donwload,
+.contenido-tabla table .view {
+    margin: 0px 5px;
     font-size: 30px;
     width: 30px;
     height: 30px;
 }
 
 .contenido-tabla table .edid {
-    margin-right: 20px;
+    /* margin-right: 20px; */
     color: rgb(13, 57, 133);
 }
 
@@ -574,6 +610,14 @@ textarea {
     color: rgb(180, 6, 6);
 }
 
+.contenido-tabla table .donwload {
+    /* margin-right: 20px; */
+    color: rgb(4, 141, 77);
+}
+
+.contenido-tabla table .view {
+    color: rgb(0, 0, 0);
+}
 
 .contenido-tabla table .ok {
     margin-right: 20px;
@@ -1356,4 +1400,37 @@ option {
         width: 100% !important;
         margin: auto 15px;
     }
+
+
+
+    /*TABLAS PARA CONTENER LA VISTA DOCUEMTOS*/
+
+    .contenedor_pdf table,
+    .contenedor_pdf td {
+        width: 100%;
+        padding: 0px;
+        border-collapse: collapse;
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        /* padding: 5px; */
+    }
+
+    .contenedor_pdf tr {
+        border: none;
+    }
+
+    .contenedor_pdf th {
+        display: none;
+    }
+
+    .contenedor_pdf td {
+        margin: 10px 0;
+    }
+
+    .contenedor_pdf .description {
+        text-align: center;
+        font-weight: bold;
+    }
+
 }

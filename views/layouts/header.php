@@ -27,13 +27,14 @@ session_start();
 
 				<ul class="nav-links">
 					<?php if (isset($_SESSION["Usuario"])) : ?>
-						<li><a id="nonne" href="?m=panel&mod=proyectos"><i class="bi bi-newspaper"></i><span>Proyectos</span></a></li>
-						<li><a id="nonne" href="?m=panel&mod=procesos"><i class="bi bi-motherboard"></i><span>Procesos</span></a></li>
+						<li><a id="nonne" href="?m=panel&mod=proyectos"><i class="bi bi-motherboard"></i><span>Proyectos</span></a></li>
+						<li><a id="nonne" href="?m=panel&mod=procesos"><i class="bi bi-layout-text-window-reverse"></i><span>Procesos</span></a></li>
 						<li><a id="nonne" href="?m=panel&mod=empresas"><i class="bi bi-buildings"></i><span>Empresas</span></a></li>
 						<li><a id="nonne" href="?m=panel&mod=objetos"><i class="bi bi-postcard"></i><span>Objetos</span></a></li>
 						<li><a id="nonne" href="?m=panel&mod=especialidades"><i class="bi bi-calendar4-range"></i><span>Especialidades</span></a></li>
 						<li><a id="nonne" href="?m=panel&mod=contactos"><i class="bi bi-person-vcard"></i><span>Contactos</span></a></li>
-						<li><a id="nonne" href="?m=panel&mod=documentos"><i class="bi bi-file-earmark-medical"></i><span>Documetos</span></a></li>
+						<li><a id="nonne" href="?m=panel&mod=actualizaciones"><i class="bi bi-menu-button-wide"></i><span>Actualizaciones</span></a></li>
+						<li><a id="nonne" href="?m=panel&mod=noticias"><i class="bi bi-newspaper"></i><span>Noticias</span></a></li>
 
 						<?php if ($_SESSION["Usuario"]["Administrador"]) : ?>
 							<li><a id="nonne" href="?m=panel&mod=usuarios"> <i class="bi bi-person-video2"></i><span>Usuarios</span></a></li>

@@ -80,6 +80,7 @@ sup {
 
 .form_input_textarea {
   width: 100%;
+  width: min-content;
   height: 100%;
   border-radius: 0.5rem;
   font-family: inherit;

@@ -176,6 +176,11 @@ switch ($btn) {
                             <tr>
                                 <td>Acta de Recepcion</td>
                                 <td>
+                                    <!-- <input id="achivo-1" type="file" name="acta_de_recepcion">
+                                    <div class="btn-add-pdf">
+                                        <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
+                                    </div> -->
+                                    <input id="archivo-1" type="file" min="0" name="resolucion_de_obra">
                                     <input id="achivo-1" type="file" name="acta_de_recepcion">
                                     <div class="btn-add-pdf">
                                         <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
