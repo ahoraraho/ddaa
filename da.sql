@@ -39,6 +39,24 @@ INSERT INTO login (rol, idAdministrador, idEspecialista, Email, Contrasena, Acti
 (1, 1, NULL, 'admin@da.com', '$2y$11$8zACYbl4d3PGpLIgIlEnzOuKCvhtTk9FG5AfyIsZXSRg62WK19NJ2', '2023-05-30 14:46:55', 1, '2023-06-02 17:44:09', '2023-06-02 17:43:39');
 
 
+CREATE TABLE archivosEmpresa (
+    idArchivo INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ficha_ruc VARCHAR(255) DEFAULT NULL,
+    constancia_RNP VARCHAR(255) DEFAULT NULL,
+    constancia_mipe VARCHAR(255) DEFAULT NULL,
+    certificado_discapacitados VARCHAR(255) DEFAULT NULL,
+    planilla_discapasitados VARCHAR(255) DEFAULT NULL,
+    carnet_conadis VARCHAR(255) DEFAULT NULL /*o sertificado medico*/
+);
+
+INSERT INTO archivosEmpresa (ficha_ruc, constancia_RNP, constancia_mipe, certificado_discapacitados, planilla_discapasitados, carnet_conadis) 
+VALUES 
+    ('FICHA001.pdf', 'CONSTANCIA001.pdf', 'MIPE001.pdf', 'DISCAPACIDAD001.pdf', 'PLANILLA001.pdf', 'CARNET001.pdf'),
+    ('FICHA002.pdf', 'CONSTANCIA002.pdf', 'MIPE002.pdf', 'DISCAPACIDAD002.pdf', 'PLANILLA002.pdf', 'CARNET002.pdf'),
+    ('FICHA003.pdf', 'CONSTANCIA003.pdf', 'MIPE003.pdf', 'DISCAPACIDAD003.pdf', 'PLANILLA003.pdf', 'CARNET003.pdf'),
+    ('FICHA004.pdf', 'CONSTANCIA004.pdf', 'MIPE004.pdf', 'DISCAPACIDAD004.pdf', 'PLANILLA004.pdf', 'CARNET004.pdf'),
+    ('FICHA005.pdf', 'CONSTANCIA005.pdf', 'MIPE005.pdf', 'DISCAPACIDAD005.pdf', 'PLANILLA005.pdf', 'CARNET005.pdf');
+
 CREATE TABLE empresa (
     idEmpresa INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombreEmpresa VARCHAR(100) NOT NULL,
@@ -46,8 +64,20 @@ CREATE TABLE empresa (
     telefono VARCHAR(9) NOT NULL CHECK (LENGTH(telefono) = 9),
     email VARCHAR(50) NOT NULL,
     numeroPartida VARCHAR(8) NOT NULL,
-    mipe VARCHAR(1) NOT NULL
+    mipe VARCHAR(1) NOT NULL,
+    archivos INT(11) NOT NULL,
+    
+    FOREIGN KEY (archivos) REFERENCES archivosEmpresa (idArchivo)
 );
+
+INSERT INTO empresa (nombreEmpresa, ruc, telefono, email, numeroPartida, mipe, archivos)
+VALUES 
+    ('Empresa 1', '12345678901', '987654321', 'empresa1@example.com', '12345678', 'N', 1),
+    ('Empresa 2', '23456789012', '876543210', 'empresa2@example.com', '23456789', 'N', 2),
+    ('Empresa 3', '34567890123', '765432109', 'empresa3@example.com', '34567890', 'S', 3),
+    ('Empresa 4', '45678901234', '654321098', 'empresa4@example.com', '45678901', 'N', 4),
+    ('Empresa 5', '56789012345', '543210987', 'empresa5@example.com', '56789012', 'N', 5);
+
 
 CREATE TABLE objeto (
     idObjeto INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -58,8 +88,8 @@ INSERT INTO objeto (nombre) VALUES
 ('Obras'),
 ('Servicios'),
 ('Bienes'),
-('Consultoria de Obra'),
-('Consultorías');
+('Consultorías'),
+('Consultoria de Obra');
 
 
 CREATE TABLE especialidad (
@@ -91,17 +121,34 @@ CREATE TABLE contacto (
     cargo VARCHAR(50) DEFAULT NULL
 );
 
-CREATE TABLE documentos (
-    idDocumento INT PRIMARY KEY AUTO_INCREMENT,
-    acta_de_recepcion VARCHAR(100),
-    resolucion_de_obra VARCHAR(100),
-    resolucion_deductivos VARCHAR(100),
-    resolucion_adicionales VARCHAR(100),
-    anexo_de_promesa_de_consorcio VARCHAR(100),
-    constancia VARCHAR(100),
-    contrato_de_consorcio VARCHAR(100),
-    contrato VARCHAR(100)
+INSERT INTO contacto (dni, nombre, email, celular, cargo)
+VALUES 
+    ('12345678', 'Contacto 1', 'contacto1@example.com', '987654321', 'Cargo 1'),
+    ('23456789', 'Contacto 2', 'contacto2@example.com', '876543210', 'Cargo 2'),
+    ('34567890', 'Contacto 3', 'contacto3@example.com', '765432109', 'Cargo 3'),
+    ('45678901', 'Contacto 4', 'contacto4@example.com', '654321098', 'Cargo 4'),
+    ('56789012', 'Contacto 5', 'contacto5@example.com', '543210987', 'Cargo 5');
+
+CREATE TABLE archivosProyectos (
+    idArchivo INT(11) PRIMARY KEY AUTO_INCREMENT,
+    acta_de_recepcion VARCHAR(255) DEFAULT NULL,
+    resolucion_de_obra VARCHAR(255) DEFAULT NULL,
+    resolucion_deductivos VARCHAR(255) DEFAULT NULL,
+    resolucion_adicionales VARCHAR(255) DEFAULT NULL,
+    anexo_de_promesa_de_consorcio VARCHAR(255) DEFAULT NULL,
+    constancia VARCHAR(255) DEFAULT NULL,
+    contrato_de_consorcio VARCHAR(255) DEFAULT NULL,
+    contrato VARCHAR(255) DEFAULT NULL
 );
+
+INSERT INTO archivosProyectos (acta_de_recepcion, resolucion_de_obra, resolucion_deductivos, resolucion_adicionales, anexo_de_promesa_de_consorcio, constancia, contrato_de_consorcio, contrato)
+VALUES 
+    ('ActaRecepcion001.pdf', 'ResolucionObra001.pdf', 'ResolucionDeductivos001.pdf', 'ResolucionAdicionales001.pdf', 'AnexoPromesaConsorcio001.pdf', 'Constancia001.pdf', 'ContratoConsorcio001.pdf', 'Contrato001.pdf'),
+    ('ActaRecepcion002.pdf', 'ResolucionObra002.pdf', 'ResolucionDeductivos002.pdf', 'ResolucionAdicionales002.pdf', 'AnexoPromesaConsorcio002.pdf', 'Constancia002.pdf', 'ContratoConsorcio002.pdf', 'Contrato002.pdf'),
+    ('ActaRecepcion003.pdf', 'ResolucionObra003.pdf', 'ResolucionDeductivos003.pdf', 'ResolucionAdicionales003.pdf', 'AnexoPromesaConsorcio003.pdf', 'Constancia003.pdf', 'ContratoConsorcio003.pdf', 'Contrato003.pdf'),
+    ('ActaRecepcion004.pdf', 'ResolucionObra004.pdf', 'ResolucionDeductivos004.pdf', 'ResolucionAdicionales004.pdf', 'AnexoPromesaConsorcio004.pdf', 'Constancia004.pdf', 'ContratoConsorcio004.pdf', 'Contrato004.pdf'),
+    ('ActaRecepcion005.pdf', 'ResolucionObra005.pdf', 'ResolucionDeductivos005.pdf', 'ResolucionAdicionales005.pdf', 'AnexoPromesaConsorcio005.pdf', 'Constancia005.pdf', 'ContratoConsorcio005.pdf', 'Contrato005.pdf');
+
 
 CREATE TABLE proyectos (
     idProyecto INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -120,18 +167,14 @@ CREATE TABLE proyectos (
     contacto INT(11) NOT NULL,
     objeto INT(11) NOT NULL,
     especialidad INT(11) NOT NULL,
+    archivos INT(11) NOT NULL,
     FOREIGN KEY (nombre_empresa) REFERENCES empresa (idEmpresa),
     FOREIGN KEY (contacto) REFERENCES contacto (idContacto),
     FOREIGN KEY (objeto) REFERENCES objeto (idObjeto),
-    FOREIGN KEY (especialidad) REFERENCES especialidad (idEspecialidad)
+    FOREIGN KEY (especialidad) REFERENCES especialidad (idEspecialidad),
+    FOREIGN KEY (archivos) REFERENCES archivosProyectos (idArchivo)
 );
 
-CREATE TABLE proyectos_documentos (
-    idProyecto INT(11) NOT NULL,
-    idDocumento INT(11) NOT NULL,
-    FOREIGN KEY (idProyecto) REFERENCES proyectos (idProyecto),
-    FOREIGN KEY (idDocumento) REFERENCES documentos (idDocumento)
-);
 
 CREATE TABLE procesos (
     numProceso INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -168,24 +211,6 @@ VALUES
     ('45678901', 'User', 'Apellido 4', 'Especialista', 'Dirección 4', '654321098');
 
 
-INSERT INTO empresa (nombreEmpresa, ruc, telefono, email, numeroPartida, mipe)
-VALUES 
-    ('Empresa 1', '12345678901', '987654321', 'empresa1@example.com', '12345678', 'N'),
-    ('Empresa 2', '23456789012', '876543210', 'empresa2@example.com', '23456789', 'N'),
-    ('Empresa 3', '34567890123', '765432109', 'empresa3@example.com', '34567890', 'S'),
-    ('Empresa 4', '45678901234', '654321098', 'empresa4@example.com', '45678901', 'N'),
-    ('Empresa 5', '56789012345', '543210987', 'empresa5@example.com', '56789012', 'N');
-
-
-INSERT INTO contacto (dni, nombre, email, celular, cargo)
-VALUES 
-    ('12345678', 'Contacto 1', 'contacto1@example.com', '987654321', 'Cargo 1'),
-    ('23456789', 'Contacto 2', 'contacto2@example.com', '876543210', 'Cargo 2'),
-    ('34567890', 'Contacto 3', 'contacto3@example.com', '765432109', 'Cargo 3'),
-    ('45678901', 'Contacto 4', 'contacto4@example.com', '654321098', 'Cargo 4'),
-    ('56789012', 'Contacto 5', 'contacto5@example.com', '543210987', 'Cargo 5');
-
-
 /*datos de prueva*/
 INSERT INTO procesos (entidad, nomenclatura, objeto, nombreClave, consultas, integracion, presentacion, buenaPro, postores, valorReferencial, encargado, estado, observaciones)
 VALUES 
@@ -201,3 +226,43 @@ VALUES
     ('Entidad 10', 'Nomenc 10', 1, 'Nombre Clave 10', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 1, 986574.80, 3, 'Estado 10', 'Observación 10'),
     ('Entidad 11', 'Nomenc 11', 2, 'Nombre Clave 11', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 2, 2245897.60, 1, 'Estado 11', 'Observación 11'),
     ('Entidad 12', 'Nomenc 12', 3, 'Nombre Clave 12', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1264589.90, 2, 'Estado 12', 'Observación 12');
+
+
+/*TABLAS QUE SE VERAN EN EL SITIO WEB*/
+
+CREATE TABLE tipoActualizacion (
+    idActual INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL
+);
+
+INSERT INTO tipoActualizacion (nombre) VALUES 
+('Resolución'),
+('Pronunciamiento'),
+('Opinión'),
+('Directiva'),
+('Dictamen');
+
+
+CREATE TABLE actualizaciones (
+    idActualizacion INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(255) NOT NULL,
+    archivo VARCHAR(255) NULL,
+    tipo INT(11) NOT NULL,
+    FOREIGN KEY (tipo) REFERENCES tipoActualizacion (idActual)
+);
+
+CREATE TABLE noticias (
+    idNoticia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255),
+    descripcion LONGTEXT,
+    fecha DATE,
+    destacado VARCHAR(1)
+);
+
+
+INSERT INTO noticias (titulo, descripcion, fecha, destacado) VALUES 
+('Noticia 1', 'Descripción de la noticia 1', '2023-06-20', '0'),
+('Noticia 2', 'Descripción de la noticia 2', '2023-06-20', '0'),
+('Minem incrementará conexiones de gas natural en Arequipa, Moquegua y Tacna este 2023', 'El Minem elaboró un Convenio Específico de Inversiones, el cual cuenta con la conformidad de Petroperú, que permitirá iniciar este año la construcción de 350 km de redes de distribución y conectar más de 22 mil usuarios al gas natural.', '2023-06-20', '1'),
+('Noticia 3', 'Descripción de la noticia 3', '2023-06-20', '0');
+
