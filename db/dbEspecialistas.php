@@ -161,6 +161,12 @@ class dbEspecialistas
         return mysqli_affected_rows($conexion);
     }
 
+<<<<<<< HEAD
+=======
+    function MayorIdEspecialista() 
+    {
+    global $conexion;
+>>>>>>> main
 
 
     public function MayorIdEspecialista() {
@@ -181,6 +187,20 @@ class dbEspecialistas
 
         $consulta = "SELECT MAX(idUsuario) as maxId FROM login";
         $resultado = mysqli_query($conexion, $consulta);
+
+        if (mysqli_num_rows($resultado) > 0) {
+            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+        } else {
+            return [];
+        }
+    }
+
+    function MayorIdLogin() 
+    {
+    global $conexion;
+
+    $consulta = "SELECT MAX(idUsuario) as maxId FROM login";
+    $resultado = mysqli_query($conexion, $consulta);
 
         if (mysqli_num_rows($resultado) > 0) {
             return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
