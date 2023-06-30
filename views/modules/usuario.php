@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $telefono = $_POST["telefono"];
     $email = $_POST["email"];
     $contrasena = $_POST["contrasena"];
-    $estado = $_POST["estado"];
+    $estado = $_POST["estado_actual"];
 
     switch ($action) {
         case 'add':
@@ -28,10 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
 
         case 'update':
-            $msj = "0x20";
+            $msj = "0x1000";
             $affectedRows = $dbEspecialistas->updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
             if ($affectedRows) {
-                $msj = "0x30";
+                $msj = "0x20";
             }
             break;
 
@@ -49,7 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     switch ($action) {
         case 'add':
             // Obtener el id mayor de la tabla especialista
-            $idEspecialista = $dbEspecialistas->MayorIdEspecialista() + 1;
+            $maxid = $dbEspecialistas->MayorIdEspecialista();
+            foreach ($maxid as $iddd) {
+                $idEspecialista = $iddd["maxId"];
+            }
+            $idEspecialista = ($idEspecialista + 1);
             $btn = "Agregar";
             $status = null;
             $especialista = array(
@@ -113,7 +117,7 @@ switch ($btn) {
         <h3>USUARIO</h3>
         <div class="main">
             <div class="formm">
-                <form action="?m=panel&mod=usuarios&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
+                <form action="?m=panel&mod=usuario&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $especialista['idEspecialista'] ?>">
                     <span>Id</span>
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id"
@@ -137,6 +141,7 @@ switch ($btn) {
                         <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
                         <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
                     </select>
+                    <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
@@ -144,3 +149,8 @@ switch ($btn) {
         </div>
     </div>
 </div>
+<script>
+    function updateEstadoActual(select) {
+        document.getElementById("estado_actual").value = select.value;
+    }
+</script>
