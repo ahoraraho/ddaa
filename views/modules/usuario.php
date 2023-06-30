@@ -137,11 +137,11 @@ switch ($btn) {
                     <span>Contraseña</span>
                     <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
                     <span>Estado</span>
-                    <select name="estado" <?= $status ?>>
+                    <select name="estado" <?= $status ?> onchange="updateEstadoActual(this)">
                         <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
                         <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
                     </select>
-                    <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
+                    <input type="text" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
@@ -149,6 +149,7 @@ switch ($btn) {
         </div>
     </div>
 </div>
+
 <script>
     function updateEstadoActual(select) {
         document.getElementById("estado_actual").value = select.value;

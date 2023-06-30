@@ -43,10 +43,7 @@ class dbEspecialistas
         return [];
     }
 
-//
-//                      Hasta aca
-//                   si funciona XD
-//
+
     public function insertEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado)
     {
         global $conexion;
