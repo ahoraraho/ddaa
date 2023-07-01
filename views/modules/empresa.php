@@ -1,4 +1,6 @@
 <?php
+validacionIicioSesion();
+
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {
@@ -87,17 +89,17 @@ switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
         $styleImage = "display: none !importans; ";
-        $hacer = "Eliminar Objeto";
+        $hacer = "Eliminar Empresa";
         // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
-        $hacer = "Agregar Objeto";
+        $hacer = "Agregar Empresa";
         // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
-        $hacer = "Actualizar Objeto";
+        $hacer = "Actualizar Empresa";
         // $icono = "bi bi-pencil-square";
         break;
     default:
@@ -109,7 +111,7 @@ switch ($btn) {
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house "></i></a>
     <a href="?m=panel&mod=categorias" title="Ir a Marcas">Empresas</a>
-    <a href="#" title="Estas justo aqui" class="active">Empresa</a>
+    <a href="#" title="Estas justo aqui" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
     <div class="entradas">

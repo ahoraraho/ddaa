@@ -1,10 +1,6 @@
 <?php
-// Valido que el usuario sea administrador
-// if (!$_SESSION["Usuario"]["Administrador"]) {
-//     header('location: ./');
-// }
+validacionIicioSesion();
 
-// Valido que haya una accion a realizar, sino se irá a crear un nuevo producto
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {
@@ -84,17 +80,17 @@ switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
         $styleImage = "display: none !importans; ";
-        $hacer = "Eliminar Objeto";
+        $hacer = "Eliminar Noticia";
         // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
-        $hacer = "Agregar Objeto";
+        $hacer = "Agregar Noticia";
         // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
-        $hacer = "Actualizar Objeto";
+        $hacer = "Actualizar Noticia";
         // $icono = "bi bi-pencil-square";
         break;
     default:

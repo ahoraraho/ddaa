@@ -1,10 +1,6 @@
 <?php
-// Valido que el usuario sea administrador
-// if (!$_SESSION["Usuario"]["Administrador"]) {
-//     header('location: ./');
-// }
+validacionIicioSesion();
 
-// Valido que haya una accion a realizar, sino se irá a crear un nuevo producto
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {

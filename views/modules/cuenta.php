@@ -1,8 +1,5 @@
 <?php
-// Valido que se haya iniciado sesión
-if (!isset($_SESSION["Usuario"])) {
-    header('location: ./');
-}
+validacionIicioSesion();
 
 // recupero el id del usuario que inicio la sesion
 $id = $_SESSION["Usuario"]["Id"];

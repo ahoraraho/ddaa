@@ -1,39 +1,19 @@
+<?php
+
+if (!$_SESSION["Usuario"]["Administrador"]) {
+    header('location: ./');
+    exit;
+}
+
+mensaje('Especialista', 'a');
+
+?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="#" title="Estas justo aqui" class="active">Usuarios</a>
 </div>
 
-<?php
-if (isset($_GET['msj'])) {
-    $msj = $_GET['msj'];
-    $typeMsj = "";
-    switch ($msj) {
-        case '0x10':
-            $msj = "Usuario agregado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check-circle";
-            break;
-        case '0x20':
-            $msj = "Usuario actualizado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check2-circle";
-            break;
-        case '0x30':
-            $msj = "Usuario eliminado!";
-            $typeMsj = "msj-warning";
-            $iconoAlert = "bi-info-circle";
-            break;
-        case '0x1000':
-            $msj = "Hubo un error al intentar realizar la operación!";
-            $typeMsj = "msj-error";
-            $iconoAlert = "bi-bug";
-            break;
-    }
-    alertaResponDialog($typeMsj, $msj, $iconoAlert);
-}
-
-?>
 
 <h3>USUARIOS</h3>
 <div class="numm">
@@ -72,7 +52,7 @@ if (isset($_GET['msj'])) {
 
             <?php
             $especialistas = $dbEspecialistas->selectEspecialistas();
-            foreach($especialistas as $especialista){
+            foreach ($especialistas as $especialista) {
                 $id = $especialista['idEspecialista'];
                 $dni = $especialista['dni'];
                 $nombre = $especialista['nombre'];
@@ -82,16 +62,16 @@ if (isset($_GET['msj'])) {
                 $telefono = $especialista['telefono'];
             ?>
 
-            <tr>
-                <td><?= $id ?></td>
-                <td><?= $nombre ?></td>
-                <td><?= $apellido ?></td>
-                <td><?= $telefono ?></td>
-                <td>
-                    <a href="?m=panel&mod=usuario&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=usuario&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td><?= $nombre ?></td>
+                    <td><?= $apellido ?></td>
+                    <td><?= $telefono ?></td>
+                    <td>
+                        <a href="?m=panel&mod=usuario&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=usuario&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                    </td>
+                </tr>
             <?php } ?>
         </tbody>
     </table>
@@ -104,9 +84,9 @@ if (isset($_GET['msj'])) {
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

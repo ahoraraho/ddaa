@@ -14,7 +14,49 @@ function alertaResponDialog($typeMesaje, $mesaje, $icono1)
 	</div>";
     echo $alerta;
 }
+//FUNCION QUE VALIDA QUE LA SECION HAYA SIDO CREADA CORRECTAMENTE SINO MANDA AL INICIO
+function validacionIicioSesion()
+{
+    if (!$_SESSION["Usuario"]) {
+        header('location: ./');
+        exit;
+    }
+}
+//FUNCION PARA INPRIMIR QUE ACCION ES LA QUE SE ESTA HACIENDO
+function mensaje($modulo, $pul = 'o')
+{
 
+    if (isset($_GET['msj'])) {
+        $msj = $_GET['msj'];
+        $typeMsj = "";
+        switch ($msj) {
+            case '0x10':
+                $msj = $modulo . " Agregad" . $pul . "!";
+                $typeMsj = "msj-ok";
+                $iconoAlert = "bi-check-circle";
+                break;
+            case '0x20':
+                $msj = $modulo . " Actualizad" . $pul . "!";
+                $typeMsj = "msj-ok";
+                $iconoAlert = "bi-check2-circle";
+                break;
+            case '0x30':
+                $msj = $modulo . " Eliminad" . $pul . "!";
+                $typeMsj = "msj-warning";
+                $iconoAlert = "bi-info-circle";
+                break;
+            case '0x1000':
+                $msj = "Hubo un error al intentar realizar la operación!";
+                $typeMsj = "msj-error";
+                $iconoAlert = "bi-bug";
+                break;
+        }
+        alertaResponDialog($typeMsj, $msj, $iconoAlert);
+    }
+}
+
+
+//*FUNCIONES QUE TODABIA NO SE ESTAN USANDO */
 
 function createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, $mod)
 {
