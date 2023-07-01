@@ -71,6 +71,8 @@ class dbProyectos
 
             return mysqli_affected_rows($conexion);
         }
+
+        
     
         // Actualizar registro en la tabla proyectos
         public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos)
@@ -115,18 +117,33 @@ class dbProyectos
         }
 
         public function MayorIdProyecto()
-    {
-        global $conexion;
+        {
+            global $conexion;
 
-        $consulta = "SELECT MAX(idProyecto) as maxId FROM proyectos";
+            $consulta = "SELECT MAX(idProyecto) as maxId FROM proyectos";
 
-        $resultado = mysqli_query($conexion, $consulta);
+            $resultado = mysqli_query($conexion, $consulta);
 
-        if (mysqli_num_rows($resultado) > 0) {
-            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
-        } else {
-            return [];
+            if (mysqli_num_rows($resultado) > 0) {
+                return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
         }
-    }
+
+        public function MayorIdDocProyecto()
+        {
+            global $conexion;
+
+            $consulta = "SELECT MAX(idArchivo) as maxId FROM archivosproyectos";
+
+            $resultado = mysqli_query($conexion, $consulta);
+
+            if (mysqli_num_rows($resultado) > 0) {
+                return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
+        }
     }
 ?>
