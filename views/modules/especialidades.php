@@ -1,31 +1,7 @@
 <?php
-if (isset($_GET['msj'])) {
-    $msj = $_GET['msj'];
-    $typeMsj = "";
-    switch ($msj) {
-        case '0x10':
-            $msj = "Objeto agregado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check-circle";
-            break;
-        case '0x20':
-            $msj = "Objeto actualizado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check2-circle";
-            break;
-        case '0x30':
-            $msj = "Objeto eliminado!";
-            $typeMsj = "msj-warning";
-            $iconoAlert = "bi-info-circle";
-            break;
-        case '0x1000':
-            $msj = "Hubo un error al intentar realizar la operación!";
-            $typeMsj = "msj-error";
-            $iconoAlert = "bi-bug";
-            break;
-    }
-    alertaResponDialog($typeMsj, $msj, $iconoAlert);
-}
+validacionIicioSesion();
+
+mensaje('Especialidad', 'a');
 
 ?>
 <!-- ruta de acceso guia -->
@@ -33,7 +9,6 @@ if (isset($_GET['msj'])) {
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="#" title="Estas justo aqui" class="active">Especialidades</a>
 </div>
-
 
 <h3>ESPECIALIDADES</h3>
 <div class="numm">

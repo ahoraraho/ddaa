@@ -5,33 +5,7 @@ if (!$_SESSION["Usuario"]["Administrador"]) {
     exit;
 }
 
-if (isset($_GET['msj'])) {
-    $msj = $_GET['msj'];
-    $typeMsj = "";
-    switch ($msj) {
-        case '0x10':
-            $msj = "Usuario agregado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check-circle";
-            break;
-        case '0x20':
-            $msj = "Usuario actualizado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check2-circle";
-            break;
-        case '0x30':
-            $msj = "Usuario eliminado!";
-            $typeMsj = "msj-warning";
-            $iconoAlert = "bi-info-circle";
-            break;
-        case '0x1000':
-            $msj = "Hubo un error al intentar realizar la operación!";
-            $typeMsj = "msj-error";
-            $iconoAlert = "bi-bug";
-            break;
-    }
-    alertaResponDialog($typeMsj, $msj, $iconoAlert);
-}
+mensaje('Especialista', 'a');
 
 ?>
 <!-- ruta de acceso guia -->

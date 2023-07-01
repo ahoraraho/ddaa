@@ -1,36 +1,7 @@
 <?php
-if (!$_SESSION["Usuario"]) {
-    header('location: ./');
-    exit;
-}
+validacionIicioSesion();
+mensaje('Actualización', 'a');
 
-if (isset($_GET['msj'])) {
-    $msj = $_GET['msj'];
-    $typeMsj = "";
-    switch ($msj) {
-        case '0x10':
-            $msj = "Actualización agregado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check-circle";
-            break;
-        case '0x20':
-            $msj = "Actualización actualizado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check2-circle";
-            break;
-        case '0x30':
-            $msj = "Actualización eliminado!";
-            $typeMsj = "msj-warning";
-            $iconoAlert = "bi-info-circle";
-            break;
-        case '0x1000':
-            $msj = "Hubo un error al intentar realizar la operación!";
-            $typeMsj = "msj-error";
-            $iconoAlert = "bi-bug";
-            break;
-    }
-    alertaResponDialog($typeMsj, $msj, $iconoAlert);
-}
 // descarga el archivo
 if (isset($_GET['file'])) {
     $archivo = $_GET['file'];

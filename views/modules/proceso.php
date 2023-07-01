@@ -1,9 +1,5 @@
 <?php
-
-if (!$_SESSION["Usuario"]) {
-    header('location: ./');
-    exit;
-}
+validacionIicioSesion();
 
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
