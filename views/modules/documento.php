@@ -1,4 +1,6 @@
 <?php
+validacionIicioSesion();
+
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {

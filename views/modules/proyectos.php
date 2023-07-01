@@ -1,38 +1,15 @@
+<?php
+validacionIicioSesion();
+
+mensaje('Proyecto');
+
+?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="#" title="Estas justo aqui" class="active">Proyectos</a>
 </div>
 
-<?php
-if (isset($_GET['msj'])) {
-    $msj = $_GET['msj'];
-    $typeMsj = "";
-    switch ($msj) {
-        case '0x10':
-            $msj = "Proyecto agregado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check-circle";
-            break;
-        case '0x20':
-            $msj = "Proyecto actualizado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check2-circle";
-            break;
-        case '0x30':
-            $msj = "Proyecto eliminado!";
-            $typeMsj = "msj-warning";
-            $iconoAlert = "bi-info-circle";
-            break;
-        case '0x1000':
-            $msj = "Hubo un error al intentar realizar la operación!";
-            $typeMsj = "msj-error";
-            $iconoAlert = "bi-bug";
-            break;
-    }
-    alertaResponDialog($typeMsj, $msj, $iconoAlert);
-}
-?>
 
 <h3>PROYECTOS</h3>
 <div class="numm">
@@ -70,7 +47,7 @@ if (isset($_GET['msj'])) {
             <?php
             $proyectos = $dbProyectos->selectProyectos();
 
-            foreach ($proyectos as $proyecto){
+            foreach ($proyectos as $proyecto) {
                 $id = $proyecto['idProyecto'];
                 $nombre_empresa = $proyecto['NomEmpresa'];
                 $nombre_proyecto = $proyecto['nombre_proyecto'];
@@ -88,16 +65,16 @@ if (isset($_GET['msj'])) {
                 $objeto = $proyecto['objeto'];
                 $especialidad = $proyecto['especialidad'];
             ?>
-            <tr>
-                <td><?= $id ?></td>
-                <td><?= $nombre_empresa ?></td>
-                <td><?= $nombre_proyecto ?></td>
-                <td><?= $numero_contrato ?></td>
-                <td>
-                    <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+                <tr>
+                    <td><?= $id ?></td>
+                    <td><?= $nombre_empresa ?></td>
+                    <td><?= $nombre_proyecto ?></td>
+                    <td><?= $numero_contrato ?></td>
+                    <td>
+                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                    </td>
+                </tr>
             <?php } ?>
         </tbody>
     </table>
@@ -110,9 +87,9 @@ if (isset($_GET['msj'])) {
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

@@ -1,39 +1,14 @@
+<?php
+validacionIicioSesion();
+
+mensaje('Empresa', 'a');
+?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="#" title="Estas justo aqui" class="active">Empresas</a>
 </div>
 
-<?php
-if (isset($_GET['msj'])) {
-    $msj = $_GET['msj'];
-    $typeMsj = "";
-    switch ($msj) {
-        case '0x10':
-            $msj = "Objeto agregado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check-circle";
-            break;
-        case '0x20':
-            $msj = "Objeto actualizado!";
-            $typeMsj = "msj-ok";
-            $iconoAlert = "bi-check2-circle";
-            break;
-        case '0x30':
-            $msj = "Objeto eliminado!";
-            $typeMsj = "msj-warning";
-            $iconoAlert = "bi-info-circle";
-            break;
-        case '0x1000':
-            $msj = "Hubo un error al intentar realizar la operación!";
-            $typeMsj = "msj-error";
-            $iconoAlert = "bi-bug";
-            break;
-    }
-    alertaResponDialog($typeMsj, $msj, $iconoAlert);
-}
-
-?>
 
 <h3>EMPRESAS</h3>
 <div class="numm">
@@ -71,16 +46,16 @@ if (isset($_GET['msj'])) {
         </thead>
         <tbody>
             <?php
-                $empresas = $dbEmpresas->selectEmpresas();
+            $empresas = $dbEmpresas->selectEmpresas();
 
-                foreach($empresas as $empresa){
-                    $id=$empresa['idEmpresa'];
-                    $nombreEmpresa=$empresa['nombreEmpresa'];
-                    $ruc=$empresa['ruc'];
-                    $telefono=$empresa['telefono'];
-                    $email=$empresa['email'];
-                    $numeroPartida=$empresa['numeroPartida'];
-                    $mipe=$empresa['mipe'];
+            foreach ($empresas as $empresa) {
+                $id = $empresa['idEmpresa'];
+                $nombreEmpresa = $empresa['nombreEmpresa'];
+                $ruc = $empresa['ruc'];
+                $telefono = $empresa['telefono'];
+                $email = $empresa['email'];
+                $numeroPartida = $empresa['numeroPartida'];
+                $mipe = $empresa['mipe'];
             ?>
                 <tr>
                     <td><?= $id ?></td>
@@ -105,9 +80,9 @@ if (isset($_GET['msj'])) {
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>
