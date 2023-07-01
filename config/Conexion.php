@@ -35,9 +35,7 @@ class Conexion
     }
 }
 
-
 $dbConexion = new Conexion("localhost", "root", "", "ddd");
-// >>>>>>> 1bb4ddf440e947ae5686cccc6630119516fd20d2
 
 $dbConexion->connect();
 

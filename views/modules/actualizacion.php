@@ -150,7 +150,16 @@ switch ($btn) {
                     <span> Descripción </span>
                     <input required type="text" name="descripcion" value="<?= $actualizacion["descripcion"] ?>" <?= $status ?>>
                     <span> Tipo </span>
-                    <input required type="text" name="tipo" value="<?= $actualizacion["tipo"] ?>" <?= $status ?>><br><br>
+                    <select name="tipo" value="<?= $actualizacion["tipo"]; ?>"<?= $status ?>>
+                            <?php
+                            $tipos = $dbActualizaciones->selectTipos();
+                            foreach ($tipos as $tipo) {
+                                $selected = ($tipo["idObjeto"] == $actualizacion["tipo"]) ? "selected" : ""; ?>
+                                <option value="<?= $tipo["idActual"] ?>" <?= $selected ?>><?= $tipo["nombre"] ?></option>
+                            <?php
+                            }
+                            ?>
+                    </select><br><br>
                     <div class="contenedor_pdf">
                         <table>
                             <tbody style="text-align: start;">

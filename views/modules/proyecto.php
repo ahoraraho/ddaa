@@ -356,25 +356,6 @@ switch ($btn) {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="description">Acta de Recepcion</td>
-                                    <td>
-                                        <input id="archivo-6" type="file" min="0" name="acta_de_recepcion">
-                                        <div class="btn-add-pdf">
-                                            <label title="Carcar archivo PDF" for="archivo-6" name="addPdf-6" id="addPdf-6">Cargar PDF</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $acta_de_recepcion ?>" class="btn-action-doc">
-                                            <i class="fa fa-download"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $acta_de_recepcion ?>" class="btn-action-doc">
-                                            <i class="bi bi-file-earmark-pdf"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td class="description">Constancia</td>
                                     <td>
                                         <input id="archivo-7" type="file" min="0" name="constancia">

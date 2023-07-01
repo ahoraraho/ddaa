@@ -43,12 +43,12 @@ class dbEmpresa
     }
 
     //insertar
-    public function InsertEmpresa($nombre, $ruc, $telefono, $email, $num_partida, $mipe)
+    public function InsertEmpresa($nombre, $ruc, $telefono, $email, $num_partida, $mipe, $archivos)
     {
         global $conexion;
 
-        $consulta = "INSERT INTO empresa (nombreEmpresa,ruc,telefono,email,numeroPartida,mipe) 
-                    VALUES ('$nombre','$ruc','$telefono','$email','$num_partida','$mipe')";
+        $consulta = "INSERT INTO empresa (nombreEmpresa,ruc,telefono,email,numeroPartida,mipe, archivos) 
+                    VALUES ('$nombre','$ruc','$telefono','$email','$num_partida','$mipe',$archivos)";
 
 
         mysqli_query($conexion, $consulta);
@@ -58,7 +58,7 @@ class dbEmpresa
     }
 
     // Actualizar registro en la tabla empresa
-    public function UpdateEmpresa($id, $nombre, $ruc, $telefono, $email, $num_partida, $mipe)
+    public function UpdateEmpresa($id, $nombre, $ruc, $telefono, $email, $num_partida, $mipe, $archivos)
     {
         global $conexion;
 
@@ -68,7 +68,8 @@ class dbEmpresa
                     telefono = '$telefono',
                     email = '$email',
                     numeroPartida = '$num_partida',
-                    mipe = '$mipe'
+                    mipe = '$mipe',
+                    archivos = $archivos
                     WHERE idEmpresa = $id";
 
                     mysqli_query($conexion, $consulta);
@@ -101,19 +102,4 @@ class dbEmpresa
             return [];
         }
     }
-
-    /*public function getEmpresas()
-    {
-        $empresas = $this->selectEmpresas();
-        
-        $options = '';
-
-        foreach ($empresas as $empresa) {
-            $id = $empresa['idEmpresa'];
-            $nombre = $empresa['nombreEmpresa'];
-            $options .= "<option value='$id'>$nombre</option>";
-        }
-
-        return $options;
-    }*/
 }

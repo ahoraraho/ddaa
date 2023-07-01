@@ -44,11 +44,11 @@ class dbProyectos
         }
 
         //insertar registros
-        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad){
+        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos){
 
             global $conexion;
 
-            $consulta = "INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad)
+            $consulta = "INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad, archivos)
                         VALUES (  
                         '$nombre_empresa', 
                         '$nombre_proyecto', 
@@ -64,15 +64,18 @@ class dbProyectos
                         '$observaciones', 
                         '$contacto', 
                         '$objeto', 
-                        '$especialidad')";
+                        '$especialidad',
+                        $archivos)";
 
             mysqli_query($conexion, $consulta);
 
             return mysqli_affected_rows($conexion);
         }
+
+        
     
         // Actualizar registro en la tabla proyectos
-        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad)
+        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos)
         {
             global $conexion;
     
@@ -91,7 +94,8 @@ class dbProyectos
                     observaciones='$observaciones',
                     contacto='$contacto',
                     objeto='$objeto',
-                    especialidad='$especialidad'
+                    especialidad='$especialidad',
+                    archivos = $archivos
                     
                     WHERE idProyecto = $idProyecto";
 
@@ -113,18 +117,33 @@ class dbProyectos
         }
 
         public function MayorIdProyecto()
-    {
-        global $conexion;
+        {
+            global $conexion;
 
-        $consulta = "SELECT MAX(idProyecto) as maxId FROM proyectos";
+            $consulta = "SELECT MAX(idProyecto) as maxId FROM proyectos";
 
-        $resultado = mysqli_query($conexion, $consulta);
+            $resultado = mysqli_query($conexion, $consulta);
 
-        if (mysqli_num_rows($resultado) > 0) {
-            return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
-        } else {
-            return [];
+            if (mysqli_num_rows($resultado) > 0) {
+                return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
         }
-    }
+
+        public function MayorIdDocProyecto()
+        {
+            global $conexion;
+
+            $consulta = "SELECT MAX(idArchivo) as maxId FROM archivosproyectos";
+
+            $resultado = mysqli_query($conexion, $consulta);
+
+            if (mysqli_num_rows($resultado) > 0) {
+                return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
+        }
     }
 ?>

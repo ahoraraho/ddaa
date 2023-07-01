@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idUsuario = $_POST['idUsuario'];
     $idEspecialista = $_POST['id'];
     $email = $_POST["email"];
-    $contrasena = $_POST["contrasena"];
     $estado = $_POST["estado_actual"];
 
     switch ($action) {
@@ -150,7 +149,7 @@ switch ($btn) {
                         <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
                         <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
                     </select>
-                    <input type="text" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
+                    <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
