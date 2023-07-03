@@ -27,7 +27,7 @@ class dbProyectos
         {
             global $conexion;
     
-            $consulta = "SELECT * FROM proyectos WHERE idProyecto = ?";
+            $consulta = "SELECT p.* , d.* FROM proyectos p LEFT JOIN archivosproyectos d ON p.archivos = d.idArchivo WHERE idProyecto = ?";
             $stmt = mysqli_prepare($conexion, $consulta);
     
             if ($stmt) {
@@ -44,7 +44,7 @@ class dbProyectos
         }
 
         //insertar registros
-        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos){
+        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos, $acta_de_recepcion, $resolucion_de_obra, $resolucion_deductivos, $resolucion_adicionales,$anexo_de_promesa_de_consorcio, $constancia, $contrato_de_consorcio, $contrato){
 
             global $conexion;
 
@@ -69,13 +69,18 @@ class dbProyectos
 
             mysqli_query($conexion, $consulta);
 
+            $consulta_docs = "INSERT INTO archivosproyectos (acta_de_recepcion, resolucion_de_obra, resolucion_deductivos, resolucion_adicionales,anexo_de_promesa_de_consorcio, constancia, contrato_de_consorcio, contrato)
+            VALUES ('$acta_de_recepcion', '$resolucion_de_obra', '$resolucion_deductivos', '$resolucion_adicionales','$anexo_de_promesa_de_consorcio', '$constancia', '$contrato_de_consorcio', '$contrato')";
+
+            mysqli_query($conexion, $consulta_docs);
+
             return mysqli_affected_rows($conexion);
         }
 
         
     
         // Actualizar registro en la tabla proyectos
-        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos)
+        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos, $acta_de_recepcion, $resolucion_de_obra, $resolucion_deductivos, $resolucion_adicionales,$anexo_de_promesa_de_consorcio, $constancia, $contrato_de_consorcio, $contrato)
         {
             global $conexion;
     
@@ -96,22 +101,38 @@ class dbProyectos
                     objeto='$objeto',
                     especialidad='$especialidad',
                     archivos = $archivos
-                    
                     WHERE idProyecto = $idProyecto";
 
             mysqli_query($conexion, $consulta);
+
+            $consulta_docs="UPDATE archivosproyectos
+                            SET 
+                            acta_de_recepcion='$acta_de_recepcion',
+                            resolucion_de_obra='$resolucion_de_obra',
+                            resolucion_deductivos='$resolucion_deductivos',
+                            resolucion_adicionales='$resolucion_adicionales',
+                            anexo_de_promesa_de_consorcio='$anexo_de_promesa_de_consorcio',
+                            constancia='$constancia',
+                            contrato_de_consorcio='$contrato_de_consorcio',
+                            contrato='$contrato'
+                            WHERE
+                            idArchivo = $archivos";
+
+            mysqli_query($conexion, $consulta_docs);
 
             return mysqli_affected_rows($conexion);
         }
     
         // Eliminar registro en la tabla proyectos
-        public function deleteProyecto($idProyecto)
+        public function deleteProyecto($idProyecto,$archivos)
         {
             global $conexion;
 
             $consulta = "DELETE FROM proyectos WHERE idProyecto = $idProyecto";
 
             mysqli_query($conexion, $consulta);
+
+            $consulta_docs="DELETE FROM archivosproyectos WHERE idArchivo = $archivos";
 
             return mysqli_affected_rows($conexion);
         }

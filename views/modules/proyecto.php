@@ -7,6 +7,24 @@ if (isset($_GET["action"])) {
     $action = "add";
 }
 
+// descarga el archivo
+if (isset($_GET['file'])) {
+    $archivo = $_GET['file'];
+
+    $ruta_archivo = "files/" . $archivo;
+
+    // Verificar que el archivo exista en el servidor
+    if (file_exists($ruta_archivo)) {
+        // Enviar el archivo al navegador// Descargar archivo PDF
+        header('Content-Type: files/pdf');
+        header('Content-Disposition: attachment; filename="' . $archivo . '"');
+
+        readfile($ruta_archivo);
+    } else {
+        echo "El archivo no existe en el servidor.";
+    }
+}
+
 // Valido que tipo de peticion invoca al mod
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Aca se deben procesar los datos del formulario ejecutado
@@ -26,12 +44,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contacto = $_POST["contacto"];
     $objeto = $_POST["objeto"];
     $especialidad = $_POST["especialidad"];
+    $idArchivo = $_POST["idArchivo"];
+    $acta_de_recepcion = $_POST["acta_de_recepcion"];
+    $resolucion_de_obra = $_POST["resolucion_de_obra"];
+    $resolucion_deductivos = $_POST["resolucion_deductivos"];
+    $resolucion_adicionales = $_POST["resolucion_adicionales"];
+    $anexo_de_promesa_de_consorcio = $_POST["anexo_de_promesa_de_consorcio"];
+    $constancia = $_POST["constancia"];
+    $contrato_de_consorcio = $_POST["contrato_de_consorcio"];
+    $contrato = $_POST["contrato"];
 
     switch ($action) {
         case 'add':
 
             $msj = "0x1000";
-            $affectedRows = $dbProyectos->InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad);
+            $affectedRows = $dbProyectos->InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $idArchivo, $acta_de_recepcion, $resolucion_de_obra, $resolucion_deductivos, $resolucion_adicionales,$anexo_de_promesa_de_consorcio, $constancia, $contrato_de_consorcio, $contrato);
             if ($affectedRows > 0) {
                 $msj = "0x10";
             }
@@ -39,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'update':
             $msj = "0x20";
-            $affectedRows = $dbProyectos->updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad);
+            $affectedRows = $dbProyectos->updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $idArchivo, $acta_de_recepcion, $resolucion_de_obra, $resolucion_deductivos, $resolucion_adicionales,$anexo_de_promesa_de_consorcio, $constancia, $contrato_de_consorcio, $contrato);
             if ($affectedRows == 0) {
                 $msj = "0x1000";
             }
@@ -47,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'delete':
             $msj = "0x1000";
-            if ($dbProyectos->deleteProyecto($idProyecto) > 0) {
+            if ($dbProyectos->deleteProyecto($idProyecto,$idArchivo) > 0) {
                 //unlink("img/productos/" . $imagenActual);
                 $msj = "0x30";
             }
@@ -63,11 +90,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             foreach ($maxid as $iddd) {
                 $idProyecto = $iddd["maxId"];
             }
+            //optiene el id mayor de la tabla documetosproyectos
+            $maxid = $dbProyectos->MayorIdDocProyecto();
+            foreach ($maxid as $iddd) {
+                $idArchivo = $iddd["maxId"];
+            }
             $idProyecto = ($idProyecto + 1);
+            $idArchivo = ($idProyecto + 1);
             $btn = "Agregar";
             $status = null;
             $proyecto = array(
                 "idProyecto" => $idProyecto,
+                "idArchivo" => $idArchivo,
                 "nombre_empresa" => "",
                 "nombre_proyecto" => "",
                 "numero_contrato" => "",
@@ -82,7 +116,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "observaciones" => "",
                 "contacto" => "",
                 "objeto" => "",
-                "especialidad" => ""
+                "especialidad" => "",
+                //archivossssss
+                "acta_de_recepcion"=> "",
+                "resolucion_de_obra"=> "",
+                "resolucion_deductivos"=> "",
+                "resolucion_adicionales"=> "",
+                "anexo_de_promesa_de_consorcio"=> "",
+                "constancia"=> "",
+                "contrato_de_consorcio"=> "",
+                "contrato"=> "",
             );
             break;
 
@@ -205,20 +248,9 @@ switch ($btn) {
                         }
                         ?>
                     </select>
-                    <input type="hidden" name="idDocumento" value="<?= $documento["idDocumento"]; ?>">
+                    <input type="text" name="idArchivo" value="<?= $proyecto["idArchivo"]; ?>">
                     <!-- <span>ID Documento</span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" value="<?= $documento["idDocumento"] ?>" <?= $status ?>> -->
-                    <span>Nombre de Proyecto</span>
-                    <select name="idProyecto" <?= $status ?>>
-                        <?php
-                        $proyectos = $dbProyectos->selectProyectos();
-                        foreach ($proyectos as $proyecto) {
-                            $selected = ($proyecto['idProyecto'] == $documento["idProyecto"]) ? "selected" : ""; ?>
-                            <option value="<?= $proyecto['idProyecto'] ?>" <?= $selected ?>><?= $proyecto['nombre_proyecto']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" value="<?= $proyecto["idArchivo"] ?>" <?= $status ?>> -->
                     <div class="contenedor_pdf">
                         <!-- <div class="contenido-tabla"> -->
                         <table class="tabla-responsive">
@@ -245,16 +277,16 @@ switch ($btn) {
                                 // $contrato_de_consorcio = $documento['contrato_de_consorcio'];
                                 // $contrato = $documento['contrato'];
 
-                                $id = 1;
-                                $nom_proyecto = "nfodo";
-                                $acta_de_recepcion = "fasdf.pdf";
-                                $resolucion_de_obra = "fjkljoi.pdf";
-                                $resolucion_deductivos = "mecanismos.pdf";
-                                $resolucion_adicionales = "cero.pdf";
-                                $anexo_de_promesa_de_consorcio = null;
-                                $constancia = null;
-                                $contrato_de_consorcio = null;
-                                $contrato = null;
+                                //$id = 1;
+                                //$nom_proyecto = "nfodo";
+                                //$acta_de_recepcion = "fasdf.pdf";
+                                //$resolucion_de_obra = "fjkljoi.pdf";
+                                //$resolucion_deductivos = "mecanismos.pdf";
+                                //$resolucion_adicionales = "cero.pdf";
+                                //$anexo_de_promesa_de_consorcio = null;
+                                //$constancia = null;
+                                //$contrato_de_consorcio = null;
+                                //$contrato = null;
                                 ?>
                                 <tr>
                                     <td class="description">Acta de Recepcion</td>
@@ -263,18 +295,18 @@ switch ($btn) {
                                     <div class="btn-add-pdf">
                                         <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                     </div> -->
-                                        <input id="archivo-1" type="file" min="0" name="resolucion_de_obra">
+                                        <input id="archivo-1" type="file" min="0" name="acta_de_recepcion">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $acta_de_recepcion ?>" class="btn-action-doc" <?= $status ?>>
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["acta_de_recepcion"] ?>" class="btn-action-doc" <?= $status ?>>
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $acta_de_recepcion ?>" class="btn-action-doc" <?= $status ?>>
+                                        <a title="Ver" target="_blank" href="files/<?= $proyecto["acta_de_recepcion"] ?>" class="btn-action-doc" <?= $status ?>>
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -288,12 +320,12 @@ switch ($btn) {
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $resolucion_de_obra ?>" class="btn-action-doc">
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["resolucion_de_obra"] ?>" class="btn-action-doc">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $resolucion_de_obra ?>" class="btn-action-doc">
+                                        <a title="Ver" target="_blank" href="files/<?= $proyecto["resolucion_de_obra"] ?>" class="btn-action-doc">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -307,12 +339,12 @@ switch ($btn) {
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $resolucion_deductivos ?>" class="btn-action-doc">
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["resolucion_deductivos"] ?>" class="btn-action-doc">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $resolucion_deductivos ?>" class="btn-action-doc">
+                                        <a title="Ver" target="_blank" href="files/<?= $proyecto["resolucion_deductivos"] ?>" class="btn-action-doc">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -326,12 +358,12 @@ switch ($btn) {
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $resolucion_adicionales ?>" class="btn-action-doc">
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["resolucion_adicionales"] ?>" class="btn-action-doc">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $resolucion_adicionales ?>" class="btn-action-doc">
+                                        <a title="Ver" target="_blank" href="files/<?= $$proyecto["resolucion_adicionales"] ?>" class="btn-action-doc">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -345,12 +377,12 @@ switch ($btn) {
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $anexo_de_promesa_de_consorcio ?>" class="btn-action-doc">
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["anexo_de_promesa_de_consorcio"] ?>" class="btn-action-doc">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $anexo_de_promesa_de_consorcio ?>" class="btn-action-doc">
+                                        <a title="Ver" target="_blank" href="files/<?= $proyecto["anexo_de_promesa_de_consorcio"] ?>" class="btn-action-doc">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -364,12 +396,12 @@ switch ($btn) {
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $constancia ?>" class="btn-action-doc">
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["constancia"] ?>" class="btn-action-doc">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $constancia ?>" class="btn-action-doc">
+                                        <a title="Ver" target="_blank" href="files/<?= $proyecto["constancia"] ?>" class="btn-action-doc">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -383,12 +415,12 @@ switch ($btn) {
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $contrato_de_consorcio ?>" class="btn-action-doc">
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["contrato_de_consorcio"] ?>" class="btn-action-doc">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $contrato_de_consorcio ?>" class="btn-action-doc">
+                                        <a title="Ver" target="_blank" href="files/<?= $proyecto["contrato_de_consorcio"] ?>" class="btn-action-doc">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -402,12 +434,12 @@ switch ($btn) {
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actuall&file=<?= $contrato ?>" class="btn-action-doc">
+                                        <a title="Descargar" href="?m=actuall&file=<?= $proyecto["contrato"] ?>" class="btn-action-doc">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a title="Ver" target="_blank" href="files/<?= $contrato ?>" class="btn-action-doc">
+                                        <a title="Ver" target="_blank" href="files/<?= $proyecto["contrato"] ?>" class="btn-action-doc">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
