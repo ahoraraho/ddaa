@@ -50,7 +50,11 @@ class dbActualizaciones
     {
         global $conexion;
 
-        $consulta = "SELECT * FROM actualizaciones WHERE idActualizacion = ?";
+        $consulta = "SELECT A.*, T.nombre 
+        FROM actualizaciones as A 
+        INNER JOIN tipoactualizacion AS T ON A.tipo = T.idActual 
+        WHERE A.idActualizacion = ?";
+
         $stmt = mysqli_prepare($conexion, $consulta);
 
         if ($stmt) {

@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'update':
             $numProceso = $_GET["id"];
-            $btn = "Modificar";
+            $btn = "Actualizar";
             $status = null;
             $proceso = $dbProcesos->selectProceso($numProceso);
             break;
@@ -122,7 +122,7 @@ switch ($btn) {
 
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="?m=panel&mod=categorias" title="Ir a Marcas">Procesos</a>
+    <a href="?m=panel&mod=procesos" title="Ir a Procesos">Procesos</a>
     <a href="#" title="Estas justo aqui" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
@@ -132,75 +132,90 @@ switch ($btn) {
             <div class="formm">
                 <form action="?m=panel&mod=proceso&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="numProceso" value="<?= $proceso["numProceso"]; ?>">
-                    
-                    <span>Número de Proceso:</span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="numProceso" value="<?= $proceso['numProceso']; ?>"<?= $status ?>>
-                    
-                    <span>Entidad:</span>
+
+                    <b>Número de Proceso</b>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="numProceso" value="<?= $proceso['numProceso']; ?>" <?= $status ?>>
+
+                    <b>Entidad</b>
                     <input required type="text" name="entidad" value="<?= $proceso["entidad"]; ?>" <?= $status ?>>
-                    
-                    <span>Nomenclatura:</span>
-                    <input required type="text" name="nomenclatura" value="<?= $proceso["nomenclatura"]; ?>"<?= $status ?>>
-                    
-                    <span>Nombre Clave:</span>
-                    <input required type="text" name="nombreClave" value="<?= $proceso["nombreClave"]; ?>"<?= $status ?>>
-                    
-                    <span>Consultas:</span>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="consultas" value="<?= $proceso["consultas"]; ?>"<?= $status ?>>
-                    
-                    <span>Integración:</span>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="integracion" value="<?= $proceso["integracion"]; ?>"<?= $status ?>>
-                    
-                    <span>Presentación:</span>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="presentacion" value="<?= $proceso["presentacion"]; ?>"<?= $status ?>>
-                    
-                    <span>Buena Pro:</span>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="buenaPro" value="<?= $proceso["buenaPro"]; ?>"<?= $status ?>>
-                    
-                    <span>Valor Referencial:</span>
-                    <input required type="text" name="valorReferencial" value="<?= $proceso["valorReferencial"]; ?>"<?= $status ?>>
-                    
-                    <span>Postores:</span>
-                    <select name="postores" value="<?= $proceso["postores"]; ?>"<?= $status ?>>
+
+                    <b>Nomenclatura</b>
+                    <input required type="text" name="nomenclatura" value="<?= $proceso["nomenclatura"]; ?>" <?= $status ?>>
+
+                    <b>Nombre Clave</b>
+                    <input required type="text" name="nombreClave" value="<?= $proceso["nombreClave"]; ?>" <?= $status ?>>
+
+                    <b>Consultas</b>
+                    <input required type="text" placeholder="aaaa-mm-dd" name="consultas" value="<?= $proceso["consultas"]; ?>" <?= $status ?>>
+
+                    <b>Integración</b>
+                    <input required type="text" placeholder="aaaa-mm-dd" name="integracion" value="<?= $proceso["integracion"]; ?>" <?= $status ?>>
+
+                    <b>Presentación</b>
+                    <input required type="text" placeholder="aaaa-mm-dd" name="presentacion" value="<?= $proceso["presentacion"]; ?>" <?= $status ?>>
+
+                    <b>Buena Pro</b>
+                    <input required type="text" placeholder="aaaa-mm-dd" name="buenaPro" value="<?= $proceso["buenaPro"]; ?>" <?= $status ?>>
+
+                    <b>Valor Referencial:</b>
+                    <input required type="text" name="valorReferencial" value="<?= $proceso["valorReferencial"]; ?>" <?= $status ?>>
+                    <b>Postores</b>
+                    <div class="custom-select">
+                        <select name="postores" <?= $status ?>>
+                            <option>Seleccionar una Empresa...</option>
                             <?php
                             $empresas = $dbEmpresas->selectEmpresas();
                             foreach ($empresas as $empresa) {
-                                $selected = ($empresa["idObjeto"] == $proceso["postores"]) ? "selected" : ""; ?>
-                                <option value="<?= $empresa["idEmpresa"] ?>" <?= $selected ?>><?= $empresa["nombreEmpresa"] ?></option>
+                                $idEmpresa = $empresa["idEmpresa"];
+                                $nombre = $empresa["nombreEmpresa"];
+
+                                $postor = $proceso["postores"]; ?>
+                                <option value="<?= $idEmpresa ?>" <?= ($idEmpresa == $postor) ? "selected" : null ?>><?= $nombre ?></option>
                             <?php
                             }
                             ?>
-                    </select>
-                    
-                    <span>Encargado:</span>
-                    <select name="encargado" value="<?= $proceso["encargado"]; ?>"<?= $status ?>>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <b>Encargado</b>
+                    <div class="custom-select">
+                        <select name="encargado" <?= $status ?>>
+                            <option>Seleccionar un Encargado...</option>
                             <?php
                             $especialistas = $dbEspecialistas->selectEspecialistas();
                             foreach ($especialistas as $especialista) {
-                                $selected = ($especialista["idEspecialista"] == $proceso["encargado"]) ? "selected" : ""; ?>
-                                <option value="<?= $especialista["idEspecialista"] ?>" <?= $selected ?>><?= $especialista["nombre"] ?></option>
+                                $idEspecialista = $especialista["idEspecialista"];
+                                $nombre = $especialista["nombre"];
+
+                                $encargado = $proceso["encargado"]; ?>
+                                <option value="<?= $idEspecialista ?>" <?= ($idEspecialista == $encargado) ? "selected" : null ?>><?= $nombre ?></option>
                             <?php
                             }
                             ?>
-                    </select>
-                    
-                    <span>Objeto:</span>
-                    <select name="objeto" value="<?= $proceso["objeto"]; ?>"<?= $status ?>>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></span> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <b>Objeto</b>
+                    <div class="custom-select">
+                        <select name="objeto" <?= $status ?>>
+                            <option><i>Seleccionar un Objeto...</i></option>
                             <?php
                             $objetos = $dbObjetos->selectObjetos();
                             foreach ($objetos as $objeto) {
-                                $selected = ($objeto["idObjeto"] == $proceso["objeto"]) ? "selected" : ""; ?>
-                                <option value="<?= $objeto["idObjeto"] ?>" <?= $selected ?>><?= $objeto["nombre"] ?></option>
+                                $idObjeto = $objeto["idObjeto"];
+                                $nombre = $objeto["nombre"];
+
+                                $obje = $proceso["objeto"]; ?>
+                                <option value="<?= $idObjeto ?>" <?= ($idObjeto == $obje) ? "selected" : null ?>><?= $nombre ?></option>
                             <?php
                             }
                             ?>
-                    </select>
-
-                    <span>Observaciones:</span>
-                    <input required type="text" name="observaciones" value="<?= $proceso["observaciones"]; ?>"<?= $status ?>>
-                    
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></span> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <b>Observaciones</b>
+                    <input required type="text" name="observaciones" value="<?= $proceso["observaciones"]; ?>" <?= $status ?>>
                     <br><br>
-                    
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
             </div>

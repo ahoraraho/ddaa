@@ -109,7 +109,7 @@ switch ($btn) {
 
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="?m=panel&mod=categorias" title="Ir a Contactos">Contactos</a>
+    <a href="?m=panel&mod=contactos" title="Ir a Contactos">Contactos</a>
     <a href="#" title="Estás aquí" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">

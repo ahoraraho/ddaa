@@ -75,7 +75,7 @@ class dbProyectos
         
     
         // Actualizar registro en la tabla proyectos
-        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos)
+        public function updateProyecto($idProyecto, $nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad)
         {
             global $conexion;
     
@@ -94,8 +94,7 @@ class dbProyectos
                     observaciones='$observaciones',
                     contacto='$contacto',
                     objeto='$objeto',
-                    especialidad='$especialidad',
-                    archivos = $archivos
+                    especialidad='$especialidad'
                     
                     WHERE idProyecto = $idProyecto";
 

@@ -122,7 +122,7 @@ switch ($btn) {
         $hacer = "Agregar Actualización";
         $icono = "bi bi-plus-square";
         break;
-    case 'Actualizar':
+    case 'Guardar':
         $style = "background-color: rgb(9, 109, 149)";
         $hacer = "Editar Actualización";
         $icono = "bi bi-pencil-square";
@@ -134,7 +134,7 @@ switch ($btn) {
 ?>
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house "></i></a>
-    <a href="?m=panel&mod=objetos" title="Ir a Marcas">Actualizaciones</a>
+    <a href="?m=panel&mod=actualizaciones" title="Ir a Actualizaciones">Actualizaciones</a>
     <a href="#" title="Estas justo aquí" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
@@ -150,34 +150,49 @@ switch ($btn) {
                     <span> Descripción </span>
                     <input required type="text" name="descripcion" value="<?= $actualizacion["descripcion"] ?>" <?= $status ?>>
                     <span> Tipo </span>
-                    <select name="tipo" value="<?= $actualizacion["tipo"]; ?>"<?= $status ?>>
+                    <div class="custom-select">
+                        <select name="tipo" class="l" required <?= $status; ?>>
+                            <option value="">Tipo de actualización...</option>
                             <?php
-                            $tipos = $dbActualizaciones->selectTipos();
+                            $tipos = $dbProdds->selectProdds();
                             foreach ($tipos as $tipo) {
-                                $selected = ($tipo["idObjeto"] == $actualizacion["tipo"]) ? "selected" : ""; ?>
-                                <option value="<?= $tipo["idActual"] ?>" <?= $selected ?>><?= $tipo["nombre"] ?></option>
-                            <?php
-                            }
+                                $idActual = $tipo["idActual"];
+                                $nombre = $tipo["nombre"];
+                                $tipo = $actualizacion["tipo"];//este codigo recata el id de la tabla principal para luego compararlo con el de la secundaria
                             ?>
-                    </select><br><br>
+                                <option value="<?= $idActual ?>" <?= ($idActual == $tipo) ? "selected" : null ?>><?= $nombre ?></option>
+                            <?php } ?>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></span> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <?php
+                    //SI LA VARIABLE ESTA BASIO SE ACTIVA LOS ESTILOS DE LOS BOTONES DESABILITADOS
+                    if (empty($actualizacion["archivo"])) {
+                        $deshabilitado = 'disabled-button';
+                        $archivo = 'El archivo está vacío';
+                    } else {
+                        $deshabilitado = null;
+                        $archivo = $actualizacion["archivo"];
+                    }
+                    ?><br>
                     <div class="contenedor_pdf">
                         <table>
                             <tbody style="text-align: start;">
                                 <tr>
-                                    <td class="description">Archivo</td>
+                                    <td class="description"><?= $archivo ?></td>
                                     <td>
-                                        <input id="pdfActual" type="file" name="archivo">
+                                        <input id="pdfActual" type="file" name="archivo" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Cargar archivo PDF" for="pdfActual" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                         </div>
                                     </td>
                                     <td>
-                                        <a title="Descargar" href="?m=actualizacion&file=<?= $actualizacion["archivo"] ?>" class="btn-action-doc" <?= $status ?>>
+                                        <a title="Descargar" href="?m=actualizacion&file=<?= $actualizacion["archivo"] ?>" class="btn-action-doc <?= $deshabilitado ?>">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
-                                    <td style="width: min-content;">
-                                        <a title="Ver" target="_blank" href="pdfsActualizaciones/<?= $actualizacion["archivo"] ?>" class="btn-action-doc" <?= $status ?>>
+                                    <td>
+                                        <a title="Ver" target="_blank" href="pdfsActualizaciones/<?= $actualizacion["archivo"] ?>" class="btn-action-doc <?= $deshabilitado ?>">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
                                     </td>
@@ -185,10 +200,33 @@ switch ($btn) {
                             </tbody>
                         </table>
                     </div>
+
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <button type="submit" name="action" id="btnAction" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const archivoInput = document.getElementById("pdfActual");
+    const descripcionArchivo = document.querySelector(".description");
+
+    const elementos = document.querySelectorAll(".btn-action-doc");
+
+    archivoInput.addEventListener("change", function() {
+        if (archivoInput.files.length > 0) {
+            const nombre = archivoInput.files[0].name;
+            descripcionArchivo.textContent = nombre;
+            // Eliminar la clase "mi-clase" de otros elementos
+            elementos.forEach(function(elemento) {
+                elemento.classList.remove("disabled-button");
+            });
+
+        } else {
+            descriptionElement.textContent = "El Archivo esta vacio";
+        }
+
+    });
+</script>

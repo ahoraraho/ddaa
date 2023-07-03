@@ -100,7 +100,7 @@ switch ($btn) {
 ?>
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house "></i></a>
-    <a href="?m=panel&mod=objetos" title="Ir a Marcas">Objetos</a>
+    <a href="?m=panel&mod=objetos" title="Ir a Objetos">Objetos</a>
     <a href="#" title="Estas justo aqui" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
@@ -111,9 +111,9 @@ switch ($btn) {
                 
                 <form action="?m=panel&mod=objeto&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $objeto["idObjeto"]; ?>">
-                    <span> Id Objeto</span>
+                    <b> Id Objeto</b>
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $objeto["idObjeto"] ?>" <?= $status ?>>
-                    <span> Nombre </span>
+                    <b> Nombre </b>
                     <input required type="text" name="nombre" value="<?= $objeto["nombre"] ?>" <?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>

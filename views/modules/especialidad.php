@@ -107,9 +107,9 @@ switch ($btn) {
 
                 <form action="?m=panel&mod=especialidad&action=<?= $action; ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $especialidad["idEspecialidad"]; ?>">
-                    <span> Id Especialidad </span>
+                    <b> Id Especialidad </b>
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="nombre" value="<?= $especialidad["idEspecialidad"]; ?>" <?= $status ?>>
-                    <span> Nombre </span>
+                    <b> Nombre </b>
                     <input required type="text" name="nombre" value="<?= $especialidad["nombre"]; ?>" <?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>

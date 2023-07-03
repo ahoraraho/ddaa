@@ -42,6 +42,7 @@ if (isset($_GET['file'])) {
         <span class="f-s">15</span>
     </div>
     <div class="f2">
+        <a href="?m=panel&mod=prodds" class="btn-main">Tipos</a>
         <a href="?m=panel&mod=actualizacion&action=add" class="button-link btn-new f-e">
             <i class="abi bi bi-plus-square"></i><span>Nueva Actualización</span>
         </a>

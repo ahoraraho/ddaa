@@ -110,7 +110,7 @@ switch ($btn) {
 
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house "></i></a>
-    <a href="?m=panel&mod=categorias" title="Ir a Marcas">Empresas</a>
+    <a href="?m=panel&mod=empresas" title="Ir a Empresas">Empresas</a>
     <a href="#" title="Estas justo aqui" class="active"><?= $hacer ?></a>
 </div>
 <div class="formularios">
@@ -120,19 +120,19 @@ switch ($btn) {
             <div class="formm">
                 <form action="?m=panel&mod=empresa&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $empresa["idEmpresa"]; ?>">
-                    <span> ID Empresa</span>
+                    <b> ID Empresa</b>
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $empresa["idEmpresa"] ?>" <?= $status ?>>
-                    <span> Nombre Empresa</span>
+                    <b> Nombre Empresa</b>
                     <input required type="text" name="nombreEmpresa" value="<?= $empresa["nombreEmpresa"] ?>" <?= $status ?>>
-                    <span> RUC </span>
+                    <b> RUC </b>
                     <input required type="number" min="0" name="ruc" value="<?= $empresa["ruc"] ?>"<?= $status ?>>
-                    <span> Telefono </span>
+                    <b> Telefono </b>
                     <input required type="number" min="0" name="telefono" value="<?= $empresa["telefono"] ?>"<?= $status ?>>
-                    <span> Email </span>
+                    <b> Email </b>
                     <input required type="text" min="0" name="email" value="<?= $empresa["email"] ?>"<?= $status ?>>
-                    <span> Numero de Partida </span>
+                    <b> Numero de Partida </b>
                     <input required type="text" min="0" name="numeroPartida" value="<?= $empresa["numeroPartida"] ?>"<?= $status ?>>
-                    <span> MIPE </span>
+                    <b> MIPE </b>
                     <input required type="text" min="0" name="mipe" value="<?= $empresa["mipe"] ?>"<?= $status ?>>
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>

@@ -135,90 +135,100 @@ switch ($btn) {
         <h3>PROYECTO</h3>
         <div class="main">
             <div class="formm">
-
                 <form action="?m=panel&mod=proyecto&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="idProyecto" value="<?= $proyecto["idProyecto"]; ?>">
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="idProyecto" value="<?= $proyecto["idProyecto"]; ?>" <?= $status ?>>
-                    <span> Nombre Empresa </span>
-                    <select name="nombreEmpresa" value="<?= $proyecto["nombre_empresa"]; ?>" <?= $status ?>>
-                        <?php
-                        $empresas = $dbEmpresas->selectEmpresas();
-                        foreach ($empresas as $empresa) {
-                            $selected = ($empresa["idEmpresa"] == $proyecto["nombre_empresa"]) ? "selected" : ""; ?>
-                            <option value="<?= $empresa["idEmpresa"] ?>" <?= $selected ?>><?= $empresa["nombreEmpresa"] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <span> Nombre Proyecto </span>
+                    <b> Nombre Empresa </b>
+                    <div class="custom-select">
+                        <select name="nombreEmpresa" <?= $status ?>>
+                            <option>Seleccionar una Empresa...</option>
+                            <?php
+                            $empresas = $dbEmpresas->selectEmpresas();
+                            foreach ($empresas as $empresa) {
+                                $idEmpresa = $empresa["idEmpresa"];
+                                $nombre = $empresa["nombreEmpresa"];
+                                $empres = $proyecto["nombre_empresa"]; ?>
+                                <option value="<?= $idEmpresa ?>" <?= ($idEmpresa == $empres) ? "selected" : null ?>><?= $nombre ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <b> Nombre Proyecto </b>
                     <input required type="text" name="nombreProyecto" value="<?= $proyecto["nombre_proyecto"]; ?>" <?= $status ?>>
-                    <span> Número de Contrato </span>
+                    <b> Número de Contrato </b>
                     <input required type="text" name="numeroContrato" value="<?= $proyecto["numero_contrato"]; ?>" <?= $status ?>>
-                    <span> Entidad </span>
+                    <b> Entidad </b>
                     <input required type="text" name="entidad" value="<?= $proyecto["entidad"]; ?>" <?= $status ?>>
-                    <span> Fecha de Firma </span>
+                    <b> Fecha de Firma </b>
                     <input required type="text" placeholder="aaaa-mm-dd" name="fechaFirma" value="<?= $proyecto["fecha_firma"]; ?>" <?= $status ?>>
-                    <span> Monto Contrato Original </span>
+                    <b> Monto Contrato Original </b>
                     <input required type="text" name="montoContratoOriginal" value="<?= $proyecto["monto_contrato_original"]; ?>" <?= $status ?>>
-                    <span> Porcentaje de Participación </span>
+                    <b> Porcentaje de Participación </b>
                     <input required type="text" name="porcentajeParticipacion" value="<?= $proyecto["porcentaje_de_participacion"]; ?>" <?= $status ?>>
-                    <span> Adicionales de la Obra </span>
+                    <b> Adicionales de la Obra </b>
                     <input required type="text" name="adicionalesObra" value="<?= $proyecto["adicionales_de_la_obra"]; ?>" <?= $status ?>>
-                    <span> Deductivos de Obra </span>
+                    <b> Deductivos de Obra </b>
                     <input required type="text" name="deductivosObra" value="<?= $proyecto["deductivos_de_obra"]; ?>" <?= $status ?>>
-                    <span> Monto Final del Contrato </span>
+                    <b> Monto Final del Contrato </b>
                     <input required type="text" name="montoFinalContrato" value="<?= $proyecto["monto_final_del_contrato"]; ?>" <?= $status ?>>
-                    <span> Miembro del Consorcio </span>
+                    <b> Miembro del Consorcio </b>
                     <input required type="text" name="miembroConsorcio" value="<?= $proyecto["miembro_del_consorcio"]; ?>" <?= $status ?>>
-                    <span> Observaciones </span>
+                    <b> Observaciones </b>
                     <input required type="text" name="observaciones" value="<?= $proyecto["observaciones"]; ?>" <?= $status ?>>
-                    <span> Contacto </span>
-                    <select name="contacto" value="<?= $proyecto["contacto"]; ?>" <?= $status ?>>
-                        <?php
-                        $contactos = $dbContactos->selectContactos();
-                        foreach ($contactos as $contacto) {
-                            $selected = ($contacto["idEmpresa"] == $proyecto["contacto"]) ? "selected" : ""; ?>
-                            <option value="<?= $contacto["idContacto"] ?>" <?= $selected ?>><?= $contacto["nombre"] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <span> Objeto </span>
-                    <select name="objeto" value="<?= $proyecto["objeto"]; ?>" <?= $status ?>>
-                        <?php
-                        $objetos = $dbObjetos->selectObjetos();
-                        foreach ($objetos as $objeto) {
-                            $selected = ($objeto["idEmpresa"] == $proyecto["objeto"]) ? "selected" : ""; ?>
-                            <option value="<?= $objeto["idObjeto"] ?>" <?= $selected ?>><?= $objeto["nombre"] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <span> Especialidad </span>
-                    <select name="especialidad" value="<?= $proyecto["especialidad"]; ?>" <?= $status ?>>
-                        <?php
-                        $especialidades = $dbEspecialidades->selectEspecialidades();
-                        foreach ($especialidades as $especialidad) {
-                            $selected = ($especialidad["idEspecialidad"] == $proyecto["especialidad"]) ? "selected" : ""; ?>
-                            <option value="<?= $especialidad["idEspecialidad"] ?>" <?= $selected ?>><?= $especialidad["nombre"] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <input type="hidden" name="idDocumento" value="<?= $documento["idDocumento"]; ?>">
-                    <!-- <span>ID Documento</span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" value="<?= $documento["idDocumento"] ?>" <?= $status ?>> -->
-                    <span>Nombre de Proyecto</span>
-                    <select name="idProyecto" <?= $status ?>>
-                        <?php
-                        $proyectos = $dbProyectos->selectProyectos();
-                        foreach ($proyectos as $proyecto) {
-                            $selected = ($proyecto['idProyecto'] == $documento["idProyecto"]) ? "selected" : ""; ?>
-                            <option value="<?= $proyecto['idProyecto'] ?>" <?= $selected ?>><?= $proyecto['nombre_proyecto']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
+                    <b> Contacto </b>
+                    <div class="custom-select">
+                        <select name="contacto" <?= $status ?>>
+                            <option><i>Seleccionar un Contacto...</i></option>
+                            <?php
+                            $contactos = $dbContactos->selectContactos();
+                            foreach ($contactos as $contacto) {
+                                $idContacto = $contacto["idContacto"];
+                                $nombre = $contacto["nombre"];
+                                $contac = $proyecto["contacto"]; ?>
+                                <option value="<?= $idContacto ?>" <?= ($idContacto == $contac) ? "selected" : null ?>><?= $nombre ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></span> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <b>Objeto</b>
+                    <div class="custom-select">
+                        <select name="objeto" <?= $status ?>>
+                            <option><i>Seleccionar un Objeto...</i></option>
+                            <?php
+                            $objetos = $dbObjetos->selectObjetos();
+                            foreach ($objetos as $objeto) {
+                                $idObjeto = $objeto["idObjeto"];
+                                $nombre = $objeto["nombre"];
+                                $obje = $proyecto["objeto"]; ?>
+                                <option value="<?= $idObjeto ?>" <?= ($idObjeto == $obje) ? "selected" : null ?>><?= $nombre ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></span> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <b> Especialidad </b>
+                    <div class="custom-select">
+                        <select name="especialidad" <?= $status ?>>
+                            <option><i>Seleccionar una Especialidad...</i></option>
+                            <?php
+                            $especialidades = $dbEspecialidades->selectEspecialidades();
+                            foreach ($especialidades as $especialidad) {
+                                $idEspecialidad = $especialidad["idEspecialidad"];
+                                $nombre = $especialidad["nombre"];
+                                $especial = $proyecto["especialidad"]; ?>
+                                <option value="<?= $idEspecialidad ?>" <?= ($idEspecialidad == $especial) ? "selected" : null ?>><?= $nombre ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></span> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+
                     <div class="contenedor_pdf">
                         <!-- <div class="contenido-tabla"> -->
                         <table class="tabla-responsive">
@@ -263,7 +273,7 @@ switch ($btn) {
                                     <div class="btn-add-pdf">
                                         <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                     </div> -->
-                                        <input id="archivo-1" type="file" min="0" name="resolucion_de_obra">
+                                        <input id="archivo-1" type="file" min="0" name="resolucion_de_obra" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                         </div>
@@ -282,7 +292,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description">Resolución de Obra</td>
                                     <td>
-                                        <input id="archivo-2" type="file" min="0" name="resolucion_de_obra">
+                                        <input id="archivo-2" type="file" min="0" name="resolucion_de_obra" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-2" name="addPdf-2" id="addPdf-2">Cargar PDF</label>
                                         </div>
@@ -301,7 +311,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description">Resolución de Deductivos</td>
                                     <td>
-                                        <input id="archivo-3" type="file" min="0" name="resolucion_deductivos">
+                                        <input id="archivo-3" type="file" min="0" name="resolucion_deductivos" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-3" name="addPdf-3" id="addPdf-3">Cargar PDF</label>
                                         </div>
@@ -320,7 +330,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description">Resolución Adicionales</td>
                                     <td>
-                                        <input id="archivo-4" type="file" min="0" name="resolucion_adicionales">
+                                        <input id="archivo-4" type="file" min="0" name="resolucion_adicionales" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-4" name="addPdf-4" id="addPdf-4">Cargar PDF</label>
                                         </div>
@@ -339,7 +349,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description">Anexo de Promesa de Consorcio</td>
                                     <td>
-                                        <input id="archivo-5" type="file" min="0" name="anexo_de_promesa_de_consorcio">
+                                        <input id="archivo-5" type="file" min="0" name="anexo_de_promesa_de_consorcio" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-5" name="addPdf-5" id="addPdf-5">Cargar PDF</label>
                                         </div>
@@ -358,7 +368,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description">Constancia</td>
                                     <td>
-                                        <input id="archivo-7" type="file" min="0" name="constancia">
+                                        <input id="archivo-7" type="file" min="0" name="constancia" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-7" name="addPdf-7" id="addPdf-7">Cargar PDF</label>
                                         </div>
@@ -377,7 +387,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description">Contrato de Consorcio</td>
                                     <td>
-                                        <input id="archivo-8" type="file" min="0" name="contrato_de_consorcio">
+                                        <input id="archivo-8" type="file" min="0" name="contrato_de_consorcio" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-8" name="addPdf-8" id="addPdf-8">Cargar PDF</label>
                                         </div>
@@ -396,7 +406,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description">Contrato</td>
                                     <td>
-                                        <input id="archivo-9" type="file" min="0" name="contrato" ?>
+                                        <input id="archivo-9" type="file" min="0" name="contrato" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-9" name="addPdf-9" id="addPdf-9">Cargar PDF</label>
                                         </div>

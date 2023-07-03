@@ -8,7 +8,7 @@
     --colorTextRuta: #0f3765;
     --colorIconRuta: #000000;
 
-    --colorIconos: #204062;
+    --colorIconos: #3a94df;
 
     --bg-drop: #ffffff;
 
@@ -157,32 +157,95 @@ input[type="file"] {
     display: none;
 }
 
+select {
+    background-color: #199e3623;
+    /* Estilo de fondo para la opción seleccionada */
+    color: #000000;
+    /* Estilo de color de texto para la opción seleccionada */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    background-position: right center;
+    background-repeat: no-repeat;
+    /* Añade espacio para cualquier otro ícono personalizado */
+}
+
+select option:selected {
+    background-color: #d6c02e;
+    /* Estilo de fondo para la opción seleccionada */
+    color: #000000;
+    /* Estilo de color de texto para la opción seleccionada */
+}
+
+.custom-select {
+    position: relative;
+}
+
+.custom-select select {
+    padding-right: 25px;
+    /* Ajusta el espacio a la derecha para el icono */
+}
+
+.custom-select-icon {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    /* Ajusta la posición horizontal del icono */
+    transform: translateY(-50%);
+    pointer-events: none;
+    /* Evita que el icono interfiera con la selección del <select> */
+}
+
+
 .btn-action-doc {
-    padding: 5px;
+    padding: 8px;
     background-color: var(--secondary);
     color: var(--primary);
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: alias;
+    border: solid 1px var(--primary);
+}
+
+.disabled-button {
+    pointer-events: none;
+    /* Deshabilita los eventos del mouse */
+    opacity: 0.5;
+    /* Opcional: cambia la opacidad para indicar que está deshabilitado */
+    cursor: not-allowed;
+    /* Opcional: cambia el cursor para indicar que no se puede hacer clic */
 }
 
 /*botones de añadir, descargar y ver archivo*/
 .btn-action-doc:hover {
     color: var(--secondary);
     background-color: var(--primary);
+    border: solid 1px var(--secondary);
+
 }
 
 .btn-add-pdf {
-    padding: 5px;
+    padding: 6px;
     color: var(--secondary);
     background-color: var(--primary);
-    border-radius: 5px;
-    cursor: progress;
+    border: solid 1px var(--secondary);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-add-pdf label {
+    cursor: pointer;
+}
+
+.btn-add-pdf label :hover {
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .btn-add-pdf:hover {
     background-color: var(--secondary);
     color: var(--primary);
-    font-weight: bold;
+    border: solid 1px var(--primary);
 }
 
 /*input[type="search"] {
@@ -259,8 +322,9 @@ textarea {
 
 .button-link,
 .button-comprar {
-    background-color: rgba(47, 214, 150, 0.798);
-    color: rgb(0, 0, 0);
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: solid 1px var(--secondary);
     cursor: pointer;
     font-size: 18px;
     padding: 10px 10px;
@@ -268,14 +332,34 @@ textarea {
     transition: 1s background-color;
     border-radius: 10px;
     font-weight: bold;
-    border: solid .1px black;
+}
+
+.btn-main {
+    background-color: var(--secondary);
+    color: var(--primary);
+    border-color: var(--primary);
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px;
+    margin: 10px;
+    transition: 1s background-color;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.btn-main :hover {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: solid 1px var(--secondary);
 }
 
 
 .button-link:hover,
 .button-comprar:hover {
-    background-color: rgb(0, 219, 243);
-    /*negrita fuerte*/
+    background-color: var(--secondary);
+    color: var(--primary);
+    border-color: var(--primary);
+
 }
 
 /*BOTON DE ALGO DE NUEVO*/

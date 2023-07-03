@@ -19,7 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellido = $_POST["apellido"];
     $direccion = $_POST["direccion"];
     $telefono = $_POST["telefono"];
-    $contrasena = $_POST["constrasena"];
+
+    $contrasenaActual = $_POST["passActual"];
+
+    $contrasena = $_POST["contrasena"];
+    if (is_null($contrasena)) {
+        $contrasena =  $contrasenaActual;
+    } else {
+        $contrasena = $_POST["contrasena"];
+    }
     $estado = $_POST["estado"];
     $idUsuario = $_POST['idUsuario'];
     $idEspecialista = $_POST['id'];
@@ -127,28 +135,36 @@ switch ($btn) {
             <div class="formm">
                 <form action="?m=panel&mod=usuario&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $especialista['idEspecialista'] ?>">
-                    <span>Id</span>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id"
-                        value="<?= $especialista['idEspecialista'] ?>"<?= $status ?>>
-                    <span>DNI</span>
-                    <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>"<?= $status ?>>
-                    <span>Nombre</span>
-                    <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>"<?= $status ?>>
-                    <span>Apellido</span>
-                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"<?= $status ?>>
-                    <span>Dirección</span>
-                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"<?= $status ?>>
-                    <span>Teléfono</span>
-                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"<?= $status ?>>
-                    <span>Email</span>
-                    <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>"<?= $status ?>>
-                    <span>Contraseña</span>
-                    <input required type="password" min="0" name="contrasena" value=""<?= $status ?>>
-                    <span>Estado</span>
-                    <select name="estado" <?= $status ?> onchange="updateEstadoActual(this)">
-                        <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
-                        <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
-                    </select>
+                    <b>Id</b>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $especialista['idEspecialista'] ?>" <?= $status ?>>
+                    <b>DNI</b>
+                    <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>" <?= $status ?>>
+                    <b>Nombre</b>
+                    <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>" <?= $status ?>>
+                    <b>Apellido</b>
+                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>" <?= $status ?>>
+                    <b>Dirección</b>
+                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>" <?= $status ?>>
+                    <b>Teléfono</b>
+                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>" <?= $status ?>>
+                    <b>Email</b>
+                    <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>" <?= $status ?>>
+                    <input required type="hidden" min="0" name="passActual" value="<?= $especialista['Contrasena'] ?>" <?= $status ?>>
+                    <div class="form_logueado">
+                        <b>Contraseña</b>
+                        <input type="password" id="txtPassword" name="contrasena" <?= $status ?>>
+                        <div class="eyePass">
+                            <i id="iconoEye" class="bi bi-eye"></i>
+                        </div>
+                    </div>
+                    <b>Estado</b>
+                    <div class="custom-select">
+                        <select name="estado" <?= $status ?> onchange="updateEstadoActual(this)">
+                            <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
+                            <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
                     <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>

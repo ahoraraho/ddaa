@@ -17,6 +17,7 @@ require_once ('db/dbEspecialistas.php');
 require_once ('db/dbDocumentos.php');
 
 require_once ('db/dbActualizaciones.php');
+require_once ('db/dbProdd.php');
 require_once ('db/dbNoticias.php');
 
 require_once ('functions/functions.php');

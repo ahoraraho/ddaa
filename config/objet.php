@@ -13,6 +13,7 @@ $dbEspecialistas = new dbEspecialistas();
 $dbDocumentos = new dbDocumentos();
 
 $dbActualizaciones = new dbActualizaciones();
+$dbProdds = new dbProdd();
 $dbNoticias = new dbNoticias();
 
 ?>
