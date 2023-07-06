@@ -200,7 +200,6 @@ switch ($btn) {
                             </tbody>
                         </table>
                     </div>
-
                     <br><br>
                     <button type="submit" name="action" id="btnAction" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                 </form>

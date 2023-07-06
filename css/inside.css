@@ -98,9 +98,24 @@ tr:nth-child(odd) td {
 
 .contenedor_pdf .description {
     text-align: start;
+    width: auto;
+    font-weight: bold;
 }
 
-
+/*estilos input del nombre del archvivo*/
+.nombreArchivo input[type="text"] {
+    font-size: 17px;
+    background: transparent;
+    border: none;
+    outline-color: transparent;
+    /* pointer-events: none; */
+    pointer-events: all;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    color: var(--text-color);
+    overflow: scroll;
+}
 
 /*FORMULARION DE ENTRADA DE DATOS DE TODO TIPO*/
 

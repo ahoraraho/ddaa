@@ -49,12 +49,11 @@ INSERT INTO login (rol, idAdministrador, idEspecialista, Email, Contrasena, Acti
 CREATE TABLE empresa (
     idEmpresa INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombreEmpresa VARCHAR(100) NOT NULL,
-    ruc VARCHAR(11) NOT NULL,
+    ruc VARCHAR(11) NOT NULL CHECK (LENGTH(ruc) = 11),
     telefono VARCHAR(9) NOT NULL CHECK (LENGTH(telefono) = 9),
     email VARCHAR(50) NOT NULL,
-    numeroPartida VARCHAR(8) NOT NULL,
-    mipe VARCHAR(1) NOT NULL,
-    archivos INT(11) NOT NULL
+    numeroPartida VARCHAR(8) NOT NULL CHECK (LENGTH(telefono) = 9),
+    mipe VARCHAR(1) NOT NULL
 );
 
 INSERT INTO empresa (nombreEmpresa, ruc, telefono, email, numeroPartida, mipe)

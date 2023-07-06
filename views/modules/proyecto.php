@@ -132,7 +132,7 @@ switch ($btn) {
 </div>
 <div class="formularios">
     <div class="entradas">
-        <h3>PROYECTO</h3>
+        <h3>Proyecto</h3>
         <div class="main">
             <div class="formm">
                 <form action="?m=panel&mod=proyecto&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
@@ -244,8 +244,7 @@ switch ($btn) {
                                 <?php
                                 // $documento = $dbDocumentos->selectDocumento();
 
-                                // $id = $documento['idDocumento'];
-                                // $nom_proyecto = $documento['nombre_proyecto'];
+                                // $id = $documento['idEmpresa'];
                                 // $acta_de_recepcion = $documento['acta_de_recepcion'];
                                 // $resolucion_de_obra = $documento['resolucion_de_obra'];
                                 // $resolucion_deductivos = $documento['resolucion_deductivos'];
@@ -273,7 +272,7 @@ switch ($btn) {
                                     <div class="btn-add-pdf">
                                         <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                     </div> -->
-                                        <input id="archivo-1" type="file" min="0" name="resolucion_de_obra" accept=".pdf">
+                                        <input id="archivo-1" type="file" min="0" name="acta_de_recepcion" accept=".pdf">
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo-1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                         </div>

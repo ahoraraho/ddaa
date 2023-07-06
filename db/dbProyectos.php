@@ -7,7 +7,7 @@ class dbProyectos
         {
             global $conexion;
     
-            $consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa";
+            $consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos AS p INNER JOIN empresa AS e ON p.nombre_empresa = e.idEmpresa";
             $resultado = mysqli_query($conexion, $consulta);
     
             $proyectos = array();
@@ -44,11 +44,11 @@ class dbProyectos
         }
 
         //insertar registros
-        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad, $archivos){
+        public function InsertProyecto($nombre_empresa, $nombre_proyecto, $numero_contrato, $entidad, $fecha_firma, $monto_contrato_original, $porcentaje_de_participacion, $adicionales_de_la_obra, $deductivos_de_obra, $monto_final_del_contrato, $miembro_del_consorcio, $observaciones, $contacto, $objeto, $especialidad){
 
             global $conexion;
 
-            $consulta = "INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad, archivos)
+            $consulta = "INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad)
                         VALUES (  
                         '$nombre_empresa', 
                         '$nombre_proyecto', 
@@ -64,8 +64,7 @@ class dbProyectos
                         '$observaciones', 
                         '$contacto', 
                         '$objeto', 
-                        '$especialidad',
-                        $archivos)";
+                        '$especialidad')";
 
             mysqli_query($conexion, $consulta);
 
@@ -145,4 +144,3 @@ class dbProyectos
             }
         }
     }
-?>
