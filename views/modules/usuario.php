@@ -149,13 +149,7 @@ switch ($btn) {
                     <b>Email</b>
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>" <?= $status ?>>
                     <input required type="hidden" min="0" name="passActual" value="<?= $especialista['Contrasena'] ?>" <?= $status ?>>
-                    <div class="form_logueado">
-                        <b>Contraseña</b>
-                        <input type="password" id="txtPassword" name="contrasena" <?= $status ?>>
-                        <div class="eyePass">
-                            <i id="iconoEye" class="bi bi-eye"></i>
-                        </div>
-                    </div>
+
                     <b>Estado</b>
                     <div class="custom-select">
                         <select name="estado" <?= $status ?> onchange="updateEstadoActual(this)">
@@ -169,7 +163,7 @@ switch ($btn) {
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                     <br><br>
                     <a href="?m=panel&mod=usuarioReset&id=<?= $especialista['idEspecialista'] ?>" class="form_login">
-                    <i class="abi bi bi-gear-wide-connected"></i><span>Cambiar contraseña</span>
+                        <i class="abi bi bi-gear-wide-connected"></i><span>Cambiar contraseña</span>
                     </a>
                 </form>
             </div>
