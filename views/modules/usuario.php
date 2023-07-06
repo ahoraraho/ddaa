@@ -30,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $estado = $_POST["estado"];
     $idUsuario = $_POST['idUsuario'];
-    $idEspecialista = $_POST['id'];
     $email = $_POST["email"];
     $estado = $_POST["estado_actual"];
 
@@ -45,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'update':
             $msj = "0x1000";
-            $affectedRows = $dbEspecialistas->updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado);
+            $affectedRows = $dbEspecialistas->updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $estado);
             if ($affectedRows) {
                 $msj = "0x20";
             }
@@ -150,13 +149,7 @@ switch ($btn) {
                     <b>Email</b>
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>" <?= $status ?>>
                     <input required type="hidden" min="0" name="passActual" value="<?= $especialista['Contrasena'] ?>" <?= $status ?>>
-                    <div class="form_logueado">
-                        <b>Contraseña</b>
-                        <input type="password" id="txtPassword" name="contrasena" <?= $status ?>>
-                        <div class="eyePass">
-                            <i id="iconoEye" class="bi bi-eye"></i>
-                        </div>
-                    </div>
+
                     <b>Estado</b>
                     <div class="custom-select">
                         <select name="estado" <?= $status ?> onchange="updateEstadoActual(this)">
@@ -168,6 +161,10 @@ switch ($btn) {
                     <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <br><br>
+                    <a href="?m=panel&mod=usuarioReset&id=<?= $especialista['idEspecialista'] ?>" class="form_login">
+                        <i class="abi bi bi-gear-wide-connected"></i><span>Cambiar contraseña</span>
+                    </a>
                 </form>
             </div>
         </div>

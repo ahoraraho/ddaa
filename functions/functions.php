@@ -35,10 +35,25 @@ function mensaje($modulo, $pul = 'o')
                 $typeMsj = "msj-ok";
                 $iconoAlert = "bi-check-circle";
                 break;
+            case '0x11':
+                $msj = "Noticia agregada, pero hubo un error al tratar de guardar la imagen!";
+                $typeMsj = "msj-warning";
+                $iconoAlert = "bi-exclamation-circle";
+                break;
             case '0x20':
                 $msj = $modulo . " Actualizad" . $pul . "!";
                 $typeMsj = "msj-ok";
                 $iconoAlert = "bi-check2-circle";
+                break;
+            case '0x21':
+                $msj = "noticia actualizada, pero hubo un error al tratar de guardar la imagen!";
+                $typeMsj = "msj-warning";
+                $iconoAlert = "bi-wrench-adjustable-circle";
+                break;
+            case '0x22':
+                $msj = "Contraseña actualizada";
+                $typeMsj = "msj-warning";
+                $iconoAlert = "bi-wrench-adjustable-circle";
                 break;
             case '0x30':
                 $msj = $modulo . " Eliminad" . $pul . "!";

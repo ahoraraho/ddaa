@@ -38,25 +38,36 @@ mensaje('Noticia', 'a');
         <thead>
             <tr>
             <th>Id Noticia</th>
-                <th>Nombre del Noticia</th>
-                <th colspan="2">Acciones</th>
+            <th>Nombre del Noticia</th>
+            <th>Destacado</th>
+            <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
 
             <?php
-            $objetos = $dbObjetos->selectObjetos();
+            $noticias = $dbNoticias->selectNoticias();
 
-            foreach ($objetos as $objeto) {
-                $id = $objeto['idObjeto'];
-                $nombre = $objeto['nombre'];
+            foreach ($noticias as $noticia) {
+                $idNoticia = $noticia['idNoticia'];
+                $titulo = $noticia['titulo'];
+                $descripcion = $noticia['descripcion'];
+                $fecha = $noticia['fecha'];
+                $destacado = $noticia['destacado'];
+                if ($destacado == 0)
+                {
+                    $destacado = "-";
+                } else if($destacado == 1){
+                    $destacado = "Destacado";
+                }
             ?>
                 <tr>
-                    <td><?= $id ?></td>
-                    <td><?= $nombre ?></td>
+                    <td><?= $idNoticia ?></td>
+                    <td><?= $titulo ?></td>
+                    <td><?= $destacado ?></td>
                     <td>
-                        <a href="?m=panel&mod=objeto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=objeto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=noticia&action=update&id=<?= $idNoticia ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=noticia&action=delete&id=<?= $idNoticia ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
                     </td>
                 </tr>
             <?php } ?>

@@ -80,10 +80,9 @@ class dbEspecialistas
         return mysqli_affected_rows($conexion);
     }
 
-    public function updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $contrasena, $estado)
+    public function updateEspecialista($idEspecialista, $dni, $nombre, $apellido, $direccion, $telefono, $email, $estado)
     {
         global $conexion;
-        $passHash = password_hash($contrasena, PASSWORD_BCRYPT, ["cost" => 11]);
         date_default_timezone_set('America/Lima');
         $fechaHora = date('Y-m-d H:i:s');
 
@@ -108,7 +107,6 @@ class dbEspecialistas
 
         $consulta_login = "UPDATE login
                         SET Email = ?,
-                        Contrasena = ?,
                         Estado = ?,
                         fechaModificacionPass = ?,
                         fechaModificacionData = ?
@@ -116,7 +114,7 @@ class dbEspecialistas
         $stmt_login = mysqli_prepare($conexion, $consulta_login);
 
         if ($stmt_login) {
-            mysqli_stmt_bind_param($stmt_login, "sssisi", $email, $passHash, $estado, $fechaHora, $fechaHora, $idEspecialista);
+            mysqli_stmt_bind_param($stmt_login, "ssisi", $email, $estado, $fechaHora, $fechaHora, $idEspecialista);
             mysqli_stmt_execute($stmt_login);
             mysqli_stmt_close($stmt_login);
         } else {
@@ -200,5 +198,35 @@ class dbEspecialistas
             return [];
         }
     }
+
+    function updateContrasena($id, $email, $passOk)
+    {
+        global $conexion;
+
+        date_default_timezone_set('America/Lima'); // Establece la zona horaria a Perú
+
+        $fechaHora = date('Y-m-d H:i:s'); // Obtiene la fecha y hora actual en el formato deseado
+
+        //echo "Fecha y hora en Perú: " . $fechaHora;
+
+        $passHash = password_hash($passOk, PASSWORD_BCRYPT, ["cost" => 11]);
+
+        $consulta = "UPDATE login
+            SET Contrasena = ?, fechaModificacionPass = ?
+            WHERE IdUsuario = ? AND Email = ?";
+
+        $stmt = mysqli_prepare($conexion, $consulta);
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ssss", $passHash, $fechaHora, $id, $email);
+            mysqli_stmt_execute($stmt);
+            $affectedRows = mysqli_stmt_affected_rows($stmt);
+            mysqli_stmt_close($stmt);
+
+            return $affectedRows > 0;
+        }
+
+        return false;
+    }
+
 }
 ?>

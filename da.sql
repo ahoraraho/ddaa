@@ -262,7 +262,8 @@ CREATE TABLE noticias (
     titulo VARCHAR(255),
     descripcion LONGTEXT,
     fecha DATE,
-    destacado VARCHAR(1)
+    destacado VARCHAR(1),
+    imagen VARCHAR(255)
 );
 
 
