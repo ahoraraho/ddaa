@@ -31,7 +31,7 @@ if (getMode && getMode === "dark-mode" && getLogo === "logo-dark") {
 /*################################################################################################*/
 //CAMBIAR EL TEMA DE LA PAGINA Y ICONO GUARDADO EN EL LOCALSTORAGE, OSCURO O CLARO
 if (modeToggle) { //si detecta un click en el boton ejecuta la funcion toggelMode
-  //modeToggle.addEventListener("click", toggleMode);
+  modeToggle.addEventListener("click", toggleMode);
 }
 
 if (icon) {

@@ -70,22 +70,6 @@ function mensaje($modulo, $pul = 'o')
     }
 }
 
-function eliminarDirectorio($directorio)
-{
-    if (!is_dir($directorio)) {
-        return;
-    }
-    $archivos = glob($directorio . '/*');
-    foreach ($archivos as $archivo) {
-        if (is_dir($archivo)) {
-            // eliminarCarpeta($archivo);
-        } else {
-            unlink($archivo);
-        }
-    }
-    rmdir($directorio);
-}
-
 function eliminarCarpeta($ruta) {
     // Verificar si la ruta es una carpeta
     if (!is_dir($ruta)) {

@@ -15,7 +15,7 @@ mensaje('Especialista', 'a');
 </div>
 
 
-<h3>USUARIOS</h3>
+<h2>USUARIOS</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -62,7 +62,7 @@ mensaje('Especialista', 'a');
                 $telefono = $especialista['telefono'];
             ?>
 
-                <tr>
+                <tr  onclick="window.location.href='?m=panel&mod=usuario&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $nombre ?></td>
                     <td><?= $apellido ?></td>

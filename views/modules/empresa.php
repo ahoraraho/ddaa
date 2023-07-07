@@ -50,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "carnet_conadis" => $_FILES["carnet_conadis"]
     ];
 
-
     switch ($action) {
         case 'add':
 
@@ -185,7 +184,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $msj = "0x33";
             }
-
             break;
     }
     header('location: ?m=panel&mod=empresas&msj=' . $msj);
@@ -219,25 +217,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "planilla_discapasitados" => "",
                 "carnet_conadis" => ""
             );
+            $botonView = 1;
 
             break;
 
         case 'update':
             $id = $_GET["id"];
+            $botonView = 1;
             $btn = "Actualizar";
             $status = null;
             $empresa = $dbEmpresas->selectEmpresa($id);
             $archivosEmpresa = $dbEmpresas->selectArchivosEmpresa($id);
-
             break;
-
         case 'delete':
             $id = $_GET["id"];
+            $botonView = 1;
             $btn = "Eliminar";
             $status = "disabled";
             $empresa = $dbEmpresas->selectEmpresa($id);
             $archivosEmpresa = $dbEmpresas->selectArchivosEmpresa($id);
-
+            break;
+        case 'view':
+            $id = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
+            $status = "disabled";
+            $empresa = $dbEmpresas->selectEmpresa($id);
+            $archivosEmpresa = $dbEmpresas->selectArchivosEmpresa($id);
             break;
     }
 }
@@ -246,19 +252,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
-        $styleImage = "display: none !importans; ";
         $hacer = "Eliminar Empresa";
-        // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
         $hacer = "Agregar Empresa";
-        // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
         $hacer = "Actualizar Empresa";
-        // $icono = "bi bi-pencil-square";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Empresa";
         break;
     default:
         # code...
@@ -278,7 +284,7 @@ switch ($btn) {
             <div class="formm">
                 <form action="?m=panel&mod=empresa&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $empresa["idEmpresa"]; ?>">
-                    <b> ID Empresa</b>
+
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $empresa["idEmpresa"] ?>" <?= $status ?>>
                     <b> Nombre Empresa</b>
                     <input required type="text" name="nombreEmpresa" value="<?= $empresa["nombreEmpresa"] ?>" <?= $status ?>>
@@ -291,7 +297,15 @@ switch ($btn) {
                     <b> Numero de Partida </b>
                     <input required type="text" min="0" oninput="validateLength(this, 8)" name="numeroPartida" value="<?= $empresa["numeroPartida"] ?>" <?= $status ?>>
                     <b> MIPE </b>
-                    <input required type="text" min="0" oninput="validateLength(this, 1)" name="mipe" value="<?= $empresa["mipe"] ?>" <?= $status ?>>
+                    <div class="custom-select">
+                        <select name="mipe" <?= $status ?> required>
+                            <option value="">Seleccionar una Opción...</option>
+                            <option value="SI" <?= ($empresa["mipe"] == 'SI') ? 'selected' : '' ?>>Si es mipe</option>
+                            <option value="NO" <?= ($empresa["mipe"] == 'NO') ? 'selected' : '' ?>>No es mipe</option>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
+                    <!-- <input required type="text" min="0" oninput="validateLength(this, 1)" name="mipe" value="<?= $empresa["mipe"] ?>" <?= $status ?>> -->
                     <br><br>
                     <div class="contenedor_pdf">
                         <!-- <div class="contenido-tabla"> -->
@@ -305,49 +319,49 @@ switch ($btn) {
                             </tr>
                         </thead> -->
                             <tbody style="text-align: star;">
-                                <tr>
-                                    <?php
-                                    $archivos = array(
-                                        "ficha_ruc" => array(
-                                            "btn" => "b1",
-                                            "valor" => isset($archivosEmpresa["ficha_ruc"]) ? $archivosEmpresa["ficha_ruc"] : null
-                                        ),
-                                        "constancia_RNP" => array(
-                                            "btn" => "b2",
-                                            "valor" => isset($archivosEmpresa["constancia_RNP"]) ? $archivosEmpresa["constancia_RNP"] : null
-                                        ),
-                                        "constancia_mipe" => array(
-                                            "btn" => "b3",
-                                            "valor" => isset($archivosEmpresa["constancia_mipe"]) ? $archivosEmpresa["constancia_mipe"] : null
-                                        ),
-                                        "certificado_discapacitados" => array(
-                                            "btn" => "b4",
-                                            "valor" => isset($archivosEmpresa["certificado_discapacitados"]) ? $archivosEmpresa["certificado_discapacitados"] : null
-                                        ),
-                                        "planilla_discapasitados" => array(
-                                            "btn" => "b5",
-                                            "valor" => isset($archivosEmpresa["planilla_discapasitados"]) ? $archivosEmpresa["planilla_discapasitados"] : null
-                                        ),
-                                        "carnet_conadis" => array(
-                                            "btn" => "b6",
-                                            "valor" => isset($archivosEmpresa["carnet_conadis"]) ? $archivosEmpresa["carnet_conadis"] : null
-                                        )
-                                    );
+                                <?php
+                                $archivosHabilitados = array(
+                                    "ficha_ruc" => array(
+                                        "btn" => "b1",
+                                        "valor" => isset($archivosEmpresa["ficha_ruc"]) ? $archivosEmpresa["ficha_ruc"] : null
+                                    ),
+                                    "constancia_RNP" => array(
+                                        "btn" => "b2",
+                                        "valor" => isset($archivosEmpresa["constancia_RNP"]) ? $archivosEmpresa["constancia_RNP"] : null
+                                    ),
+                                    "constancia_mipe" => array(
+                                        "btn" => "b3",
+                                        "valor" => isset($archivosEmpresa["constancia_mipe"]) ? $archivosEmpresa["constancia_mipe"] : null
+                                    ),
+                                    "certificado_discapacitados" => array(
+                                        "btn" => "b4",
+                                        "valor" => isset($archivosEmpresa["certificado_discapacitados"]) ? $archivosEmpresa["certificado_discapacitados"] : null
+                                    ),
+                                    "planilla_discapasitados" => array(
+                                        "btn" => "b5",
+                                        "valor" => isset($archivosEmpresa["planilla_discapasitados"]) ? $archivosEmpresa["planilla_discapasitados"] : null
+                                    ),
+                                    "carnet_conadis" => array(
+                                        "btn" => "b6",
+                                        "valor" => isset($archivosEmpresa["carnet_conadis"]) ? $archivosEmpresa["carnet_conadis"] : null
+                                    )
+                                );
 
-                                    foreach ($archivos as $campo => $archivo) {
-                                        $btn = $archivo["btn"];
-                                        $valor = $archivo["valor"];
-                                        ${"b" . substr($btn, 1)} = empty($valor) ? 'disabled-button' : null;
-                                        ${$campo} = $valor;
-                                    }
-                                    ?>
+                                foreach ($archivosHabilitados as $campo => $archivo) {
+                                    $btn = $archivo["btn"];
+                                    $valor = $archivo["valor"];
+                                    ${"b" . substr($btn, 1)} = empty($valor) ? 'disabled-button' : null;
+                                    ${$campo} = $valor;
+                                }
+                                ?>
+                                <tr>
                                     <td class="description">Fincha RUC</td>
                                     <td class="nombreArchivo">
                                         <input type="hidden" min="0" name="ficha_ruc_actual" value="<?= $ficha_ruc ?>">
                                         <input type="text" id="des1" value="<?= $ficha_ruc ?>">
                                     </td>
                                     <td>
-                                        <input id="archivo1" type="file" min="0" name="ficha_ruc" accept=".pdf">
+                                        <input id="archivo1" type="file" min="0" name="ficha_ruc" accept=".pdf" <?= $status ?>>
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo1" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                         </div>
@@ -370,7 +384,7 @@ switch ($btn) {
                                         <input type="text" id="des2" value="<?= $constancia_RNP ?>">
                                     </td>
                                     <td>
-                                        <input id="archivo2" type="file" min="0" name="constancia_RNP" accept=".pdf">
+                                        <input id="archivo2" type="file" min="0" name="constancia_RNP" accept=".pdf" <?= $status ?>>
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo2" name="addPdf-3" id="addPdf-3">Cargar PDF</label>
                                         </div>
@@ -393,7 +407,7 @@ switch ($btn) {
                                         <input type="text" id="des3" value="<?= $constancia_mipe ?>">
                                     </td>
                                     <td>
-                                        <input id="archivo3" type="file" min="0" name="constancia_mipe" accept=".pdf">
+                                        <input id="archivo3" type="file" min="0" name="constancia_mipe" accept=".pdf" <?= $status ?>>
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo3" name="addPdf-3" id="addPdf-3">Cargar PDF</label>
                                         </div>
@@ -416,7 +430,7 @@ switch ($btn) {
                                         <input type="text" id="des4" value="<?= $certificado_discapacitados ?>">
                                     </td>
                                     <td>
-                                        <input id="archivo4" type="file" min="0" name="certificado_discapacitados" accept=".pdf">
+                                        <input id="archivo4" type="file" min="0" name="certificado_discapacitados" accept=".pdf" <?= $status ?>>
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo4" name="addPdf-4" id="addPdf-4">Cargar PDF</label>
                                         </div>
@@ -439,7 +453,7 @@ switch ($btn) {
                                         <input type="text" id="des5" value="<?= $planilla_discapasitados ?>">
                                     </td>
                                     <td>
-                                        <input id="archivo5" type="file" min="0" name="planilla_discapasitados" accept=".pdf">
+                                        <input id="archivo5" type="file" min="0" name="planilla_discapasitados" accept=".pdf" <?= $status ?>>
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo5" name="addPdf-5" id="addPdf-5">Cargar PDF</label>
                                         </div>
@@ -462,7 +476,7 @@ switch ($btn) {
                                         <input type="text" id="des6" value="<?= $carnet_conadis ?>">
                                     </td>
                                     <td>
-                                        <input id="archivo6" type="file" min="0" name="carnet_conadis" accept=".pdf">
+                                        <input id="archivo6" type="file" min="0" name="carnet_conadis" accept=".pdf" <?= $status ?>>
                                         <div class="btn-add-pdf">
                                             <label title="Carcar archivo PDF" for="archivo6" name="addPdf-6" id="addPdf-6">Cargar PDF</label>
                                         </div>
@@ -481,65 +495,11 @@ switch ($btn) {
                             </tbody>
                         </table>
                     </div><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $hacer; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $hacer ?></button>
+                    <?php } ?>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    const archivos = [{
-            archivo: document.getElementById("archivo1"),
-            des: document.getElementById("des1"),
-            btns: document.querySelectorAll(".btn1")
-        },
-        {
-            archivo: document.getElementById("archivo2"),
-            des: document.getElementById("des2"),
-            btns: document.querySelectorAll(".btn2")
-        },
-        {
-            archivo: document.getElementById("archivo3"),
-            des: document.getElementById("des3"),
-            btns: document.querySelectorAll(".btn3")
-        },
-        {
-            archivo: document.getElementById("archivo4"),
-            des: document.getElementById("des4"),
-            btns: document.querySelectorAll(".btn4")
-        },
-        {
-            archivo: document.getElementById("archivo5"),
-            des: document.getElementById("des5"),
-            btns: document.querySelectorAll(".btn5")
-        },
-        {
-            archivo: document.getElementById("archivo6"),
-            des: document.getElementById("des6"),
-            btns: document.querySelectorAll(".btn6")
-        }
-    ];
-
-    archivos.forEach((item, index) => {
-        item.archivo.addEventListener("change", function() {
-            if (item.archivo.files.length > 0) {
-                const nombre = item.archivo.files[0].name;
-                item.des.value = nombre;
-                item.btns.forEach((elemento) => {
-                    elemento.classList.remove("disabled-button");
-                });
-            } else {
-                item.des.value = "";
-            }
-        });
-    });
-
-    function validateLength(input, maxLength) {
-        if (input.value.length > maxLength) {
-            input.setCustomValidity("Debe contener " + maxLength + " Caractere(s) como maximo");
-        } else {
-            input.setCustomValidity("");
-        }
-    }
-</script>

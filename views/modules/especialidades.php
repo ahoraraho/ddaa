@@ -10,7 +10,7 @@ mensaje('Especialidad', 'a');
     <a href="#" title="Estas justo aqui" class="active">Especialidades</a>
 </div>
 
-<h3>ESPECIALIDADES</h3>
+<h2>ESPECIALIDADES</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -49,7 +49,7 @@ mensaje('Especialidad', 'a');
                 $id = $especialidad['idEspecialidad'];
                 $nombre = $especialidad['nombre'];
             ?>
-                <tr>
+                <tr  onclick="window.location.href='?m=panel&mod=especialidad&action=view&id=<?= $id ?>'">
                     <td> <?= $id ?></td>
                     <td> <?= $nombre ?></td>
                     <td>

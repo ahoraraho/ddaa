@@ -10,7 +10,7 @@ mensaje('Objeto', 'o');
 </div>
 
 
-<h3>OBJETOS</h3>
+<h2>OBJETOS</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -36,13 +36,12 @@ mensaje('Objeto', 'o');
     <table class="responsive-objetos">
         <thead>
             <tr>
-            <th>Id Objeto</th>
+                <th>Id Objeto</th>
                 <th>Nombre del Objeto</th>
                 <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
-
             <?php
             $objetos = $dbObjetos->selectObjetos();
 
@@ -50,16 +49,18 @@ mensaje('Objeto', 'o');
                 $id = $objeto['idObjeto'];
                 $nombre = $objeto['nombre'];
             ?>
-                <tr>
+                <tr onclick="window.location.href='?m=panel&mod=objeto&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $nombre ?></td>
                     <td>
-                        <a href="?m=panel&mod=objeto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=objeto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=objeto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=objeto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>
         </tbody>
+
+
     </table>
 </div>
 
@@ -71,9 +72,9 @@ mensaje('Objeto', 'o');
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

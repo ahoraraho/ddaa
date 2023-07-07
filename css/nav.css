@@ -790,20 +790,25 @@ a #wa {
         flex-direction: column;
         padding: auto;
         align-items: flex-start;
-        justify-content: center;
+        justify-content: flex-start;
+        /* Modificar de center a flex-start */
         margin: 10px;
+        position: relative;
+        height: 93%;
     }
 
     .nav-bar .nav-links .inicios {
-        /* position:fixed;
-        bottom: 1em;
-        left: auto; */
+        position: absolute;
+        bottom: 0px;
         flex-direction: column;
         align-items: flex-end;
         justify-content: flex-end;
         width: 100%;
+        height: auto;
+        /* Modificar de 100% a auto */
         gap: 10px;
     }
+
 
     .btn-ingreso,
     .btn-registro {

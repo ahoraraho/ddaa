@@ -32,7 +32,7 @@
 	</footer>
 	<script src="js/nav.js"></script>
 	<script src="js/functions.js"></script>
-	<script src="js/product.js"></script>
+	<script src="js/archivos.js"></script>
 </body>
 
 </html>

@@ -38,7 +38,7 @@ if (isset($_GET['msj'])) {
 
 ?>
 
-<h3>Empresas</h3>
+<h2>EMPRESAS</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -85,7 +85,7 @@ if (isset($_GET['msj'])) {
                 $numeroPartida = $empresa['numeroPartida'];
                 $mipe = $empresa['mipe'];
             ?>
-                <tr>
+                <tr  onclick="window.location.href='?m=panel&mod=empresa&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $nombreEmpresa ?></td>
                     <td><?= $ruc ?></td>

@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $imagenActual = $_POST["ImagenActual"];
 
-    $directorio = "imagenes/". $imagenNombre;
+    $directorio = "imagenes/" . $imagenNombre;
 
     switch ($action) {
         case 'add':
@@ -77,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $idNoticia = ($idNoticia + 1);
             $btn = "Agregar";
             $status = null;
+            $botonView = 1;
             $noticia = array(
                 "idNoticia" => $idNoticia,
                 "titulo" => "",
@@ -85,10 +86,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "destacado" => "0",
                 "imagen" => ""
             );
+            $botonView = 1;
             break;
 
         case 'update':
             $idNoticia = $_GET["id"];
+            $botonView = 1;
             $btn = "Actualizar";
             $status = null;
             $noticia = $dbNoticias->selectNoticia($idNoticia);
@@ -96,7 +99,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'delete':
             $idNoticia = $_GET["id"];
+            $botonView = 1;
             $btn = "Eliminar";
+            $status = "disabled";
+            $noticia = $dbNoticias->selectNoticia($idNoticia);
+            break;
+        case 'view':
+            $idNoticia = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
             $status = "disabled";
             $noticia = $dbNoticias->selectNoticia($idNoticia);
             break;
@@ -107,19 +118,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
-        $styleImage = "display: none !importans; ";
         $hacer = "Eliminar Noticia";
-        // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
         $hacer = "Agregar Noticia";
-        // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
         $hacer = "Actualizar Noticia";
-        // $icono = "bi bi-pencil-square";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Noticia";
         break;
     default:
         # code...
@@ -136,7 +147,7 @@ switch ($btn) {
         <h3>Noticia</h3>
         <div class="main">
             <div class="formm">
-                
+
                 <form action="?m=panel&mod=noticia&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="idNoticia" value="<?= $noticia["idNoticia"]; ?>">
                     <input type="hidden" name="ImagenActual" value="<?= $noticia["imagen"] ?>">
@@ -145,9 +156,9 @@ switch ($btn) {
                     <b> Titulo </b>
                     <input required type="text" name="titulo" value="<?= $noticia["titulo"] ?>" <?= $status ?>>
                     <b> Descripcion </b>
-                    <input required type="text" name="descripcion" value="<?= $noticia["descripcion"] ?>" <?= $status ?>>
+                    <textarea required type="text" name="descripcion" value="" <?= $status ?>><?= $noticia["descripcion"] ?></textarea>
                     <b> Fecha </b>
-                    <input required type="text" name="fecha" value="<?= $noticia["fecha"] ?>" <?= $status ?>>
+                    <input required type="date" name="fecha" value="<?= $noticia["fecha"] ?>" <?= $status ?>>
                     <b> Destacado </b>
                     <div class="custom-select">
                         <select name="destacado" <?= $status ?> onchange="updateDestacadoActual(this)">
@@ -172,7 +183,9 @@ switch ($btn) {
                         </div>
                     </div>
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                    <?php } ?>
                 </form>
             </div>
         </div>

@@ -69,7 +69,7 @@ if (isset($_GET['msj'])) {
 ?>
 <div class="formularios">
     <div class="entradas">
-        <h3>Cambio de contraseña</h3>
+        <h2>Cambio de contraseña</h2>
         <form action="?m=panel&mod=cuentaReset" method="POST">
             <input type="hidden" name="id" value="<?= $id ?>">
             <!-- <input type="hidden" name="idCliente" value="<?= $idCliente ?>"> -->

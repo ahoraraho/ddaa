@@ -71,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $idEspecialista = ($idEspecialista + 1);
             $btn = "Agregar";
             $status = null;
+            $botonView = 1;
             $especialista = array(
                 "idEspecialista" => $idEspecialista,
                 "dni" => "",
@@ -88,12 +89,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $idEspecialista = $_GET["id"];
             $btn = "Actualizar";
             $status = null;
+            $botonView = 1;
             $especialista = $dbEspecialistas->selectEspecialista($idEspecialista);
             break;
 
         case 'delete':
             $idEspecialista = $_GET["id"];
             $btn = "Eliminar";
+            $status = "disabled";
+            $botonView = 1;
+            $especialista = $dbEspecialistas->selectEspecialista($idEspecialista);
+            break;
+        case 'view':
+            $idEspecialista = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
             $status = "disabled";
             $especialista = $dbEspecialistas->selectEspecialista($idEspecialista);
             break;
@@ -105,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color: crimson";
-        $styleImage = "display: none !important;";
         $hacer = "Eliminar Especialista";
         break;
     case 'Agregar':
@@ -115,6 +124,10 @@ switch ($btn) {
     case 'Actualizar':
         $style = "background-color: rgb(9, 109, 149)";
         $hacer = "Actualizar Especialista";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Especialista";
         break;
     default:
         # code...
@@ -160,7 +173,9 @@ switch ($btn) {
                     </div>
                     <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                    <?php } ?>
                     <br><br>
                     <a href="?m=panel&mod=usuarioReset&id=<?= $especialista['idEspecialista'] ?>" class="form_login">
                         <i class="abi bi bi-gear-wide-connected"></i><span>Cambiar contraseña</span>

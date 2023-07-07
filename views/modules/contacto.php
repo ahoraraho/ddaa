@@ -57,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id = ($id + 1);
             $btn = "Agregar";
             $status = null;
+            $botonView = 1;
             $contacto = array(
                 "idContacto" => $id,
                 "dni" => "",
@@ -71,12 +72,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id = $_GET["id"];
             $btn = "Actualizar";
             $status = null;
+            $botonView = 1;
             $contacto = $dbContactos->selectContacto($id);
             break;
 
         case 'delete':
             $id = $_GET["id"];
+            $botonView = 1;
             $btn = "Eliminar";
+            $status = "disabled";
+            $contacto = $dbContactos->selectContacto($id);
+            break;
+        case 'view':
+            $id = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
             $status = "disabled";
             $contacto = $dbContactos->selectContacto($id);
             break;
@@ -87,19 +97,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
-        $styleImage = "display: none !importans; ";
         $hacer = "Eliminar Contacto";
-        // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
         $hacer = "Agregar Contacto";
-        // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
         $hacer = "Actualizar Contacto";
-        // $icono = "bi bi-pencil-square";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Contacto";
         break;
     default:
         # code...
@@ -121,18 +131,27 @@ switch ($btn) {
                 <form action="?m=panel&mod=contacto&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $contacto["idContacto"] ?>">
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $contacto["idContacto"] ?>" <?= $status ?>>
-                    <span> DNI </span>
-                    <input required type="text" name="dni" value="<?= $contacto["dni"] ?>" <?= $status ?>>
-                    <span> Nombre </span>
+                    <strong> DNI </strong>
+                    <input required type="number" oninput="validateLength(this, 8)" name="dni" value="<?= $contacto["dni"] ?>" <?= $status ?>>
+                    <strong> Nombre </strong>
                     <input required type="text" name="nombre" value="<?= $contacto["nombre"] ?>" <?= $status ?>>
-                    <span> Email </span>
+                    <strong> Email </strong>
                     <input required type="email" name="email" value="<?= $contacto["email"] ?>" <?= $status ?>>
-                    <span> Celular </span>
-                    <input required type="text" name="celular" value="<?= $contacto["celular"] ?>" <?= $status ?>>
-                    </i><span> Cargo </span>
-                    <input required type="text" name="cargo" value="<?= $contacto["cargo"] ?>" <?= $status ?>>
+                    <strong> Celular </strong>
+                    <input required type="number" oninput="validateLength(this, 9)" name="celular" value="<?= $contacto["celular"] ?>" <?= $status ?>>
+                    <strong> Cargo </strong>
+                    <div class="custom-select">
+                        <select name="cargo" <?= $status ?>>
+                            <option value="Dueño de negocio" <?= ($contacto["cargo"] == 'Dueño de negocio') ? 'selected' : '' ?>>Dueño de negocio</option>
+                            <option value="Gerente" <?= ($contacto["cargo"] == 'Gerente') ? 'selected' : '' ?>>Gerente</option>
+                            <option value="Otros" <?= ($contacto["cargo"] == 'Otros') ? 'selected' : '' ?>>Otros</option>
+                        </select>
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                    </div>
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                    <?php } ?>
                 </form>
             </div>
         </div>

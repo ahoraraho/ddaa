@@ -53,10 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "idActual" => $id,
                 "nombre" => ""
             );
+            $botonView = 1;
             break;
 
         case 'update':
             $id = $_GET["id"];
+            $botonView = 1;
             $btn = "Actualizar";
             $status = null;
             $prodd = $dbProdds->selectProdd($id);
@@ -64,7 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'delete':
             $id = $_GET["id"];
+            $botonView = 1;
             $btn = "Eliminar";
+            $status = "disabled";
+            $prodd = $dbProdds->selectProdd($id);
+            break;
+        case 'view':
+            $id = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
             $status = "disabled";
             $prodd = $dbProdds->selectProdd($id);
             break;
@@ -75,19 +85,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
-        $styleImage = "display: none !importans; ";
         $hacer = "Eliminar Tipo Actualización";
-        // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
         $hacer = "Agregar Tipo Actualización";
-        // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
         $hacer = "Actualizar Tipo Actualización";
-        // $icono = "bi bi-pencil-square";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Tipo Actualización";
         break;
     default:
         # code...
@@ -113,7 +123,9 @@ switch ($btn) {
                     <b> Nombre </b>
                     <input required type="text" name="nombre" value="<?= $prodd["nombre"] ?>" <?= $status ?>>
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                    <?php } ?>
                 </form>
             </div>
         </div>

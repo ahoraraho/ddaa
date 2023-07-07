@@ -95,16 +95,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "tipo" => "",
                 "archivo" => ""
             );
+            $botonView = 1;
             break;
         case 'update':
             $id = $_GET["id"];
+            $botonView = 1;
             $btn = "Guardar";
             $status = null;
             $actualizacion = $dbActualizaciones->selectActulizacion($id);
             break;
         case 'delete':
             $id = $_GET["id"];
+            $botonView = 1;
             $btn = "Eliminar";
+            $status = "disabled";
+            $actualizacion = $dbActualizaciones->selectActulizacion($id);
+            break;
+        case 'view':
+            $id = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
             $status = "disabled";
             $actualizacion = $dbActualizaciones->selectActulizacion($id);
             break;
@@ -113,19 +123,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color: crimson";
-        $styleImage = "display: none !important";
         $hacer = "Eliminar Actualización";
-        $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color: rgb(0, 176, 26)";
         $hacer = "Agregar Actualización";
-        $icono = "bi bi-plus-square";
         break;
     case 'Guardar':
         $style = "background-color: rgb(9, 109, 149)";
         $hacer = "Editar Actualización";
-        $icono = "bi bi-pencil-square";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Actulización";
         break;
     default:
         # code...
@@ -146,7 +156,7 @@ switch ($btn) {
                     <input type="hidden" name="id" value="<?= $actualizacion["idActualizacion"]; ?>">
                     <input type="hidden" name="pdfActual" value="<?= $actualizacion["archivo"]; ?>">
                     <span> Id Actualización</span>
-                    <input id="noEdit" title="No se puede modificar" disabled required type="text" name="id" value="<?= $actualizacion["idActualizacion"] ?>" <?= $status ?>>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $actualizacion["idActualizacion"] ?>" <?= $status ?>>
                     <span> Descripción </span>
                     <input required type="text" name="descripcion" value="<?= $actualizacion["descripcion"] ?>" <?= $status ?>>
                     <span> Tipo </span>
@@ -158,7 +168,7 @@ switch ($btn) {
                             foreach ($tipos as $tipo) {
                                 $idActual = $tipo["idActual"];
                                 $nombre = $tipo["nombre"];
-                                $tipo = $actualizacion["tipo"];//este codigo recata el id de la tabla principal para luego compararlo con el de la secundaria
+                                $tipo = $actualizacion["tipo"]; //este codigo recata el id de la tabla principal para luego compararlo con el de la secundaria
                             ?>
                                 <option value="<?= $idActual ?>" <?= ($idActual == $tipo) ? "selected" : null ?>><?= $nombre ?></option>
                             <?php } ?>
@@ -181,7 +191,7 @@ switch ($btn) {
                                 <tr>
                                     <td class="description"><?= $archivo ?></td>
                                     <td>
-                                        <input id="pdfActual" type="file" name="archivo" accept=".pdf">
+                                        <input id="pdfActual" type="file" name="archivo" accept=".pdf" <?= $status ?>>
                                         <div class="btn-add-pdf">
                                             <label title="Cargar archivo PDF" for="pdfActual" name="addPdf-1" id="addPdf-1">Cargar PDF</label>
                                         </div>
@@ -201,7 +211,9 @@ switch ($btn) {
                         </table>
                     </div>
                     <br><br>
-                    <button type="submit" name="action" id="btnAction" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                    <?php } ?>
                 </form>
             </div>
         </div>

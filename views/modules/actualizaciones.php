@@ -27,7 +27,7 @@ if (isset($_GET['file'])) {
 </div>
 
 
-<h3>Actualizaciones</h3>
+<h2>ACTUALIZACIONES</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -51,7 +51,7 @@ if (isset($_GET['file'])) {
 
 <!-- tabla objetos -->
 <div class="contenido-tabla">
-    <table class="table-actualizaciones">
+    <table class="responsive-actualizaciones">
         <thead>
             <tr>
                 <th style="width: 25px;">#</th>
@@ -68,10 +68,10 @@ if (isset($_GET['file'])) {
                 $descripcion = $actualizacion['descripcion'];
                 $archivo = $actualizacion['archivo'];
             ?>
-                <tr>
+                <tr  onclick="window.location.href='?m=panel&mod=actualizacion&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
-                    <td style="text-align: start;   width: max-content;"><?= $descripcion ?></td>
-                    <td style="text-align: end;   width: min-content;">
+                    <td ><?= $descripcion ?></td>
+                    <td style="text-align: end;   width: auto;">
                         <a title="Ver" target="_blank" href="pdfsActualizaciones/<?= $archivo ?>">
                             <i class="view bi bi-file-earmark-pdf"></i>
                         </a>
