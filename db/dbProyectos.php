@@ -144,5 +144,48 @@ class dbProyectos
                 return [];
             }
         }
+
+        public function filtrarProyecto($empresa,$contacto,$objeto,$especialidad)
+        {
+            global $conexion;
+
+            $filtro = " ";
+
+            if ($empresa == '' && $contacto == '' && $objeto == '' && $especialidad == '') {$filtro = "";}
+            if ($empresa != '' && $contacto == '' && $objeto == '' && $especialidad == '') {$filtro = "WHERE p.nombre_empresa = $empresa";}
+            if ($empresa == '' && $contacto != '' && $objeto == '' && $especialidad == '') {$filtro = "WHERE p.contacto = $contacto";}   
+            if ($empresa == '' && $contacto == '' && $objeto != '' && $especialidad == '') {$filtro = "WHERE p.objeto = $objeto";}
+            if ($empresa == '' && $contacto == '' && $objeto == '' && $especialidad != '') {$filtro = "WHERE p.especialidad = $especialidad";}
+
+            if ($empresa != '' && $contacto != '' && $objeto == '' && $especialidad == '') {$filtro = "WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto";}
+            if ($empresa == '' && $contacto != '' && $objeto != '' && $especialidad == '') {$filtro = "WHERE p.contacto = $contacto AND p.objeto = $objeto";}
+            if ($empresa == '' && $contacto == '' && $objeto != '' && $especialidad != '') {$filtro = "WHERE p.objeto = $objeto AND p.especialidad = $especialidad";}
+            if ($empresa != '' && $contacto == '' && $objeto == '' && $especialidad != '') {$filtro = "WHERE p.nombre_empresa = $empresa AND p.especialidad = $especialidad";}
+
+            if ($empresa != '' && $contacto == '' && $objeto != '' && $especialidad == '') {$filtro = "WHERE p.nombre_empresa = $empresa AND p.objeto = $objeto";} 
+            if ($empresa == '' && $contacto != '' && $objeto == '' && $especialidad != '') {$filtro = "WHERE p.contacto = $contacto AND p.especialidad = $especialidad";}
+            
+            if ($empresa != '' && $contacto != '' && $objeto != '' && $especialidad == '') {$filtro = "WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto AND p.objeto = $objeto";}
+            if ($empresa != '' && $contacto != '' && $objeto == '' && $especialidad != '') {$filtro = "WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto AND p.especialidad = $especialidad";}
+            if ($empresa != '' && $contacto == '' && $objeto != '' && $especialidad != '') {$filtro = "WHERE p.nombre_empresa = $empresa AND p.objeto = $objeto AND p.especialidad = $especialidad";}
+            if ($empresa = '' && $contacto !== '' && $objeto != '' && $especialidad != '') {$filtro = "WHERE p.contacto = $contacto AND p.objeto = $objeto AND p.especialidad = $especialidad";}
+
+            if ($empresa != '' && $contacto != '' && $objeto != '' && $especialidad != '') {$filtro = "WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto AND p.objeto = $objeto AND p.especialidad = $especialidad";}
+
+
+            $consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa $filtro";
+            $resultado = mysqli_query($conexion, $consulta);
+    
+            $proyectos = array();
+    
+            if ($resultado) {
+                while ($fila = mysqli_fetch_assoc($resultado)) {
+                    $proyectos[] = $fila;
+                }
+                mysqli_free_result($resultado);
+            }
+    
+            return $proyectos;
+        }
     }
 ?>

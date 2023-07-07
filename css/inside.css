@@ -733,6 +733,21 @@ textarea {
     justify-content: flex-end;
     align-items: center;
 }
+/*Filtros*/
+.filtros form{
+    width: 100%;
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+}
+.filtros .f1{
+    width: auto;
+    display: flex;  
+}
+
+.filtros .f1 select{
+    font-size:12px; padding:6px;margin-left:5px;margin-right:5px;
+}
 
 /*CONTADOR DE ...*/
 .f-s {

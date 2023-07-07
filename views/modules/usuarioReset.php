@@ -37,19 +37,18 @@ $hacer = "Definir contraseña nueva";
 <div class="formularios">
     <div class="entradas">
         <h3>Cambiar contraseña</h3>
-        <div class="main">
+        <div class="main">  
             <div class="form">
                 <form action="?m=panel&mod=usuarioReset" method="POST">
-                    <input id="noEdid" title="No se puede modificar" disabled required type="hidden" name="idEspecialista" value="<?= $especialista['idEspecialista'] ?>" <?= $status ?>>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="hidden" name="idUsuario" value="<?= $especialista['idUsuario'] ?>" <?= $status ?>>
+                    <input title="No se puede modificar"  required type="hidden" name="idEspecialista" value="<?= $especialista['idEspecialista'] ?>">
+                    <input title="No se puede modificar"  required type="hidden" name="idUsuario" value="<?= $especialista['idUsuario'] ?>">
                     <strong>Nombre</strong>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="nombre" value="<?= $especialista['nombre'] ?>" <?= $status ?>>
-                    <strong>Correo</strong>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="email" value="<?= $especialista['Email'] ?>" <?= $status ?>>
+                    <input title="No se puede modificar" disabled required type="text" name="nombre" value="<?= $especialista['nombre'] ?>">
+                    <input title="No se puede modificar"  required type="hidden" name="email" value="<?= $especialista['Email'] ?>">
 
                     <div class="form_logueado">
                         <b>Nueva contraseña</b>
-                        <input type="password" id="txtPassword" name="newPass" <?= $status ?>>
+                        <input type="password" id="txtPassword" name="newPass">
                         <div class="eyePass">
                             <i id="iconoEye" class="bi bi-eye"></i>
                         </div>

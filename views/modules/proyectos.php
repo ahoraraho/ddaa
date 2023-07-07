@@ -31,6 +31,68 @@ mensaje('Proyecto');
         </a>
     </div>
 </div>
+<!-- FILTROS -->
+<div class="filtros" method="GET">
+    <div class="f1">
+        <form action="?m=panel&mod=proyectos">
+            <h3>Filtros:</h3>
+            <!--Empresa-->
+            <select name="empresa" id="empresa">
+                <option>Empresa</option>
+                <?php
+                $empresas = $dbEmpresas->selectEmpresas();
+                foreach ($empresas as $empresa) {
+                    $idEmpresa = $empresa["idEmpresa"];
+                    $nombre = $empresa["nombreEmpresa"];
+                    echo '<option value="' . $idEmpresa . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <!--contacto-->
+            <select name="contacto" id="contacto">
+                <option>Contacto</option>
+                <?php
+                $contactos = $dbContactos->selectContactos();
+                foreach ($contactos as $contacto) {
+                    $idContacto = $contacto["idContacto"];
+                    $nombre = $contacto["nombre"];
+                    echo '<option value="' . $idContacto . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <!--objetos-->
+            <select name="objeto" id="objeto">
+                <option>Objeto</option>
+                <?php
+                $objetos = $dbObjetos->selectObjetos();
+                foreach ($objetos as $objeto) {
+                    $idObjeto = $objeto["idObjeto"];
+                    $nombre = $objeto["nombre"];
+                    echo '<option value="' . $idObjeto . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <!--Especialidad-->
+            <select name="especialidad" id="especialidad">
+                <option>Especialidad</option>
+                <?php
+                $especialidades = $dbEspecialidades->selectEspecialidades();
+                foreach ($especialidades as $especialidad) {
+                    $idEspecialidad = $especialidad["idEspecialidad"];
+                    $nombre = $especialidad["nombre"];
+                    echo '<option value="' . $idEspecialidad . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <button type="submit" class="form_login">Filtrar</button>
+        </form>
+    </div>
+</div>
+
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+
+?>
 
 <div class="contenido-tabla">
     <table class="responsive-proyectos">
@@ -64,15 +126,25 @@ mensaje('Proyecto');
                 $contacto = $proyecto['contacto'];
                 $objeto = $proyecto['objeto'];
                 $especialidad = $proyecto['especialidad'];
-            ?>
+                ?>
                 <tr>
-                    <td><?= $id ?></td>
-                    <td><?= $nombre_empresa ?></td>
-                    <td><?= $nombre_proyecto ?></td>
-                    <td><?= $numero_contrato ?></td>
                     <td>
-                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $nombre_empresa ?>
+                    </td>
+                    <td>
+                        <?= $nombre_proyecto ?>
+                    </td>
+                    <td>
+                        <?= $numero_contrato ?>
+                    </td>
+                    <td>
+                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i
+                                class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i
+                                class="delete bi-trash"><b></i></a>
                     </td>
                 </tr>
             <?php } ?>

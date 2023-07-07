@@ -30,9 +30,9 @@ mensaje('Especialista', 'a');
         <span class="f-s">15</span>
     </div>
     <div class="f2">
-        <!-- <a href="?m=panel&mod=usuario&action=add" class="button-link btn-new f-e">
+        <a href="?m=panel&mod=usuario&action=add" class="button-link btn-new f-e">
             <i class="abi bi bi-plus-square"></i><span>Nueva Usuario</span>
-        </a> -->
+        </a>
     </div>
 </div>
 

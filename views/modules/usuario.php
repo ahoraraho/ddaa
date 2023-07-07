@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $contrasena = $_POST["contrasena"];
     if (is_null($contrasena)) {
-        $contrasena =  $contrasenaActual;
+        $contrasena = $contrasenaActual;
     } else {
         $contrasena = $_POST["contrasena"];
     }
@@ -82,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "Contrasena" => "",
                 "Estado" => "",
             );
+            $tipo = "password";
             break;
 
         case 'update':
@@ -89,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $btn = "Actualizar";
             $status = null;
             $especialista = $dbEspecialistas->selectEspecialista($idEspecialista);
+            $tipo = "hidden";
             break;
 
         case 'delete':
@@ -96,6 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $btn = "Eliminar";
             $status = "disabled";
             $especialista = $dbEspecialistas->selectEspecialista($idEspecialista);
+            $tipo = "hidden";
             break;
     }
 }
@@ -125,46 +128,61 @@ switch ($btn) {
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=usuarios" title="Ir a Usuarios">Usuarios</a>
-    <a href="#" title="Estás justo aquí" class="active"><?= $hacer ?></a>
+    <a href="#" title="Estás justo aquí" class="active">
+        <?= $hacer ?>
+    </a>
 </div>
 <div class="formularios">
     <div class="entradas">
         <h3>USUARIO</h3>
+        <div class="numm">
+            <div class="f1">
+            </div>
+            <div class="f2">
+                <a href="?m=panel&mod=usuarioReset&id=<?= $especialista['idEspecialista'] ?>" class="button-link f-e">
+                    <i class="abi bi bi-gear-wide-connected"></i><span>Cambiar contraseña</span>
+                </a>
+            </div>
+        </div>
         <div class="main">
             <div class="formm">
                 <form action="?m=panel&mod=usuario&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $especialista['idEspecialista'] ?>">
                     <b>Id</b>
-                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $especialista['idEspecialista'] ?>" <?= $status ?>>
+                    <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id"
+                        value="<?= $especialista['idEspecialista'] ?>" <?= $status ?>>
                     <b>DNI</b>
                     <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>" <?= $status ?>>
                     <b>Nombre</b>
                     <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>" <?= $status ?>>
                     <b>Apellido</b>
-                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>" <?= $status ?>>
+                    <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"
+                        <?= $status ?>>
                     <b>Dirección</b>
-                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>" <?= $status ?>>
+                    <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"
+                        <?= $status ?>>
                     <b>Teléfono</b>
-                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>" <?= $status ?>>
+                    <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"
+                        <?= $status ?>>
                     <b>Email</b>
                     <input required type="text" min="0" name="email" value="<?= $especialista['Email'] ?>" <?= $status ?>>
-                    <input required type="hidden" min="0" name="passActual" value="<?= $especialista['Contrasena'] ?>" <?= $status ?>>
-
+                    <input required type="hidden" min="0" name="passActual" value="<?= $especialista['Contrasena'] ?>"
+                        <?= $status ?>>
+                    <b>Contrasena</b>
+                    <input type="<?= $tipo ?>" name="contrasena">
                     <b>Estado</b>
                     <div class="custom-select">
                         <select name="estado" <?= $status ?> onchange="updateEstadoActual(this)">
                             <option value="1" <?= ($especialista['Estado'] == 1) ? 'selected' : '' ?>>Habilitado</option>
                             <option value="0" <?= ($especialista['Estado'] == 0) ? 'selected' : '' ?>>Inhabilitado</option>
                         </select>
-                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
+                        <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan>
+                            <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
                     </div>
                     <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
                     <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
                     <br><br>
-                    <a href="?m=panel&mod=usuarioReset&id=<?= $especialista['idEspecialista'] ?>" class="form_login">
-                        <i class="abi bi bi-gear-wide-connected"></i><span>Cambiar contraseña</span>
-                    </a>
                 </form>
             </div>
         </div>
