@@ -146,6 +146,7 @@ if (isset($_GET['msj'])) {
             <?php
 
             //$proyectos = $dbProyectos->filtrarProyecto($_POST["buscarEmpresa"],$_POST["buscarContacto"],$_POST["buscarObjeto"],$_POST["buscarEspecialidad"]);
+            $proyectos = $dbProyectos->selectProyectos();
 
             foreach ($proyectos as $proyecto) {
                 $id = $proyecto['idProyecto'];
