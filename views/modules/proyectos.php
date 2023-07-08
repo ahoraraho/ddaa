@@ -57,10 +57,9 @@ if (isset($_GET['msj'])) {
         </a>
     </div>
 </div>
-<!-- FILTROS -->
-<div class="filtros">
+<div class="numm">
     <div class="f1">
-        <form action="?m=panel&mod=proyectos" method="POST">
+    <form action=" " method="POST">
             <h3>Filtros:</h3>
             <!--Empresa-->
             <select name="buscarEmpresa" id="buscarEmpresa">
@@ -129,13 +128,14 @@ if (isset($_GET['msj'])) {
 
 <?php
 /* //////////////////////////  FILTROS  //////////////////////////*/
+
 ?>
 
 <div class="contenido-tabla">
     <table class="responsive-proyectos">
         <thead>
             <tr>
-                <th>Id Proyecto</th>
+            <th>Id Proyecto</th>
                 <th>Nombre de Empresa</th>
                 <th>Nombre de Proyecto</th>
                 <th>Numero de contrato</th>
@@ -172,22 +172,8 @@ if (isset($_GET['msj'])) {
                     <td><?= $nombre_proyecto ?></td>
                     <td><?= $numero_contrato ?></td>
                     <td>
-                        <?= $id ?>
-                    </td>
-                    <td>
-                        <?= $nombre_empresa ?>
-                    </td>
-                    <td>
-                        <?= $nombre_proyecto ?>
-                    </td>
-                    <td>
-                        <?= $numero_contrato ?>
-                    </td>
-                    <td>
-                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i
-                                class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i
-                                class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
                     </td>
                 </tr>
             <?php } ?>
