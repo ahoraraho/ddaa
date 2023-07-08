@@ -59,16 +59,16 @@ if (isset($_GET['msj'])) {
 </div>
 <div class="numm">
     <div class="f1">
-    <form action=" " method="POST">
+        <form name="filtros" action="?m=panel&mod=proyectos" method="POST">
             <h3>Filtros:</h3>
             <!--Empresa-->
             <select name="buscarEmpresa" id="buscarEmpresa">
-                <option>Empresa</option>
+                <option value="">Empresas</option> <!-- Agrega la opción predeterminada -->
                 <?php
-                $empresas = $dbEmpresas->selectEmpresas();
                 if ($_POST["buscarEmpresa"] != '') {
                     echo '<option value="' . $_POST["buscarEmpresa"] . '">' . $_POST["buscarEmpresa"] . '</option>';
                 }
+                $empresas = $dbEmpresas->selectEmpresas();
                 foreach ($empresas as $empresa) {
                     $idEmpresa = $empresa["idEmpresa"];
                     $nombre = $empresa["nombreEmpresa"];
@@ -78,12 +78,12 @@ if (isset($_GET['msj'])) {
             </select>
             <!--contacto-->
             <select name="buscarContacto" id="buscarContacto">
-                <option>Contacto</option>
+                <option value="">Contactos</option> <!-- Agrega la opción predeterminada -->
                 <?php
-                $contactos = $dbContactos->selectContactos();
                 if ($_POST["buscarContacto"] != '') {
                     echo '<option value="' . $_POST["buscarContacto"] . '">' . $_POST["buscarContacto"] . '</option>';
                 }
+                $contactos = $dbContactos->selectContactos();
                 foreach ($contactos as $contacto) {
                     $idContacto = $contacto["idContacto"];
                     $nombre = $contacto["nombre"];
@@ -93,12 +93,12 @@ if (isset($_GET['msj'])) {
             </select>
             <!--objetos-->
             <select name="buscarObjeto" id="buscarObjeto">
-                <option>Objeto</option>
+                <option value="">Objetos</option> <!-- Agrega la opción predeterminada -->
                 <?php
-                $objetos = $dbObjetos->selectObjetos();
                 if ($_POST["buscarObjeto"] != '') {
                     echo '<option value="' . $_POST["buscarObjeto"] . '">' . $_POST["buscarObjeto"] . '</option>';
                 }
+                $objetos = $dbObjetos->selectObjetos();
                 foreach ($objetos as $objeto) {
                     $idObjeto = $objeto["idObjeto"];
                     $nombre = $objeto["nombre"];
@@ -108,12 +108,12 @@ if (isset($_GET['msj'])) {
             </select>
             <!--Especialidad-->
             <select name="buscarEspecialidad" id="buscarEspecialidad">
-                <option>Especialidad</option>
+                <option value="">Especialidades</option> <!-- Agrega la opción predeterminada -->
                 <?php
-                $especialidades = $dbEspecialidades->selectEspecialidades();
                 if ($_POST["buscarEspecialidad"] != '') {
                     echo '<option value="' . $_POST["buscarEspecialidad"] . '">' . $_POST["buscarEspecialidad"] . '</option>';
                 }
+                $especialidades = $dbEspecialidades->selectEspecialidades();
                 foreach ($especialidades as $especialidad) {
                     $idEspecialidad = $especialidad["idEspecialidad"];
                     $nombre = $especialidad["nombre"];
@@ -121,13 +121,66 @@ if (isset($_GET['msj'])) {
                 }
                 ?>
             </select>
-            <button type="submit" class="form_login">Filtrar</button>
+            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
         </form>
     </div>
 </div>
 
+
 <?php
 /* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $filtro = '';
+
+    $buscarEmpresa = $_POST["buscarEmpresa"];
+    $buscarContacto = $_POST["buscarContacto"];
+    $buscarObjeto = $_POST["buscarObjeto"];
+    $buscarEspecialidad = $_POST["buscarEspecialidad"];
+
+    if ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
+        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "'";
+    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
+        $filtro = "WHERE p.contacto = '" . $buscarContacto . "'";
+    } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+        $filtro = "WHERE p.objeto = '" . $buscarObjeto . "'";
+    } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+        $filtro = "WHERE p.especialidad = '" . $buscarEspecialidad . "'";
+    } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
+        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "'";
+    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+        $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
+    } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
+        $filtro = "WHERE p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+    } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+    } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "'";
+    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+        $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+    } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
+    } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+    } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
+        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
+        $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+    }
+} else {
+    $filtro = '';
+}
+
+$consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa $filtro";
+$resultado = mysqli_query($conexion, $consulta);
+
+$proyectos = array();
+
+if ($resultado) {
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        $proyectos[] = $fila;
+    }
+    mysqli_free_result($resultado);
+}
 
 ?>
 
@@ -135,7 +188,7 @@ if (isset($_GET['msj'])) {
     <table class="responsive-proyectos">
         <thead>
             <tr>
-            <th>Id Proyecto</th>
+                <th>Id Proyecto</th>
                 <th>Nombre de Empresa</th>
                 <th>Nombre de Proyecto</th>
                 <th>Numero de contrato</th>
@@ -145,8 +198,7 @@ if (isset($_GET['msj'])) {
         <tbody>
             <?php
 
-            //$proyectos = $dbProyectos->filtrarProyecto($_POST["buscarEmpresa"],$_POST["buscarContacto"],$_POST["buscarObjeto"],$_POST["buscarEspecialidad"]);
-            $proyectos = $dbProyectos->selectProyectos();
+            //$proyectos = $dbProyectos->selectProyectos();
 
             foreach ($proyectos as $proyecto) {
                 $id = $proyecto['idProyecto'];
@@ -165,15 +217,25 @@ if (isset($_GET['msj'])) {
                 $contacto = $proyecto['contacto'];
                 $objeto = $proyecto['objeto'];
                 $especialidad = $proyecto['especialidad'];
-            ?>
+                ?>
                 <tr onclick="window.location.href='?m=panel&mod=proyecto&action=view&id=<?= $id ?>'">
-                    <td><?= $id ?></td>
-                    <td><?= $nombre_empresa ?></td>
-                    <td><?= $nombre_proyecto ?></td>
-                    <td><?= $numero_contrato ?></td>
                     <td>
-                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $nombre_empresa ?>
+                    </td>
+                    <td>
+                        <?= $nombre_proyecto ?>
+                    </td>
+                    <td>
+                        <?= $numero_contrato ?>
+                    </td>
+                    <td>
+                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i
+                                class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i
+                                class="delete bi-trash"><b></i></a>
                     </td>
                 </tr>
             <?php } ?>

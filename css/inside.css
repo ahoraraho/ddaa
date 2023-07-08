@@ -753,7 +753,25 @@ textarea {
 }
 
 .numm .f1 select{
-    font-size:12px; padding:6px;margin-left:5px;margin-right:5px;
+    font-size:14px; padding:6px;margin-left:5px;margin-right:5px;
+}
+
+.button-filtrar{
+    margin-top: 12px;
+    height: 35px;
+    background-color: #f6ff00;
+    font-size: 15px;
+    border: solid black 2px;
+    border-radius: 7px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+.button-filtrar:hover{
+    background-color: #000000;
+    color: #f6ff00;
 }
 
 /*CONTADOR DE ...*/
