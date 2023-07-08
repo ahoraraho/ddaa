@@ -11,7 +11,7 @@ mensaje('Proceso', 'o');
     <a href="#" title="Estas justo aqui" class="active">Procesos</a>
 </div>
 
-<h3>PROCESOS</h3>
+<h2>PROCESOS</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -65,7 +65,7 @@ mensaje('Proceso', 'o');
                 $objeto = $proceso['nomObjeto'];
                 $observaciones = $proceso['observaciones'];
             ?>
-                <tr>
+                <tr  onclick="window.location.href='?m=panel&mod=proceso&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $entidad ?></td>
                     <td><?= $nombreClave ?></td>

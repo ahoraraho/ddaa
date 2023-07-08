@@ -1,16 +1,44 @@
-<?php
-validacionIicioSesion();
-
-mensaje('Empresa', 'a');
-?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="#" title="Estas justo aqui" class="active">Empresas</a>
 </div>
+<?php
+validacionIicioSesion();
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
 
+    $mensajeMap = [
+        '0x10' => array('msj' => "Empresa y Archivos Agregados!", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check-circle-fill"),
+        '0x11' => array('msj' => "Empresa Agregada, 0 archivos Agregados", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check2-circle"),
+        '0x12' => array('msj' => "Empresa Agregada y Algunos Archivos agregados", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check2-square"),
+        '0x13' => array('msj' => "No se registraron los datos ni los Archivos", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-exclamation-triangle-fill"),
 
-<h3>EMPRESAS</h3>
+        '0x20' => array('msj' => "Datos y Archivos Actualizados!", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check-circle-fill"),
+        '0x21' => array('msj' => "Datos Actualizados", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check2-circle"),
+        '0x22' => array('msj' => "Archivos Actualizados", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check2-square"),
+        '0x23' => array('msj' => "No se realizaron cambios", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-exclamation-triangle-fill"),
+
+        '0x30' => array('msj' => "Datos y Archivos Eliminados!", 'typeMsj' => "msj-warning", 'iconoAlert' => "bi-info-circle-fill"),
+        '0x31' => array('msj' => "Datos Eliminados", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-check2-circle"),
+        '0x32' => array('msj' => "Archivos Eliminados", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-check2-square"),
+        '0x33' => array('msj' => "No se Eliminaron los datos ni archivos", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-exclamation-triangle-fill"),
+
+        '0x000' => array('msj' => "Hubo un error al intentar realizar la operación!", 'typeMsj' => "msj-error", 'iconoAlert' => "bi-bug-fill")
+    ];
+
+    if (isset($mensajeMap[$msj])) {
+        $mensaje = $mensajeMap[$msj];
+        $msj = $mensaje['msj'];
+        $typeMsj = $mensaje['typeMsj'];
+        $iconoAlert = $mensaje['iconoAlert'];
+        alertaResponDialog($typeMsj, $msj, $iconoAlert);
+    }
+}
+
+?>
+
+<h2>EMPRESAS</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -57,7 +85,7 @@ mensaje('Empresa', 'a');
                 $numeroPartida = $empresa['numeroPartida'];
                 $mipe = $empresa['mipe'];
             ?>
-                <tr>
+                <tr  onclick="window.location.href='?m=panel&mod=empresa&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $nombreEmpresa ?></td>
                     <td><?= $ruc ?></td>

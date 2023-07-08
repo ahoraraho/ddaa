@@ -103,7 +103,7 @@ if (isset($_GET['msj'])) {
         <h3>CONFIGURACIÓN</h3>
         <div class="numm">
             <div class="f1">
-
+                
             </div>
             <div class="f2">
                 <a href="?m=panel&mod=cuentaReset" class="button-link f-e">
@@ -154,6 +154,17 @@ if (isset($_GET['msj'])) {
                     <button type="submit" name="delete" id="eliminar-cuenta" class="form_login">Eliminar cuenta</button>
                 </div><br><br>
             <?php } ?>
-        </form>
+        </form><br>
+        <div class="numm">
+            <div class="f1">
+                
+            </div>
+            <div class="f2">
+                <a href="?m=panel&sesion=cerrar"" class="button-link f-e">
+                    <i class="abi bi bi-power"></i><span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </div><br><br>
     </div>
+    
 </div>

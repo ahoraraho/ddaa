@@ -33,19 +33,15 @@ session_start();
 						<li><a id="nonne" href="?m=panel&mod=objetos"><i class="bi bi-postcard"></i><span>Objetos</span></a></li>
 						<li><a id="nonne" href="?m=panel&mod=especialidades"><i class="bi bi-calendar4-range"></i><span>Especialidades</span></a></li>
 						<li><a id="nonne" href="?m=panel&mod=contactos"><i class="bi bi-person-vcard"></i><span>Contactos</span></a></li>
-						<li><a id="nonne" href="?m=panel&mod=actualizaciones"><i class="bi bi-menu-button-wide"></i><span>Actualizaciones</span></a></li>
-						<li><a id="nonne" href="?m=panel&mod=noticias"><i class="bi bi-newspaper"></i><span>Noticias</span></a></li>
-
 						<?php if ($_SESSION["Usuario"]["Administrador"]) : ?>
 							<li><a id="nonne" href="?m=panel&mod=usuarios"> <i class="bi bi-person-video2"></i><span>Usuarios</span></a></li>
 						<?php endif; ?>
-
-						<li><a id="nonne" href="?m=panel&mod=cuenta"><i class="bi bi-nut"></i><span>Configuracion</span></a></li>
-						<div class="separado"></div>
-						<li><a id="nonne" href="?m=panel&sesion=cerrar"><i class="bi-power"></i><span>Cerrar sesión</span></a></li>
+						<div class="separador"></div>
+						<li><a id="nonne" href="?m=panel&mod=actualizaciones"><i class="bi bi-menu-button-wide"></i><span>Actualizaciones</span></a></li>
+						<li><a id="nonne" href="?m=panel&mod=noticias"><i class="bi bi-newspaper"></i><span>Noticias</span></a></li>
 					<?php else : ?>
 						<div class="inicios">
-							<li><a id="nonne" href="?m=ingreso"><button class="btn-ingreso">Login</button></a></li>
+							<li><a id="nonne" href="?m=ingreso"><button class="btn-ingreso">Ingreso</button></a></li>
 							<li><a id="nonne" href="?m=registro"><button class="btn-registro">Registro</button></a></li>
 						</div>
 					<?php endif; ?>
@@ -58,21 +54,21 @@ session_start();
 
 			<div class="person">
 				<?php
-				if (!isset($_SESSION["Usuario"])) :
+				if (!isset($_SESSION["Usuario"])) {
 				?>
 					<div class="btn-user">
 						<a href="?m=ingreso">
 							<i class="bi bi-person"></i>
 						</a>
 					</div>
-				<?php else : ?>
+				<?php } else { ?>
 					<div class="btn-user">
-						<a href="?m=panel<?= ($_SESSION["Usuario"]["Administrador"]) ? '&mod=proyectos' : '&mod=proyectos'; ?>">
+						<a href="<?= ($_SESSION["Usuario"]) ?'?m=panel&mod=cuenta' : '?m=ingreso'; ?>">
 							<i class="bi bi-person-gear"></i>
 							<span><?= $_SESSION["Usuario"]["Nombre"]; ?></span>
 						</a>
 					</div>
-				<?php endif; ?>
+				<?php } ?>
 			</div>
 		</div>
 </nav>

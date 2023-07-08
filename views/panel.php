@@ -42,7 +42,13 @@ if (isset($_GET['sesion']) && $_GET['sesion'] == 'cerrar') {
         <a href="?m=panel&mod=contactos" class="<?= ($_GET['mod'] == 'contactos') ? 'nav-active' : ''; ?>">
             <i class="bi bi-person-vcard"></i>
             <span>Contactos</span>
-        </a>
+        </a><?php if ($_SESSION["Usuario"]["Administrador"]) { ?>
+            <a href="?m=panel&mod=usuarios" class="<?= ($_GET['mod'] == 'usuarios') ? 'nav-active' : ''; ?>">
+                <i class="bi bi-person-video2"></i>
+                <span>Usuarios</span>
+            </a>
+        <?php } ?>
+        <span class="separador"></span>
         <a href="?m=panel&mod=actualizaciones" class="<?= ($_GET['mod'] == 'actualizaciones') ? 'nav-active' : ''; ?>">
             <i class="bi bi-menu-button-wide"></i>
             <span>Actualizaciones</span>
@@ -50,22 +56,6 @@ if (isset($_GET['sesion']) && $_GET['sesion'] == 'cerrar') {
         <a href="?m=panel&mod=noticias" class="<?= ($_GET['mod'] == 'noticias') ? 'nav-active' : ''; ?>">
             <i class="bi bi-newspaper"></i>
             <span>Noticias</span>
-        </a>
-
-        <?php if ($_SESSION["Usuario"]["Administrador"]) : ?>
-            <a href="?m=panel&mod=usuarios" class="<?= ($_GET['mod'] == 'usuarios') ? 'nav-active' : ''; ?>">
-                <i class="bi bi-person-video2"></i>
-                <span>Usuarios</span>
-            </a>
-        <?php endif; ?>
-        <a href="?m=panel&mod=cuenta" class="<?= ($_GET['mod'] == 'cuenta') ? 'nav-active' : ''; ?>">
-            <i class="bi bi-nut"></i>
-            <span>Configuracion</span>
-        </a>
-        <span class="separador"></span>
-        <a href="?m=panel&sesion=cerrar">
-            <i class="bi bi-power"></i>
-            <span>Cerrar sesión</span>
         </a>
     </nav>
     <section class="container-panel">

@@ -27,6 +27,7 @@ class dbEmpresa
         global $conexion;
 
         $consulta = "SELECT * FROM empresa WHERE idEmpresa = ?";
+
         $stmt = mysqli_prepare($conexion, $consulta);
 
         if ($stmt) {
@@ -43,22 +44,20 @@ class dbEmpresa
     }
 
     //insertar
-    public function InsertEmpresa($nombre, $ruc, $telefono, $email, $num_partida, $mipe, $archivos)
+    public function InsertEmpresa($nombre, $ruc, $telefono, $email, $num_partida, $mipe)
     {
         global $conexion;
 
-        $consulta = "INSERT INTO empresa (nombreEmpresa,ruc,telefono,email,numeroPartida,mipe, archivos) 
-                    VALUES ('$nombre','$ruc','$telefono','$email','$num_partida','$mipe',$archivos)";
-
+        $consulta = "INSERT INTO empresa (nombreEmpresa,ruc,telefono,email,numeroPartida,mipe) 
+                    VALUES ('$nombre','$ruc','$telefono','$email','$num_partida','$mipe')";
 
         mysqli_query($conexion, $consulta);
 
         return mysqli_affected_rows($conexion);
-
     }
 
     // Actualizar registro en la tabla empresa
-    public function UpdateEmpresa($id, $nombre, $ruc, $telefono, $email, $num_partida, $mipe, $archivos)
+    public function UpdateEmpresa($id, $nombre, $ruc, $telefono, $email, $num_partida, $mipe)
     {
         global $conexion;
 
@@ -68,13 +67,12 @@ class dbEmpresa
                     telefono = '$telefono',
                     email = '$email',
                     numeroPartida = '$num_partida',
-                    mipe = '$mipe',
-                    archivos = $archivos
+                    mipe = '$mipe'
                     WHERE idEmpresa = $id";
 
-                    mysqli_query($conexion, $consulta);
+        mysqli_query($conexion, $consulta);
 
-                    return mysqli_affected_rows($conexion);
+        return mysqli_affected_rows($conexion);
     }
 
     // Eliminar registro en la tabla empresa
@@ -88,7 +86,7 @@ class dbEmpresa
         return mysqli_affected_rows($conexion);
     }
 
-     public function MayorIdEmpresa()
+    public function MayorIdEmpresa()
     {
         global $conexion;
 
@@ -101,5 +99,83 @@ class dbEmpresa
         } else {
             return [];
         }
+    }
+
+    /*OPTINE EL ULTIMO ID DE LA ULTIMA INSERCION A LA BASE DE DATOS */
+    public function getUltimoRegistroId()
+    {
+        global $conexion;
+
+        $query = "SELECT LAST_INSERT_ID()";
+        $result = mysqli_query($conexion, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_row($result);
+            return $row[0];
+        } else {
+            return false;
+        }
+    }
+
+    /*------------------------------------------- */
+    /**CODIGO PARA EL CRUD DE LO ARCHIVOS DE EMPRESA */
+    /*------------------------------------------- */
+
+    public function selectArchivosEmpresa($id)
+    {
+        global $conexion;
+
+        $consulta = "SELECT * FROM archivosEmpresa WHERE idEmpresa = ?";
+
+        $stmt = mysqli_prepare($conexion, $consulta);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_execute($stmt);
+            $resultado = mysqli_stmt_get_result($stmt);
+
+            if ($resultado && mysqli_num_rows($resultado) > 0) {
+                return mysqli_fetch_assoc($resultado);
+            }
+        }
+
+        return [];
+    }
+
+    public function InsertArchivosEmpresa($id, $ficha_ruc, $constancia_RNP, $constancia_mipe, $certificado_discapacitados, $planilla_discapasitados, $carnet_conadis)
+    {
+        global $conexion;
+
+        $consulta = "INSERT INTO archivosEmpresa (idEmpresa, ficha_ruc, constancia_RNP, constancia_mipe, certificado_discapacitados, planilla_discapasitados, carnet_conadis)
+                    VALUES ($id, '$ficha_ruc', '$constancia_RNP', '$constancia_mipe', '$certificado_discapacitados', '$planilla_discapasitados', '$carnet_conadis');";
+
+        mysqli_query($conexion, $consulta);
+
+        return mysqli_affected_rows($conexion);
+    }
+
+    // Actualizar registro en la tabla empresa
+    public function UpdateArchivosEmpresa($id, $identificador, $archivo)
+    {
+        global $conexion;
+
+        $consulta = "UPDATE archivosEmpresa
+                    SET $identificador = '$archivo'
+                    WHERE idEmpresa = $id;";
+
+        mysqli_query($conexion, $consulta);
+
+        return mysqli_affected_rows($conexion);
+    }
+
+    // Eliminar registro en la tabla empresa
+    public function DeleteArchivosEmpresa($id)
+    {
+        global $conexion;
+
+        $consulta = "DELETE FROM archivosEmpresa WHERE idEmpresa = $id";
+        mysqli_query($conexion, $consulta);
+
+        return mysqli_affected_rows($conexion);
     }
 }

@@ -11,7 +11,7 @@ mensaje('Tipo Actualización', 'o');
 </div>
 
 
-<h3>Tipos de Actualizaciones</h3>
+<h2>TIPOS DE ACTULIZACIONES</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -34,7 +34,7 @@ mensaje('Tipo Actualización', 'o');
 
 <!-- tabla prodd -->
 <div class="contenido-tabla">
-    <table class="responsive-objetos">
+    <table class="responsive-prodds">
         <thead>
             <tr>
                 <th>#</th>
@@ -51,7 +51,7 @@ mensaje('Tipo Actualización', 'o');
                 $id = $prodd['idActual'];
                 $nombre = $prodd['nombre'];
             ?>
-                <tr>
+                <tr  onclick="window.location.href='?m=panel&mod=prodd&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $nombre ?></td>
                     <td>

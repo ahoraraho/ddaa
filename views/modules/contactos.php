@@ -10,7 +10,7 @@ mensaje('Contacto', 'o');
     <a href="#" title="Estas justo aqui" class="active">Contactos</a>
 </div>
 
-<h3>CONTACTOS</h3>
+<h2>CONTACTOS</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -58,7 +58,7 @@ mensaje('Contacto', 'o');
                 $celular= $contacto['celular'];
                 $cargo= $contacto['cargo'];
             ?>
-            <tr>
+            <tr  onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
                 <td><?= $id ?></td>
                 <td><?= $nombre ?></td>
                 <td><?= $dni ?></td>

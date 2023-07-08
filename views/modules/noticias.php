@@ -11,7 +11,7 @@ mensaje('Noticia', 'a');
 </div>
 
 
-<h3>Noticias</h3>
+<h2>NOTICIAS</h2>
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
@@ -37,10 +37,10 @@ mensaje('Noticia', 'a');
     <table class="responsive-objetos">
         <thead>
             <tr>
-            <th>Id Noticia</th>
-            <th>Nombre del Noticia</th>
-            <th>Destacado</th>
-            <th colspan="2">Acciones</th>
+                <th>Id Noticia</th>
+                <th>Nombre del Noticia</th>
+                <th>Destacado</th>
+                <th colspan="2">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -54,14 +54,13 @@ mensaje('Noticia', 'a');
                 $descripcion = $noticia['descripcion'];
                 $fecha = $noticia['fecha'];
                 $destacado = $noticia['destacado'];
-                if ($destacado == 0)
-                {
-                    $destacado = "-";
-                } else if($destacado == 1){
+                if ($destacado == 0) {
+                    $destacado = "No destacado";
+                } else if ($destacado == 1) {
                     $destacado = "Destacado";
                 }
             ?>
-                <tr>
+                <tr onclick="window.location.href='?m=panel&mod=noticia&action=view&id=<?= $idNoticia ?>'">
                     <td><?= $idNoticia ?></td>
                     <td><?= $titulo ?></td>
                     <td><?= $destacado ?></td>
@@ -83,9 +82,9 @@ mensaje('Noticia', 'a');
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

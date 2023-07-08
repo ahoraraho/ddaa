@@ -49,12 +49,11 @@ INSERT INTO login (rol, idAdministrador, idEspecialista, Email, Contrasena, Acti
 CREATE TABLE empresa (
     idEmpresa INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nombreEmpresa VARCHAR(100) NOT NULL,
-    ruc VARCHAR(11) NOT NULL,
+    ruc VARCHAR(11) NOT NULL CHECK (LENGTH(ruc) = 11),
     telefono VARCHAR(9) NOT NULL CHECK (LENGTH(telefono) = 9),
     email VARCHAR(50) NOT NULL,
-    numeroPartida VARCHAR(8) NOT NULL,
-    mipe VARCHAR(1) NOT NULL,
-    archivos INT(11) NOT NULL
+    numeroPartida VARCHAR(8) NOT NULL CHECK (LENGTH(numeroPartida) = 8),
+    mipe VARCHAR(2) NOT NULL
 );
 
 INSERT INTO empresa (nombreEmpresa, ruc, telefono, email, numeroPartida, mipe)
@@ -142,9 +141,9 @@ CREATE TABLE proyectos (
     nombre_proyecto VARCHAR(100) NOT NULL,
     numero_contrato VARCHAR(255) NOT NULL,
     entidad VARCHAR(255) NOT NULL,
-    fecha_firma DATETIME NOT NULL,
+    fecha_firma DATE NOT NULL,
     monto_contrato_original DECIMAL(20, 2) NOT NULL,
-    porcentaje_de_participacion DECIMAL(20, 2) NOT NULL,
+    porcentaje_de_participacion INT(11) NOT NULL,
     adicionales_de_la_obra DECIMAL(20, 2) NOT NULL,
     deductivos_de_obra DECIMAL(20, 2) NOT NULL,
     monto_final_del_contrato DECIMAL(20, 2) NOT NULL,
@@ -162,11 +161,11 @@ CREATE TABLE proyectos (
 
 INSERT INTO proyectos (nombre_empresa, nombre_proyecto, numero_contrato, entidad, fecha_firma, monto_contrato_original, porcentaje_de_participacion, adicionales_de_la_obra, deductivos_de_obra, monto_final_del_contrato, miembro_del_consorcio, observaciones, contacto, objeto, especialidad)
 VALUES
-(1, 'Proyecto Alpha', 'CONTR2023-001', 'Compañía A', '2023-06-01 10:00:00', 1500000.00, 70.00, 50000.00, 0.00, 1545000.00, 1, 'Observación por defecto', 2, 3, 7),
-(2, 'Proyecto Beta', 'CONTR2023-002', 'Organización B', '2023-06-02 11:30:00', 2200000.00, 50.00, 80000.00, 0.00, 2240000.00, 2, 'Observación por defecto', 5, 1, 10),
-(3, 'Proyecto Gamma', 'CONTR2023-003', 'Entidad C', '2023-06-03 14:15:00', 1800000.00, 80.00, 60000.00, 0.00, 1836000.00, 3, 'Observación por defecto', 4, 4, 3),
-(4, 'Proyecto Delta', 'CONTR2023-004', 'Empresa XYZ', '2023-06-04 09:45:00', 2500000.00, 75.00, 90000.00, 0.00, 2572500.00, 1, 'Observación por defecto', 1, 2, 8),
-(5, 'Proyecto Epsilon', 'CONTR2023-005', 'Institución PQR', '2023-06-05 12:30:00', 3100000.00, 60.00, 100000.00, 0.00, 3140000.00, 2, 'Observación por defecto', 3, 5, 12);
+(1, 'Proyecto Alpha', 'CONTR2023-001', 'Compañía A', '2023-06-01', 1500000.00, 70, 50000.00, 0.00, 1545000.00, 1, 'Observación por defecto', 2, 3, 7),
+(2, 'Proyecto Beta', 'CONTR2023-002', 'Organización B', '2023-06-02', 2200000.00, 50, 80000.00, 0.00, 2240000.00, 2, 'Observación por defecto', 5, 1, 10),
+(3, 'Proyecto Gamma', 'CONTR2023-003', 'Entidad C', '2023-06-03', 1800000.00, 80, 60000.00, 0.00, 1836000.00, 3, 'Observación por defecto', 4, 4, 3),
+(4, 'Proyecto Delta', 'CONTR2023-004', 'Empresa XYZ', '2023-06-04', 2500000.00, 75, 90000.00, 0.00, 2572500.00, 1, 'Observación por defecto', 1, 2, 8),
+(5, 'Proyecto Epsilon', 'CONTR2023-005', 'Institución PQR', '2023-06-05', 3100000.00, 60, 100000.00, 0.00, 3140000.00, 2, 'Observación por defecto', 3, 5, 12);
 CREATE TABLE archivosProyectos (
     idProyecto INT(11) NOT NULL,
     acta_de_recepcion VARCHAR(255) DEFAULT NULL,
@@ -197,10 +196,10 @@ CREATE TABLE procesos (
     nomenclatura VARCHAR(100) NOT NULL,
     objeto INT(11) NOT NULL,
     nombreClave VARCHAR(255) NOT NULL,
-    consultas DATETIME,
-    integracion DATETIME,
-    presentacion DATETIME,
-    buenaPro DATETIME,
+    consultas DATE,
+    integracion DATE,
+    presentacion DATE,
+    buenaPro DATE,
     postores INT(11) NOT NULL,
     valorReferencial DECIMAL(20, 2) NOT NULL,
     encargado INT(11) NOT NULL,
@@ -215,18 +214,18 @@ CREATE TABLE procesos (
 /*datos de prueva*/
 INSERT INTO procesos (entidad, nomenclatura, objeto, nombreClave, consultas, integracion, presentacion, buenaPro, postores, valorReferencial, encargado, estado, observaciones)
 VALUES 
-    ('Entidad 1', 'Nomenc 1', 1, 'Nombre Clave 1', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 1, 1587896.25, 1, 'Estado 1', 'Observación 1'),
-    ('Entidad 2', 'Nomenc 2', 2, 'Nombre Clave 2', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 2, 2398745.50, 2, 'Estado 2', 'Observación 2'),
-    ('Entidad 3', 'Nomenc 3', 3, 'Nombre Clave 3', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1258946.75, 3, 'Estado 3', 'Observación 3'),
-    ('Entidad 4', 'Nomenc 4', 4, 'Nombre Clave 4', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 4, 3756489.30, 1, 'Estado 4', 'Observación 4'),
-    ('Entidad 5', 'Nomenc 5', 5, 'Nombre Clave 5', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 5, 1987456.80, 2, 'Estado 5', 'Observación 5'),
-    ('Entidad 6', 'Nomenc 6', 1, 'Nombre Clave 6', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 1, 897562.40, 3, 'Estado 6', 'Observación 6'),
-    ('Entidad 7', 'Nomenc 7', 2, 'Nombre Clave 7', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1795478.25, 2, 'Estado 7', 'Observación 7'),
-    ('Entidad 8', 'Nomenc 8', 3, 'Nombre Clave 8', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 2, 1245897.30, 1, 'Estado 8', 'Observación 8'),
-    ('Entidad 9', 'Nomenc 9', 4, 'Nombre Clave 9', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1758964.50, 2, 'Estado 9', 'Observación 9'),
-    ('Entidad 10', 'Nomenc 10', 1, 'Nombre Clave 10', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 1, 986574.80, 3, 'Estado 10', 'Observación 10'),
-    ('Entidad 11', 'Nomenc 11', 2, 'Nombre Clave 11', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 2, 2245897.60, 1, 'Estado 11', 'Observación 11'),
-    ('Entidad 12', 'Nomenc 12', 3, 'Nombre Clave 12', '2023-06-14 08:00:00', '2023-06-15 12:30:00', '2023-06-16 11:15:00', '2023-06-17 13:00:00', 3, 1264589.90, 2, 'Estado 12', 'Observación 12');
+    ('Entidad 1', 'Nomenc 1', 1, 'Nombre Clave 1', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 1, 1587896.25, 1, 'Estado 1', 'Observación 1'),
+    ('Entidad 2', 'Nomenc 2', 2, 'Nombre Clave 2', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 2, 2398745.50, 2, 'Estado 2', 'Observación 2'),
+    ('Entidad 3', 'Nomenc 3', 3, 'Nombre Clave 3', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 3, 1258946.75, 3, 'Estado 3', 'Observación 3'),
+    ('Entidad 4', 'Nomenc 4', 4, 'Nombre Clave 4', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 4, 3756489.30, 1, 'Estado 4', 'Observación 4'),
+    ('Entidad 5', 'Nomenc 5', 5, 'Nombre Clave 5', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 5, 1987456.80, 2, 'Estado 5', 'Observación 5'),
+    ('Entidad 6', 'Nomenc 6', 1, 'Nombre Clave 6', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 1, 897562.40, 3, 'Estado 6', 'Observación 6'),
+    ('Entidad 7', 'Nomenc 7', 2, 'Nombre Clave 7', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 3, 1795478.25, 2, 'Estado 7', 'Observación 7'),
+    ('Entidad 8', 'Nomenc 8', 3, 'Nombre Clave 8', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 2, 1245897.30, 1, 'Estado 8', 'Observación 8'),
+    ('Entidad 9', 'Nomenc 9', 4, 'Nombre Clave 9', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 3, 1758964.50, 2, 'Estado 9', 'Observación 9'),
+    ('Entidad 10', 'Nomenc 10', 1, 'Nombre Clave 10', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 1, 986574.80, 3, 'Estado 10', 'Observación 10'),
+    ('Entidad 11', 'Nomenc 11', 2, 'Nombre Clave 11', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 2, 2245897.60, 1, 'Estado 11', 'Observación 11'),
+    ('Entidad 12', 'Nomenc 12', 3, 'Nombre Clave 12', '2023-06-14', '2023-06-15', '2023-06-16', '2023-06-17', 3, 1264589.90, 2, 'Estado 12', 'Observación 12');
 
 CREATE TABLE empresa_proceso (
     idEmpresa INT(11) NOT NULL,

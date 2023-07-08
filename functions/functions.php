@@ -70,6 +70,42 @@ function mensaje($modulo, $pul = 'o')
     }
 }
 
+function eliminarCarpeta($ruta) {
+    // Verificar si la ruta es una carpeta
+    if (!is_dir($ruta)) {
+        return false;
+    }
+
+    // Abrir el directorio
+    $directorio = opendir($ruta);
+
+    // Recorrer los archivos y subcarpetas dentro de la carpeta
+    while (($archivo = readdir($directorio)) !== false) {
+        if ($archivo != '.' && $archivo != '..') {
+            // Obtener la ruta completa del archivo o subcarpeta
+            $rutaCompleta = $ruta . '/' . $archivo;
+
+            // Verificar si es un archivo o una carpeta
+            if (is_file($rutaCompleta)) {
+                // Eliminar el archivo
+                unlink($rutaCompleta);
+            } elseif (is_dir($rutaCompleta)) {
+                // Llamar a la función recursivamente para eliminar la subcarpeta
+                eliminarCarpeta($rutaCompleta);
+            }
+        }
+    }
+
+    // Cerrar el directorio
+    closedir($directorio);
+
+    // Eliminar la carpeta vacía
+    return rmdir($ruta);
+}
+
+
+
+
 
 //*FUNCIONES QUE TODABIA NO SE ESTAN USANDO */
 

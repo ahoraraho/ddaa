@@ -76,10 +76,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "objeto" => "",
                 "observaciones" => ""
             );
+            $botonView = 1;
             break;
 
         case 'update':
             $numProceso = $_GET["id"];
+            $botonView = 1;
             $btn = "Actualizar";
             $status = null;
             $proceso = $dbProcesos->selectProceso($numProceso);
@@ -87,7 +89,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         case 'delete':
             $numProceso = $_GET["id"];
+            $botonView = 1;
             $btn = "Eliminar";
+            $status = "disabled";
+            $proceso = $dbProcesos->selectProceso($numProceso);
+            break;
+        case 'view':
+            $numProceso = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
             $status = "disabled";
             $proceso = $dbProcesos->selectProceso($numProceso);
             break;
@@ -99,19 +109,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
-        $styleImage = "display: none !importans; ";
         $hacer = "Eliminar Proceso";
-        // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
         $hacer = "Agregar Proceso";
-        // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
         $hacer = "Actualizar Proceso";
-        // $icono = "bi bi-pencil-square";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Proceso";
         break;
     default:
         # code...
@@ -132,8 +142,6 @@ switch ($btn) {
             <div class="formm">
                 <form action="?m=panel&mod=proceso&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="numProceso" value="<?= $proceso["numProceso"]; ?>">
-
-                    <b>Número de Proceso</b>
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="numProceso" value="<?= $proceso['numProceso']; ?>" <?= $status ?>>
 
                     <b>Entidad</b>
@@ -146,19 +154,19 @@ switch ($btn) {
                     <input required type="text" name="nombreClave" value="<?= $proceso["nombreClave"]; ?>" <?= $status ?>>
 
                     <b>Consultas</b>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="consultas" value="<?= $proceso["consultas"]; ?>" <?= $status ?>>
+                    <input required type="date" name="consultas" value="<?= $proceso["consultas"]; ?>" <?= $status ?>>
 
                     <b>Integración</b>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="integracion" value="<?= $proceso["integracion"]; ?>" <?= $status ?>>
+                    <input required type="date" name="integracion" value="<?= $proceso["integracion"]; ?>" <?= $status ?>>
 
                     <b>Presentación</b>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="presentacion" value="<?= $proceso["presentacion"]; ?>" <?= $status ?>>
+                    <input required type="date" name="presentacion" value="<?= $proceso["presentacion"]; ?>" <?= $status ?>>
 
                     <b>Buena Pro</b>
-                    <input required type="text" placeholder="aaaa-mm-dd" name="buenaPro" value="<?= $proceso["buenaPro"]; ?>" <?= $status ?>>
+                    <input required type="date" name="buenaPro" value="<?= $proceso["buenaPro"]; ?>" <?= $status ?>>
 
-                    <b>Valor Referencial:</b>
-                    <input required type="text" name="valorReferencial" value="<?= $proceso["valorReferencial"]; ?>" <?= $status ?>>
+                    <b>Valor Referencial S/.</b>
+                    <input required type="number" name="valorReferencial" value="<?= $proceso["valorReferencial"]; ?>" <?= $status ?>>
                     <b>Postores</b>
                     <div class="custom-select">
                         <select name="postores" <?= $status ?>>
@@ -214,9 +222,11 @@ switch ($btn) {
                         <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></span> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
                     </div>
                     <b>Observaciones</b>
-                    <input required type="text" name="observaciones" value="<?= $proceso["observaciones"]; ?>" <?= $status ?>>
+                    <textarea required type="text" name="observaciones" value="" <?= $status ?>><?= $proceso["observaciones"]; ?></textarea>
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                    <?php } ?>
                 </form>
             </div>
         </div>

@@ -7,6 +7,8 @@ if (isset($_GET["action"])) {
     $action = "add";
 }
 
+
+
 // Valido que tipo de peticion invoca al mod
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Aca se deben procesar los datos del formulario ejecutado
@@ -44,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     // Preparar el formulario para: Agregar - Modificar - Eliminar
     switch ($action) {
+
         case 'add':
             //optiene el id mayor de la tabla categorias
             $maxid = $dbObjetos->MayorIdObjeto();
@@ -57,6 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "idObjeto" => $id,
                 "nombre" => ""
             );
+
+            $botonView = 1;
             break;
 
         case 'update':
@@ -64,11 +69,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $btn = "Actualizar";
             $status = null;
             $objeto = $dbObjetos->selectObjeto($id);
+
+            $botonView = 1;
             break;
 
         case 'delete':
             $id = $_GET["id"];
             $btn = "Eliminar";
+            $status = "disabled";
+            $objeto = $dbObjetos->selectObjeto($id);
+
+            $botonView = 1;
+            break;
+        case 'view':
+            $id = $_GET["id"];
+            $botonView = 0;
+            $btn = "Ver";
             $status = "disabled";
             $objeto = $dbObjetos->selectObjeto($id);
             break;
@@ -79,19 +95,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 switch ($btn) {
     case 'Eliminar':
         $style = "background-color:crimson";
-        $styleImage = "display: none !importans; ";
         $hacer = "Eliminar Objeto";
-        // $icono = "bi bi-trash";
         break;
     case 'Agregar':
         $style = "background-color:rgb(0, 176, 26)";
         $hacer = "Agregar Objeto";
-        // $icono = "bi bi-plus-square";
         break;
     case 'Actualizar':
         $style = "background-color:rgb(9, 109, 149)";
         $hacer = "Actualizar Objeto";
-        // $icono = "bi bi-pencil-square";
+        break;
+    case 'Ver':
+        $style = "";
+        $hacer = "Ver Objeto";
         break;
     default:
         # code...
@@ -108,7 +124,7 @@ switch ($btn) {
         <h3>Objeto</h3>
         <div class="main">
             <div class="formm">
-                
+
                 <form action="?m=panel&mod=objeto&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $objeto["idObjeto"]; ?>">
                     <b> Id Objeto</b>
@@ -116,7 +132,9 @@ switch ($btn) {
                     <b> Nombre </b>
                     <input required type="text" name="nombre" value="<?= $objeto["nombre"] ?>" <?= $status ?>>
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php if ($botonView == 1) { ?>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn; ?></button>
+                    <?php } ?>
                 </form>
             </div>
         </div>
