@@ -32,15 +32,18 @@ mensaje('Proyecto');
     </div>
 </div>
 <!-- FILTROS -->
-<div class="filtros" method="GET">
+<div class="filtros">
     <div class="f1">
-        <form action="?m=panel&mod=proyectos">
+        <form action="?m=panel&mod=proyectos" method="POST">
             <h3>Filtros:</h3>
             <!--Empresa-->
-            <select name="empresa" id="empresa">
+            <select name="buscarEmpresa" id="buscarEmpresa">
                 <option>Empresa</option>
                 <?php
                 $empresas = $dbEmpresas->selectEmpresas();
+                if ($_POST["buscarEmpresa"] != '') {
+                    echo '<option value="' . $_POST["buscarEmpresa"] . '">' . $_POST["buscarEmpresa"] . '</option>';
+                }
                 foreach ($empresas as $empresa) {
                     $idEmpresa = $empresa["idEmpresa"];
                     $nombre = $empresa["nombreEmpresa"];
@@ -49,10 +52,13 @@ mensaje('Proyecto');
                 ?>
             </select>
             <!--contacto-->
-            <select name="contacto" id="contacto">
+            <select name="buscarContacto" id="buscarContacto">
                 <option>Contacto</option>
                 <?php
                 $contactos = $dbContactos->selectContactos();
+                if ($_POST["buscarContacto"] != '') {
+                    echo '<option value="' . $_POST["buscarContacto"] . '">' . $_POST["buscarContacto"] . '</option>';
+                }
                 foreach ($contactos as $contacto) {
                     $idContacto = $contacto["idContacto"];
                     $nombre = $contacto["nombre"];
@@ -61,10 +67,13 @@ mensaje('Proyecto');
                 ?>
             </select>
             <!--objetos-->
-            <select name="objeto" id="objeto">
+            <select name="buscarObjeto" id="buscarObjeto">
                 <option>Objeto</option>
                 <?php
                 $objetos = $dbObjetos->selectObjetos();
+                if ($_POST["buscarObjeto"] != '') {
+                    echo '<option value="' . $_POST["buscarObjeto"] . '">' . $_POST["buscarObjeto"] . '</option>';
+                }
                 foreach ($objetos as $objeto) {
                     $idObjeto = $objeto["idObjeto"];
                     $nombre = $objeto["nombre"];
@@ -73,10 +82,13 @@ mensaje('Proyecto');
                 ?>
             </select>
             <!--Especialidad-->
-            <select name="especialidad" id="especialidad">
+            <select name="buscarEspecialidad" id="buscarEspecialidad">
                 <option>Especialidad</option>
                 <?php
                 $especialidades = $dbEspecialidades->selectEspecialidades();
+                if ($_POST["buscarEspecialidad"] != '') {
+                    echo '<option value="' . $_POST["buscarEspecialidad"] . '">' . $_POST["buscarEspecialidad"] . '</option>';
+                }
                 foreach ($especialidades as $especialidad) {
                     $idEspecialidad = $especialidad["idEspecialidad"];
                     $nombre = $especialidad["nombre"];
@@ -91,7 +103,6 @@ mensaje('Proyecto');
 
 <?php
 /* //////////////////////////  FILTROS  //////////////////////////*/
-
 ?>
 
 <div class="contenido-tabla">
@@ -107,7 +118,8 @@ mensaje('Proyecto');
         </thead>
         <tbody>
             <?php
-            $proyectos = $dbProyectos->selectProyectos();
+
+            //$proyectos = $dbProyectos->filtrarProyecto($_POST["buscarEmpresa"],$_POST["buscarContacto"],$_POST["buscarObjeto"],$_POST["buscarEspecialidad"]);
 
             foreach ($proyectos as $proyecto) {
                 $id = $proyecto['idProyecto'];
