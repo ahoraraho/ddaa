@@ -40,7 +40,7 @@ if (isset($_GET['msj'])) {
 <h2>PROYECTOS</h2>
 <div class="numm">
     <div class="f1">
-    <form class="from_input" action="?m=panel&mod=proyectos" method="GET">
+    <form class="from_input" action="" method="GET">
             <input type="hidden" name="m" value="panel">
             <input type="hidden" name="mod" value="proyectos">
             <input type="text" name="buscar" value="" placeholder="Buscar...">
