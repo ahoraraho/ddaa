@@ -130,29 +130,41 @@ class dbProyectos
         }
     }
 
-    public function filtrarProyecto($empresa, $contacto, $objeto, $especialidad)
+    public function filtrarProyecto($buscarEmpresa, $buscarContacto, $buscarObjeto, $buscarEspecialidad)
     {
         global $conexion;
 
-        $filtro = " ";
+        $filtro = "";
 
-        if ($empresa == '' && $contacto == '' && $objeto == '' && $especialidad == '') {  $filtro = ""; }
-        if ($empresa != '' && $contacto == '' && $objeto == '' && $especialidad == '') { $filtro = " WHERE p.nombre_empresa = $empresa"; }
-        if ($empresa == '' && $contacto != '' && $objeto == '' && $especialidad == '') { $filtro = " WHERE p.contacto = $contacto"; }
-        if ($empresa == '' && $contacto == '' && $objeto != '' && $especialidad == '') { $filtro = " WHERE p.objeto = $objeto"; }
-        if ($empresa == '' && $contacto == '' && $objeto == '' && $especialidad != '') { $filtro = " WHERE p.especialidad = $especialidad"; }
-        if ($empresa != '' && $contacto != '' && $objeto == '' && $especialidad == '') { $filtro = " WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto"; }
-        if ($empresa == '' && $contacto != '' && $objeto != '' && $especialidad == '') { $filtro = " WHERE p.contacto = $contacto AND p.objeto = $objeto"; }
-        if ($empresa == '' && $contacto == '' && $objeto != '' && $especialidad != '') { $filtro = " WHERE p.objeto = $objeto AND p.especialidad = $especialidad"; }
-        if ($empresa != '' && $contacto == '' && $objeto == '' && $especialidad != '') { $filtro = " WHERE p.nombre_empresa = $empresa AND p.especialidad = $especialidad"; }
-        if ($empresa != '' && $contacto == '' && $objeto != '' && $especialidad == '') { $filtro = " WHERE p.nombre_empresa = $empresa AND p.objeto = $objeto"; }
-        if ($empresa == '' && $contacto != '' && $objeto == '' && $especialidad != '') { $filtro = " WHERE p.contacto = $contacto AND p.especialidad = $especialidad"; }
-        if ($empresa != '' && $contacto != '' && $objeto != '' && $especialidad == '') { $filtro = " WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto AND p.objeto = $objeto"; }
-        if ($empresa != '' && $contacto != '' && $objeto == '' && $especialidad != '') { $filtro = " WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto AND p.especialidad = $especialidad"; }
-        if ($empresa != '' && $contacto == '' && $objeto != '' && $especialidad != '') { $filtro = " WHERE p.nombre_empresa = $empresa AND p.objeto = $objeto AND p.especialidad = $especialidad"; }
-        if ($empresa = '' && $contacto !== '' && $objeto != '' && $especialidad != '') { $filtro = " WHERE p.contacto = $contacto AND p.objeto = $objeto AND p.especialidad = $especialidad"; }
-        if ($empresa != '' && $contacto != '' && $objeto != '' && $especialidad != '') { $filtro = " WHERE p.nombre_empresa = $empresa AND p.contacto = $contacto AND p.objeto = $objeto AND p.especialidad = $especialidad"; }
-
+        if ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
+            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "'";
+        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
+            $filtro = "WHERE p.contacto = '" . $buscarContacto . "'";
+        } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+            $filtro = "WHERE p.objeto = '" . $buscarObjeto . "'";
+        } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+            $filtro = "WHERE p.especialidad = '" . $buscarEspecialidad . "'";
+        } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
+            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "'";
+        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+            $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
+        } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
+            $filtro = "WHERE p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+        } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+        } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "'";
+        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+            $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+        } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
+            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
+        } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
+            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+        } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
+            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
+            $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
+        }
 
         $consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa $filtro";
         $resultado = mysqli_query($conexion, $consulta);
@@ -168,6 +180,48 @@ class dbProyectos
 
         return $proyectos;
     }
+
+    public function buscarProyecto($buscar)
+{
+    global $conexion;
+
+    $consulta = "SELECT p.*, e.nombreEmpresa AS NomEmpresa, c.nombre AS NomContacto, o.nombre AS NomObjeto, es.nombre AS NomEspecialidad
+                FROM proyectos AS p
+                INNER JOIN empresa AS e ON p.nombre_empresa = e.idEmpresa
+                INNER JOIN contacto AS c ON p.contacto = c.idContacto
+                INNER JOIN objeto AS o ON p.objeto = o.idObjeto
+                INNER JOIN especialidad AS es ON p.especialidad = es.idEspecialidad
+                WHERE e.nombreEmpresa LIKE '%" . $buscar . "%' 
+                OR p.nombre_proyecto LIKE '%" . $buscar . "%'
+                OR p.numero_contrato LIKE '%" . $buscar . "%'
+                OR p.entidad LIKE '%" . $buscar . "%'
+                OR p.fecha_firma LIKE '%" . $buscar . "%'
+                OR CAST(p.monto_contrato_original AS CHAR) LIKE '%" . $buscar . "%'
+                OR CAST(p.porcentaje_de_participacion AS CHAR) LIKE '%" . $buscar . "%'
+                OR CAST(p.adicionales_de_la_obra AS CHAR) LIKE '%" . $buscar . "%'
+                OR CAST(p.deductivos_de_obra AS CHAR) LIKE '%" . $buscar . "%'
+                OR CAST(p.monto_final_del_contrato AS CHAR) LIKE '%" . $buscar . "%'
+                OR p.miembro_del_consorcio LIKE '%" . $buscar . "%'
+                OR p.observaciones LIKE '%" . $buscar . "%'
+                OR c.nombre LIKE '%" . $buscar . "%'
+                OR o.nombre LIKE '%" . $buscar . "%'
+                OR es.nombre LIKE '%" . $buscar . "%'";
+
+    $resultado = mysqli_query($conexion, $consulta);
+
+    $proyectos = array();
+
+    if ($resultado) {
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $proyectos[] = $fila;
+        }
+        mysqli_free_result($resultado);
+    }
+
+    return $proyectos;
+}
+
+
 
     public function MayorIdDocProyecto()
     {

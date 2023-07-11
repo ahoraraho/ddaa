@@ -40,13 +40,10 @@ if (isset($_GET['msj'])) {
 <h2>PROYECTOS</h2>
 <div class="numm">
     <div class="f1">
-        <form class="from_input" action="" method="GET">
-            <!-- para agregar la vista de ?m=productos en la url -->
+    <form class="from_input" action="" method="GET">
             <input type="hidden" name="m" value="panel">
-            <input type="hidden" name="mod" value="categorias">
-            <!-- concatenando el valor a buscar -->
+            <input type="hidden" name="mod" value="proyectos">
             <input type="text" name="buscar" value="" placeholder="Buscar...">
-            <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
         <span class="f-s">15</span>
@@ -137,51 +134,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $buscarObjeto = $_POST["buscarObjeto"];
     $buscarEspecialidad = $_POST["buscarEspecialidad"];
 
-    if ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
-        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "'";
-    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
-        $filtro = "WHERE p.contacto = '" . $buscarContacto . "'";
-    } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-        $filtro = "WHERE p.objeto = '" . $buscarObjeto . "'";
-    } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-        $filtro = "WHERE p.especialidad = '" . $buscarEspecialidad . "'";
-    } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
-        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "'";
-    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-        $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
-    } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
-        $filtro = "WHERE p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-    } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-    } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "'";
-    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-        $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-    } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
-    } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-    } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
-        $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-    } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
-        $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-    }
+    $proyectos = $dbProyectos->filtrarProyecto($buscarEmpresa, $buscarContacto, $buscarObjeto, $buscarEspecialidad);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $proyectos = $dbProyectos->buscarProyecto($busqueda);
+/* //////////////////////////  Barra de busqueda  //////////////////////////*/
 } else {
-    $filtro = '';
+    $proyectos = $dbProyectos->selectProyectos();
 }
-
-$consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa $filtro";
-$resultado = mysqli_query($conexion, $consulta);
-
-$proyectos = array();
-
-if ($resultado) {
-    while ($fila = mysqli_fetch_assoc($resultado)) {
-        $proyectos[] = $fila;
-    }
-    mysqli_free_result($resultado);
-}
-
 ?>
 
 <div class="contenido-tabla">

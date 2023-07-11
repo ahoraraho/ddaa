@@ -101,6 +101,56 @@ class dbEmpresa
         }
     }
 
+    public function filtrarEmpresa($buscarMipe)
+    {
+        global $conexion;
+        $filtro = "";
+
+        if ($buscarMipe != '') {
+            $filtro = "WHERE mipe = '" . $buscarMipe . "'";
+        }
+
+        $consulta = "SELECT * FROM empresa $filtro";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $empresas = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $empresas[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $empresas;
+    }
+
+    public function buscarEmpresa($buscar)
+    {
+        global $conexion;
+
+        $consulta = "SELECT * FROM empresa
+                    WHERE nombreEmpresa LIKE '%" . $buscar . "%'
+                    OR ruc LIKE '%" . $buscar . "%'
+                    OR telefono LIKE '%" . $buscar . "%'
+                    OR email LIKE '%" . $buscar . "%'
+                    OR numeroPartida LIKE '%" . $buscar . "%'";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $empresas = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $empresas[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $empresas;
+    }
+
     /*OPTINE EL ULTIMO ID DE LA ULTIMA INSERCION A LA BASE DE DATOS */
     public function getUltimoRegistroId()
     {
