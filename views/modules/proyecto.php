@@ -448,9 +448,9 @@ switch ($btn) {
                                 );
 
                                 foreach ($archivosHabilitados as $campo => $archivo) {
-                                    $btn = $archivo["btn"];
+                                    $btnn = $archivo["btn"];
                                     $valor = $archivo["valor"];
-                                    ${"b" . substr($btn, 1)} = empty($valor) ? 'disabled-button' : null;
+                                    ${"b" . substr($btnn, 1)} = empty($valor) ? 'disabled-button' : null;
                                     ${$campo} = $valor;
                                 }
                                 ?>
@@ -643,7 +643,7 @@ switch ($btn) {
                         </table>
                     </div>
                     <?php if ($botonView == 1) { ?>
-                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $hacer ?></button>
+                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
                     <?php } ?>
                 </form>
             </div>

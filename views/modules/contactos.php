@@ -46,30 +46,30 @@ mensaje('Contacto', 'o');
             </tr>
         </thead>
         <tbody>
-            
+
             <?php
             $contactos = $dbContactos->selectContactos();
 
-            foreach ($contactos as $contacto){
-                $id= $contacto['idContacto'];
-                $dni= $contacto['dni'];
-                $nombre= $contacto['nombre'];
-                $email= $contacto['email'];
-                $celular= $contacto['celular'];
-                $cargo= $contacto['cargo'];
+            foreach ($contactos as $contacto) {
+                $id = $contacto['idContacto'];
+                $dni = $contacto['dni'];
+                $nombre = $contacto['nombre'];
+                $email = $contacto['email'];
+                $celular = $contacto['celular'];
+                $cargo = $contacto['cargo'];
             ?>
-            <tr  onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
-                <td><?= $id ?></td>
-                <td><?= $nombre ?></td>
-                <td><?= $dni ?></td>
-                <td><?= $email ?></td>
-                <td><?= $celular ?></td>
-                <td><?= $cargo ?></td>
-                <td>
-                    <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+                <tr onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
+                    <td><?= $id ?></td>
+                    <td><?= $nombre ?></td>
+                    <td><?= $dni ?></td>
+                    <td><?= $email ?></td>
+                    <td><?= $celular ?></td>
+                    <td><?= $cargo ?></td>
+                    <td>
+                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
+                    </td>
+                </tr>
             <?php } ?>
         </tbody>
     </table>
@@ -82,9 +82,9 @@ mensaje('Contacto', 'o');
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

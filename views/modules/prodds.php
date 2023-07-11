@@ -55,8 +55,8 @@ mensaje('Tipo Actualización', 'o');
                     <td><?= $id ?></td>
                     <td><?= $nombre ?></td>
                     <td>
-                        <a href="?m=panel&mod=prodd&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=prodd&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=prodd&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=prodd&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>

@@ -217,7 +217,7 @@ if ($resultado) {
                 $contacto = $proyecto['contacto'];
                 $objeto = $proyecto['objeto'];
                 $especialidad = $proyecto['especialidad'];
-                ?>
+            ?>
                 <tr onclick="window.location.href='?m=panel&mod=proyecto&action=view&id=<?= $id ?>'">
                     <td>
                         <?= $id ?>
@@ -232,10 +232,8 @@ if ($resultado) {
                         <?= $numero_contrato ?>
                     </td>
                     <td>
-                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i
-                                class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i
-                                class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=proyecto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=proyecto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>

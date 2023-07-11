@@ -34,11 +34,12 @@ mensaje('Noticia', 'a');
 
 <!-- tabla objetos -->
 <div class="contenido-tabla">
-    <table class="responsive-objetos">
+    <table class="responsive-noticias">
         <thead>
             <tr>
-                <th>Id Noticia</th>
-                <th>Nombre del Noticia</th>
+                <th># Noticia</th>
+                <th>Imagen</th>
+                <th>Titulo</th>
                 <th>Destacado</th>
                 <th colspan="2">Acciones</th>
             </tr>
@@ -54,6 +55,7 @@ mensaje('Noticia', 'a');
                 $descripcion = $noticia['descripcion'];
                 $fecha = $noticia['fecha'];
                 $destacado = $noticia['destacado'];
+                $imagen = $noticia['imagen'];
                 if ($destacado == 0) {
                     $destacado = "No destacado";
                 } else if ($destacado == 1) {
@@ -62,11 +64,16 @@ mensaje('Noticia', 'a');
             ?>
                 <tr onclick="window.location.href='?m=panel&mod=noticia&action=view&id=<?= $idNoticia ?>'">
                     <td><?= $idNoticia ?></td>
+                    <?php if (!empty($imagen)) : ?>
+                        <td><img src="imagenes/<?= $imagen ?>" alt="<?= $idNoticia ?>"></td>
+                    <?php else : ?>
+                        <td><img src="imagenes/news.jpg"></td>
+                    <?php endif; ?>
                     <td><?= $titulo ?></td>
                     <td><?= $destacado ?></td>
                     <td>
-                        <a href="?m=panel&mod=noticia&action=update&id=<?= $idNoticia ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=noticia&action=delete&id=<?= $idNoticia ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=noticia&action=update&id=<?= $idNoticia ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=noticia&action=delete&id=<?= $idNoticia ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>

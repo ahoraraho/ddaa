@@ -293,7 +293,6 @@ textarea {
     text-align: center;
 }
 
-
 .btn-busca {
     background: transparent;
     color: #ffffff;
@@ -679,7 +678,7 @@ textarea {
     color: var(--text-color);
 }
 
-.contenido-tabla .resp img {
+.contenido-tabla .responsive-noticias img {
     max-width: 100px;
     border-radius: 10px;
 }
@@ -690,29 +689,55 @@ textarea {
 .contenido-tabla table .delete,
 .contenido-tabla table .donwload,
 .contenido-tabla table .view {
-    margin: 0px 5px;
-    font-size: 30px;
-    width: 30px;
-    height: 30px;
+    font-size: 28px;
+    padding: 4px;
+    margin: 0 0px;
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    border: solid 1px transparent;
+    /* Agrega bordes redondeados al pasar el mouse por encima */
+    transition: background-color 0.5s ease;
+    /* Agrega una transición suave para el cambio de color de fondo */
 }
 
 .contenido-tabla table .edid {
-    /* margin-right: 20px; */
     color: rgb(13, 57, 133);
+    /* background-color:var(--primary);  */
+
 }
 
 .contenido-tabla table .delete {
     color: rgb(180, 6, 6);
+    /* background-color:var(--primary);  */
+
 }
 
 .contenido-tabla table .donwload {
-    /* margin-right: 20px; */
     color: rgb(4, 141, 77);
 }
 
 .contenido-tabla table .view {
-    color: rgb(0, 0, 0);
+    color: var(--text-color);
 }
+
+/* Efecto de hover */
+.contenido-tabla table .edid:hover,
+.contenido-tabla table .ok:hover,
+.contenido-tabla table .nok:hover,
+.contenido-tabla table .delete:hover,
+.contenido-tabla table .donwload:hover,
+.contenido-tabla table .view:hover {
+    background-color: var(--primary);
+    /* Cambia el color de fondo al pasar el mouse por encima */
+    cursor: pointer;
+    /* Cambia el cursor al pasar el mouse por encima */
+    border: solid 1px var(--secondary);
+    
+}
+
+
+
 
 .contenido-tabla table .ok {
     margin-right: 20px;
@@ -744,19 +769,23 @@ textarea {
     justify-content: flex-end;
     align-items: center;
 }
+
 /*Filtros*/
-.numm .f1 form{
+.numm .f1 form {
     width: 100%;
     display: flex;
     height: auto;
     justify-content: space-between;
 }
 
-.numm .f1 select{
-    font-size:14px; padding:6px;margin-left:5px;margin-right:5px;
+.numm .f1 select {
+    font-size: 14px;
+    padding: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-.button-filtrar{
+.button-filtrar {
     margin-top: 12px;
     height: 35px;
     background-color: #f6ff00;
@@ -769,7 +798,8 @@ textarea {
     padding-right: 10px;
     cursor: pointer;
 }
-.button-filtrar:hover{
+
+.button-filtrar:hover {
     background-color: #000000;
     color: #f6ff00;
 }
@@ -1306,6 +1336,22 @@ option {
     }
 
     .responsive-objetos td:nth-of-type(3):before {
+        content: "Acciones";
+    }
+
+    /*PARA HACER QUE LA TABLA NOTICIAS SEA RESPONSIVA*/
+    .responsive-noticias td:nth-of-type(1):before {
+        content: "#";
+    }
+    .responsive-noticias td:nth-of-type(2):before {
+        content: "Imagen";
+    }
+
+    .responsive-noticias td:nth-of-type(3):before {
+        content: "Titulo";
+    }
+
+    .responsive-noticias td:nth-of-type(4):before {
         content: "Acciones";
     }
 
