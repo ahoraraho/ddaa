@@ -58,7 +58,7 @@ class dbContactos
     }
 
     // Actualizar un registro en la tabla contacto
-    public function UpdateContacto($id,$dni,$nombre,$email,$celular,$cargo)
+    public function UpdateContacto($id, $dni, $nombre, $email, $celular, $cargo)
     {
         global $conexion;
 
@@ -100,6 +100,55 @@ class dbContactos
         } else {
             return [];
         }
+    }
+
+    public function filtrarContacto($buscarCargo)
+    {
+        global $conexion;
+        $filtro = "";
+
+        if ($buscarCargo != '') {
+            $filtro = "WHERE cargo = '" . $buscarCargo . "'";
+        }
+
+        $consulta = "SELECT * FROM contacto $filtro";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $contactos = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $contactos[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $contactos;
+    }
+
+    public function buscarContacto($buscar)
+    {
+        global $conexion;
+
+        $consulta = "SELECT * FROM contacto
+                    WHERE dni LIKE '%" . $buscar . "%'
+                    OR nombre LIKE '%" . $buscar . "%'
+                    OR email LIKE '%" . $buscar . "%'
+                    OR celular LIKE '%" . $buscar . "%'
+                    OR cargo LIKE '%" . $buscar . "%'";
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $contactos = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $contactos[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $contactos;
     }
 }
 ?>

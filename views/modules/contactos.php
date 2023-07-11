@@ -16,7 +16,7 @@ mensaje('Contacto', 'o');
         <form class="from_input" action="" method="GET">
             <!-- para agregar la vista de ?m=productos en la url -->
             <input type="hidden" name="m" value="panel">
-            <input type="hidden" name="mod" value="categorias">
+            <input type="hidden" name="mod" value="contactos">
             <!-- concatenando el valor a buscar -->
             <input type="text" name="buscar" value="" placeholder="Buscar...">
             <!-- <input type="submit" value="BUSCAR"> -->
@@ -30,6 +30,45 @@ mensaje('Contacto', 'o');
         </a>
     </div>
 </div>
+
+<div class="numm">
+    <div class="f1">
+        <form name="filtros" action="?m=panel&mod=contactos" method="POST">
+            <h3>Filtros:</h3>
+            <!--cargo-->
+            <select name="buscarCargo" id="buscarCargo">
+                <option value="">Cargo</option> <!-- Agrega la opción predeterminada -->
+                <?php
+                if ($_POST["buscarCargo"] != '') {
+                    echo '<option value="' . $_POST["buscarCargo"] . '">' . $_POST["buscarEmpresa"] . '</option>';
+                }
+                ?>
+                <option value="Dueño de negocio">Dueño de negocio</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Otros">Otros</option>
+            </select>
+            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
+        </form>
+    </div>
+</div>
+
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $filtro = '';
+
+    $buscarCargo = $_POST["buscarCargo"];
+
+    $contactos = $dbContactos->filtrarContacto($buscarCargo);
+
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $contactos = $dbContactos->buscarContacto($busqueda);
+/* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $contactos = $dbContactos->selectContactos();
+}
+?>
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
@@ -48,7 +87,6 @@ mensaje('Contacto', 'o');
         <tbody>
             
             <?php
-            $contactos = $dbContactos->selectContactos();
 
             foreach ($contactos as $contacto){
                 $id= $contacto['idContacto'];

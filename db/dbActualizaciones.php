@@ -142,4 +142,55 @@ class dbActualizaciones
 
         return $procesos;
     }
+
+    public function filtrarActualizacion($buscarTipo)
+    {
+        global $conexion;
+        $filtro = "";
+
+        if ($buscarTipo != '') {
+            $filtro = "WHERE tipo = '" . $buscarTipo . "'";
+        }
+
+        $consulta = "SELECT * FROM actualizaciones $filtro";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $actualizaciones = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $actualizaciones[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $actualizaciones;
+    }
+
+    public function buscarActualizacion($buscar)
+    {
+        global $conexion;
+
+        $consulta = "SELECT actualizaciones.*, t.nombre AS tipoActu
+        FROM actualizaciones
+        INNER JOIN tipoactualizacion t ON actualizaciones.tipo = t.idActual
+        
+                    WHERE descripcion LIKE '%" . $buscar . "%'
+                    OR archivo LIKE '%" . $buscar . "%'
+                    OR t.nombre LIKE '%" . $buscar . "%'";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $actualizaciones = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $actualizaciones[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $actualizaciones;
+    }
 }

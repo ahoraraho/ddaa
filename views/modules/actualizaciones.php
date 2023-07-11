@@ -33,7 +33,7 @@ if (isset($_GET['file'])) {
         <form class="from_input" action="" method="GET">
             <!-- para agregar la vista de ?m=productos en la url -->
             <input type="hidden" name="m" value="panel">
-            <input type="hidden" name="mod" value="categorias">
+            <input type="hidden" name="mod" value="actualizaciones">
             <!-- concatenando el valor a buscar -->
             <input type="text" name="buscar" value="" placeholder="Buscar...">
             <!-- <input type="submit" value="BUSCAR"> -->
@@ -49,6 +49,47 @@ if (isset($_GET['file'])) {
     </div>
 </div>
 
+<div class="numm">
+    <div class="f1">
+        <form name="filtros" action="?m=panel&mod=actualizaciones" method="POST">
+            <h3>Filtros:</h3>
+            <!--tipo-->
+            <select name="buscarTipo" id="buscarTipo">
+                <option value="">Tipo de actualizacion</option> <!-- Agrega la opción predeterminada -->
+                <?php
+                if ($_POST["buscarTipo"] != '') {
+                    echo '<option value="' . $_POST["buscarTipo"] . '">' . $_POST["buscarTipo"] . '</option>';
+                }
+                $tipos = $dbActualizaciones->selectTipos();
+                foreach ($tipos as $tipo) {
+                    $idActual = $tipo["idActual"];
+                    $nombre = $tipo["nombre"];
+                    echo '<option value="' . $idActual . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
+        </form>
+    </div>
+</div>
+
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $filtro = '';
+
+    $buscarTipo = $_POST["buscarTipo"];
+
+    $actualizaciones = $dbActualizaciones->filtrarActualizacion($buscarTipo);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $actualizaciones = $dbActualizaciones->buscarActualizacion($busqueda);
+/* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $actualizaciones = $dbActualizaciones->selectActualizaciones();
+}
+?>
+
 <!-- tabla objetos -->
 <div class="contenido-tabla">
     <table class="responsive-actualizaciones">
@@ -61,7 +102,6 @@ if (isset($_GET['file'])) {
         </thead>
         <tbody>
             <?php
-            $actualizaciones = $dbActualizaciones->selectActualizaciones();
 
             foreach ($actualizaciones as $actualizacion) {
                 $id = $actualizacion['idActualizacion'];
