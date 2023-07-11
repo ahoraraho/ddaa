@@ -131,55 +131,68 @@ class dbProyectos
     }
 
     public function filtrarProyecto($buscarEmpresa, $buscarContacto, $buscarObjeto, $buscarEspecialidad)
-    {
-        global $conexion;
+{
+    global $conexion;
 
-        $filtro = "";
+    $filtro = "";
+    $parametros = array();
 
-        if ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
-            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "'";
-        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
-            $filtro = "WHERE p.contacto = '" . $buscarContacto . "'";
-        } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-            $filtro = "WHERE p.objeto = '" . $buscarObjeto . "'";
-        } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-            $filtro = "WHERE p.especialidad = '" . $buscarEspecialidad . "'";
-        } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad == '') {
-            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "'";
-        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-            $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
-        } elseif ($buscarEmpresa == '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
-            $filtro = "WHERE p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-        } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-        } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "'";
-        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-            $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-        } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad == '') {
-            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "'";
-        } elseif ($buscarEmpresa != '' && $buscarContacto != '' && $buscarObjeto == '' && $buscarEspecialidad != '') {
-            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.contacto = '" . $buscarContacto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-        } elseif ($buscarEmpresa != '' && $buscarContacto == '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
-            $filtro = "WHERE p.nombre_empresa = '" . $buscarEmpresa . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-        } elseif ($buscarEmpresa == '' && $buscarContacto != '' && $buscarObjeto != '' && $buscarEspecialidad != '') {
-            $filtro = "WHERE p.contacto = '" . $buscarContacto . "' AND p.objeto = '" . $buscarObjeto . "' AND p.especialidad = '" . $buscarEspecialidad . "'";
-        }
-
-        $consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa $filtro";
-        $resultado = mysqli_query($conexion, $consulta);
-
-        $proyectos = array();
-
-        if ($resultado) {
-            while ($fila = mysqli_fetch_assoc($resultado)) {
-                $proyectos[] = $fila;
-            }
-            mysqli_free_result($resultado);
-        }
-
-        return $proyectos;
+    if (!empty($buscarEmpresa)) {
+        $filtro .= "p.nombre_empresa = ?";
+        $parametros[] = $buscarEmpresa;
     }
+
+    if (!empty($buscarContacto)) {
+        if (!empty($filtro)) {
+            $filtro .= " AND ";
+        }
+        $filtro .= "p.contacto = ?";
+        $parametros[] = $buscarContacto;
+    }
+
+    if (!empty($buscarObjeto)) {
+        if (!empty($filtro)) {
+            $filtro .= " AND ";
+        }
+        $filtro .= "p.objeto = ?";
+        $parametros[] = $buscarObjeto;
+    }
+
+    if (!empty($buscarEspecialidad)) {
+        if (!empty($filtro)) {
+            $filtro .= " AND ";
+        }
+        $filtro .= "p.especialidad = ?";
+        $parametros[] = $buscarEspecialidad;
+    }
+
+    $consulta = "SELECT *, e.nombreEmpresa AS NomEmpresa FROM proyectos p INNER JOIN empresa e ON p.nombre_empresa = e.idEmpresa";
+
+    if (!empty($filtro)) {
+        $consulta .= " WHERE " . $filtro;
+    }
+
+    $stmt = mysqli_prepare($conexion, $consulta);
+
+    if ($stmt) {
+        if (!empty($parametros)) {
+            $tiposParametros = str_repeat("s", count($parametros));
+            mysqli_stmt_bind_param($stmt, $tiposParametros, ...$parametros);
+        }
+
+        mysqli_stmt_execute($stmt);
+
+        $resultado = mysqli_stmt_get_result($stmt);
+        $proyectos = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+
+        mysqli_stmt_close($stmt);
+    } else {
+        $proyectos = array();
+    }
+
+    return $proyectos;
+}
+
 
     public function buscarProyecto($buscar)
 {

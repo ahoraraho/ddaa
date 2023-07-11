@@ -15,12 +15,9 @@ mensaje('Proceso', 'o');
 <div class="numm">
     <div class="f1">
         <form class="from_input" action="" method="GET">
-            <!-- para agregar la vista de ?m=productos en la url -->
-            <input type="hidden" name="m" value="panel">
-            <input type="hidden" name="mod" value="categorias">
-            <!-- concatenando el valor a buscar -->
+        <input type="hidden" name="m" value="panel">
+            <input type="hidden" name="mod" value="procesos">
             <input type="text" name="buscar" value="" placeholder="Buscar...">
-            <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
         <span class="f-s">15</span>
@@ -31,6 +28,79 @@ mensaje('Proceso', 'o');
         </a>
     </div>
 </div>
+
+<div class="numm">
+    <div class="f1">
+        <form name="filtros" action="?m=panel&mod=procesos" method="POST">
+            <h3>Filtros:</h3>
+            <!--Postores-->
+            <select name="buscarPostor" id="buscarPostor">
+                <option value="">Postores</option> <!-- Agrega la opción predeterminada -->
+                <?php
+                if ($_POST["buscarPostor"] != '') {
+                    echo '<option value="' . $_POST["buscarPostor"] . '">' . $_POST["buscarPostor"] . '</option>';
+                }
+                $empresas = $dbEmpresas->selectEmpresas();
+                foreach ($empresas as $empresa) {
+                    $idEmpresa = $empresa["idEmpresa"];
+                    $nombre = $empresa["nombreEmpresa"];
+                    echo '<option value="' . $idEmpresa . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <!--Encargado-->
+            <select name="buscarEncargado" id="buscarEncargado">
+                <option value="">Encargados</option> <!-- Agrega la opción predeterminada -->
+                <?php
+                if ($_POST["buscarEncargado"] != '') {
+                    echo '<option value="' . $_POST["buscarEncargado"] . '">' . $_POST["buscarEncargado"] . '</option>';
+                }
+                $especialistas = $dbEspecialistas->selectEspecialistas();
+                foreach ($especialistas as $especialista) {
+                    $idEspecialista = $especialista["idEspecialista"];
+                    $nombre = $especialista["nombre"];
+                    echo '<option value="' . $idEspecialista . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <!--objetos-->
+            <select name="buscarObjeto" id="buscarObjeto">
+                <option value="">Objetos</option> <!-- Agrega la opción predeterminada -->
+                <?php
+                if ($_POST["buscarObjeto"] != '') {
+                    echo '<option value="' . $_POST["buscarObjeto"] . '">' . $_POST["buscarObjeto"] . '</option>';
+                }
+                $objetos = $dbObjetos->selectObjetos();
+                foreach ($objetos as $objeto) {
+                    $idObjeto = $objeto["idObjeto"];
+                    $nombre = $objeto["nombre"];
+                    echo '<option value="' . $idObjeto . '">' . $nombre . '</option>';
+                }
+                ?>
+            </select>
+            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
+        </form>
+    </div>
+</div>
+
+<?php
+            /* //////////////////////////  FILTROS  //////////////////////////*/
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $filtro = '';
+
+                $buscarPostor = $_POST["buscarPostor"];
+                $buscarEncargado = $_POST["buscarEncargado"];
+                $buscarObjeto = $_POST["buscarObjeto"];
+
+                $procesos = $dbProcesos->filtrarProceso($buscarPostor, $buscarEncargado, $buscarObjeto);
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+                $busqueda = $_GET["buscar"];
+                $procesos = $dbProcesos->buscarProceso($busqueda);
+                /* //////////////////////////  Barra de busqueda  //////////////////////////*/
+            } else {
+                $procesos = $dbProcesos->selectProcesos();
+            }
+            ?>
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
@@ -48,8 +118,6 @@ mensaje('Proceso', 'o');
         <tbody>
 
             <?php
-            $procesos = $dbProcesos->selectProcesos();
-
             foreach ($procesos as $proceso) {
                 $id = $proceso['numProceso'];
                 $entidad = $proceso['entidad'];
@@ -64,20 +132,32 @@ mensaje('Proceso', 'o');
                 $encargado = $proceso['nomEncargado'];
                 $objeto = $proceso['nomObjeto'];
                 $observaciones = $proceso['observaciones'];
-            ?>
-                <tr  onclick="window.location.href='?m=panel&mod=proceso&action=view&id=<?= $id ?>'">
-                    <td><?= $id ?></td>
-                    <td><?= $entidad ?></td>
-                    <td><?= $nombreClave ?></td>
-                    <td><?= $postores ?></td>
-                    <td><?= $encargado ?></td>
+                ?>
+                <tr onclick="window.location.href='?m=panel&mod=proceso&action=view&id=<?= $id ?>'">
                     <td>
-                        <a href="?m=panel&mod=proceso&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=proceso&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $entidad ?>
+                    </td>
+                    <td>
+                        <?= $nombreClave ?>
+                    </td>
+                    <td>
+                        <?= $postores ?>
+                    </td>
+                    <td>
+                        <?= $encargado ?>
+                    </td>
+                    <td>
+                        <a href="?m=panel&mod=proceso&action=update&id=<?= $id ?>" title="Modificar"><i
+                                class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=proceso&action=delete&id=<?= $id ?>" title="Eliminar"><i
+                                class="delete bi-trash"><b></i></a>
                     </td>
                 </tr>
-        </tbody>
-    <?php } ?>
+            </tbody>
+        <?php } ?>
     </table>
 </div>
 <div class="piePagina">
