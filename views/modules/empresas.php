@@ -41,12 +41,12 @@ if (isset($_GET['msj'])) {
 <h2>EMPRESAS</h2>
 <div class="numm">
     <div class="f1">
-    <form class="from_input" action="" method="GET">
-    <input type="hidden" name="m" value="panel">
-    <input type="hidden" name="mod" value="empresas">
-    <input type="text" name="buscar" value="" placeholder="Buscar...">
-    <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
-</form>
+        <form class="from_input" action="" method="GET">
+            <input type="hidden" name="m" value="panel">
+            <input type="hidden" name="mod" value="empresas">
+            <input type="text" name="buscar" value="" placeholder="Buscar...">
+            <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
+        </form>
         <span class="f-s">15</span>
     </div>
     <div class="f2">
@@ -59,18 +59,24 @@ if (isset($_GET['msj'])) {
     <div class="f1">
         <form name="filtros" action="?m=panel&mod=empresas" method="POST">
             <h3>Filtros:</h3>
-            <!--Especialidad-->
+            <!-- Especialidad -->
             <select name="buscarMipe" id="buscarMipe">
                 <option value="">Es Mipe?</option> <!-- Agrega la opción predeterminada -->
                 <?php
-                if ($_POST["buscarMipe"] != '') {
-                    echo '<option value="' . $_POST["buscarMipe"] . '">' . $_POST["buscarMipe"] . '</option>';
-                }?>
-                <option value="S">Si es mipe</option>
-                <option value="N">No es mipe</option>
+                $selectedMipe = $_POST["buscarMipe"]; // Obtén el valor seleccionado por el usuario
+                $options = array(
+                    'S' => 'Si es mipe',
+                    'N' => 'No es mipe'
+                );
+                foreach ($options as $value => $text) {
+                    $selected = ($selectedMipe == $value) ? 'selected' : '';
+                    echo '<option value="' . $value . '" ' . $selected . '>' . $text . '</option>';
+                }
+                ?>
             </select>
             <button type="submit" class="button-link btn-new f-e">Filtrar</button>
         </form>
+
     </div>
 </div>
 
@@ -81,11 +87,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $buscarMipe = $_POST["buscarMipe"];
 
-    $empresas= $dbEmpresas->filtrarEmpresa($buscarMipe);
+    $empresas = $dbEmpresas->filtrarEmpresa($buscarMipe);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
     $busqueda = $_GET["buscar"];
     $empresas = $dbEmpresas->buscarEmpresa($busqueda);
-/* //////////////////////////  Barra de busqueda  //////////////////////////*/
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
 } else {
     $empresas = $dbEmpresas->selectEmpresas();
 }
@@ -115,16 +121,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $email = $empresa['email'];
                 $numeroPartida = $empresa['numeroPartida'];
                 $mipe = $empresa['mipe'];
-            ?>
-                <tr  onclick="window.location.href='?m=panel&mod=empresa&action=view&id=<?= $id ?>'">
-                    <td><?= $id ?></td>
-                    <td><?= $nombreEmpresa ?></td>
-                    <td><?= $ruc ?></td>
-                    <td><?= $telefono ?></td>
-                    <td><?= $email ?></td>
+                ?>
+                <tr onclick="window.location.href='?m=panel&mod=empresa&action=view&id=<?= $id ?>'">
                     <td>
-                        <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=empresa&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $nombreEmpresa ?>
+                    </td>
+                    <td>
+                        <?= $ruc ?>
+                    </td>
+                    <td>
+                        <?= $telefono ?>
+                    </td>
+                    <td>
+                        <?= $email ?>
+                    </td>
+                    <td>
+                        <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i
+                                class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=empresa&action=delete&id=<?= $id ?>" title="Eliminar"><i
+                                class="delete bi-trash"><b></i></a>
                     </td>
                 </tr>
             <?php } ?>

@@ -35,20 +35,25 @@ mensaje('Contacto', 'o');
     <div class="f1">
         <form name="filtros" action="?m=panel&mod=contactos" method="POST">
             <h3>Filtros:</h3>
-            <!--cargo-->
+            <!-- Cargo -->
             <select name="buscarCargo" id="buscarCargo">
                 <option value="">Cargo</option> <!-- Agrega la opción predeterminada -->
                 <?php
-                if ($_POST["buscarCargo"] != '') {
-                    echo '<option value="' . $_POST["buscarCargo"] . '">' . $_POST["buscarEmpresa"] . '</option>';
+                $selectedCargo = $_POST["buscarCargo"]; // Obtén el valor seleccionado por el usuario
+                $options = array(
+                    'Dueño de negocio' => 'Dueño de negocio',
+                    'Gerente' => 'Gerente',
+                    'Otros' => 'Otros'
+                );
+                foreach ($options as $value => $text) {
+                    $selected = ($selectedCargo == $value) ? 'selected' : '';
+                    echo '<option value="' . $value . '" ' . $selected . '>' . $text . '</option>';
                 }
                 ?>
-                <option value="Dueño de negocio">Dueño de negocio</option>
-                <option value="Gerente">Gerente</option>
-                <option value="Otros">Otros</option>
             </select>
             <button type="submit" class="button-link btn-new f-e">Filtrar</button>
         </form>
+
     </div>
 </div>
 
@@ -64,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
     $busqueda = $_GET["buscar"];
     $contactos = $dbContactos->buscarContacto($busqueda);
-/* //////////////////////////  Barra de busqueda  //////////////////////////*/
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
 } else {
     $contactos = $dbContactos->selectContactos();
 }
@@ -85,29 +90,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tr>
         </thead>
         <tbody>
-            
+
             <?php
 
-            foreach ($contactos as $contacto){
-                $id= $contacto['idContacto'];
-                $dni= $contacto['dni'];
-                $nombre= $contacto['nombre'];
-                $email= $contacto['email'];
-                $celular= $contacto['celular'];
-                $cargo= $contacto['cargo'];
-            ?>
-            <tr  onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
-                <td><?= $id ?></td>
-                <td><?= $nombre ?></td>
-                <td><?= $dni ?></td>
-                <td><?= $email ?></td>
-                <td><?= $celular ?></td>
-                <td><?= $cargo ?></td>
-                <td>
-                    <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"><b> </i></a>
-                    <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"><b></i></a>
-                </td>
-            </tr>
+            foreach ($contactos as $contacto) {
+                $id = $contacto['idContacto'];
+                $dni = $contacto['dni'];
+                $nombre = $contacto['nombre'];
+                $email = $contacto['email'];
+                $celular = $contacto['celular'];
+                $cargo = $contacto['cargo'];
+                ?>
+                <tr onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
+                    <td>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $nombre ?>
+                    </td>
+                    <td>
+                        <?= $dni ?>
+                    </td>
+                    <td>
+                        <?= $email ?>
+                    </td>
+                    <td>
+                        <?= $celular ?>
+                    </td>
+                    <td>
+                        <?= $cargo ?>
+                    </td>
+                    <td>
+                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i
+                                class="edid bi-pencil-square"><b> </i></a>
+                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i
+                                class="delete bi-trash"><b></i></a>
+                    </td>
+                </tr>
             <?php } ?>
         </tbody>
     </table>
@@ -120,9 +139,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>

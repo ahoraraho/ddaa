@@ -53,23 +53,23 @@ if (isset($_GET['file'])) {
     <div class="f1">
         <form name="filtros" action="?m=panel&mod=actualizaciones" method="POST">
             <h3>Filtros:</h3>
-            <!--tipo-->
+            <!-- Tipo -->
             <select name="buscarTipo" id="buscarTipo">
-                <option value="">Tipo de actualizacion</option> <!-- Agrega la opción predeterminada -->
+                <option value="">Tipo de actualización</option> <!-- Agrega la opción predeterminada -->
                 <?php
-                if ($_POST["buscarTipo"] != '') {
-                    echo '<option value="' . $_POST["buscarTipo"] . '">' . $_POST["buscarTipo"] . '</option>';
-                }
+                $selectedTipo = $_POST["buscarTipo"]; // Obtén el valor seleccionado por el usuario
                 $tipos = $dbActualizaciones->selectTipos();
                 foreach ($tipos as $tipo) {
                     $idActual = $tipo["idActual"];
                     $nombre = $tipo["nombre"];
-                    echo '<option value="' . $idActual . '">' . $nombre . '</option>';
+                    $selected = ($selectedTipo == $idActual) ? 'selected' : '';
+                    echo '<option value="' . $idActual . '" ' . $selected . '>' . $nombre . '</option>';
                 }
                 ?>
             </select>
             <button type="submit" class="button-link btn-new f-e">Filtrar</button>
         </form>
+
     </div>
 </div>
 
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
     $busqueda = $_GET["buscar"];
     $actualizaciones = $dbActualizaciones->buscarActualizacion($busqueda);
-/* //////////////////////////  Barra de busqueda  //////////////////////////*/
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
 } else {
     $actualizaciones = $dbActualizaciones->selectActualizaciones();
 }
@@ -107,10 +107,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $id = $actualizacion['idActualizacion'];
                 $descripcion = $actualizacion['descripcion'];
                 $archivo = $actualizacion['archivo'];
-            ?>
-                <tr  onclick="window.location.href='?m=panel&mod=actualizacion&action=view&id=<?= $id ?>'">
-                    <td><?= $id ?></td>
-                    <td ><?= $descripcion ?></td>
+                ?>
+                <tr onclick="window.location.href='?m=panel&mod=actualizacion&action=view&id=<?= $id ?>'">
+                    <td>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $descripcion ?>
+                    </td>
                     <td style="text-align: end;   width: auto;">
                         <a title="Ver" target="_blank" href="pdfsActualizaciones/<?= $archivo ?>">
                             <i class="view bi bi-file-earmark-pdf"></i>

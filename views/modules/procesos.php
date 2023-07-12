@@ -31,55 +31,53 @@ mensaje('Proceso', 'o');
 
 <div class="numm">
     <div class="f1">
-        <form name="filtros" action="?m=panel&mod=procesos" method="POST">
-            <h3>Filtros:</h3>
-            <!--Postores-->
-            <select name="buscarPostor" id="buscarPostor">
-                <option value="">Postores</option> <!-- Agrega la opción predeterminada -->
-                <?php
-                if ($_POST["buscarPostor"] != '') {
-                    echo '<option value="' . $_POST["buscarPostor"] . '">' . $_POST["buscarPostor"] . '</option>';
-                }
-                $empresas = $dbEmpresas->selectEmpresas();
-                foreach ($empresas as $empresa) {
-                    $idEmpresa = $empresa["idEmpresa"];
-                    $nombre = $empresa["nombreEmpresa"];
-                    echo '<option value="' . $idEmpresa . '">' . $nombre . '</option>';
-                }
-                ?>
-            </select>
-            <!--Encargado-->
-            <select name="buscarEncargado" id="buscarEncargado">
-                <option value="">Encargados</option> <!-- Agrega la opción predeterminada -->
-                <?php
-                if ($_POST["buscarEncargado"] != '') {
-                    echo '<option value="' . $_POST["buscarEncargado"] . '">' . $_POST["buscarEncargado"] . '</option>';
-                }
-                $especialistas = $dbEspecialistas->selectEspecialistas();
-                foreach ($especialistas as $especialista) {
-                    $idEspecialista = $especialista["idEspecialista"];
-                    $nombre = $especialista["nombre"];
-                    echo '<option value="' . $idEspecialista . '">' . $nombre . '</option>';
-                }
-                ?>
-            </select>
-            <!--objetos-->
-            <select name="buscarObjeto" id="buscarObjeto">
-                <option value="">Objetos</option> <!-- Agrega la opción predeterminada -->
-                <?php
-                if ($_POST["buscarObjeto"] != '') {
-                    echo '<option value="' . $_POST["buscarObjeto"] . '">' . $_POST["buscarObjeto"] . '</option>';
-                }
-                $objetos = $dbObjetos->selectObjetos();
-                foreach ($objetos as $objeto) {
-                    $idObjeto = $objeto["idObjeto"];
-                    $nombre = $objeto["nombre"];
-                    echo '<option value="' . $idObjeto . '">' . $nombre . '</option>';
-                }
-                ?>
-            </select>
-            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
-        </form>
+    <form name="filtros" action="?m=panel&mod=procesos" method="POST">
+    <h3>Filtros:</h3>
+    <!-- Postores -->
+    <select name="buscarPostor" id="buscarPostor">
+        <option value="">Postores</option> <!-- Agrega la opción predeterminada -->
+        <?php
+        $selectedPostor = $_POST["buscarPostor"]; // Obtén el valor seleccionado por el usuario
+        $empresas = $dbEmpresas->selectEmpresas();
+        foreach ($empresas as $empresa) {
+            $idEmpresa = $empresa["idEmpresa"];
+            $nombreEmpresa = $empresa["nombreEmpresa"];
+            $selected = ($selectedPostor == $idEmpresa) ? 'selected' : '';
+            echo '<option value="' . $idEmpresa . '" ' . $selected . '>' . $nombreEmpresa . '</option>';
+        }
+        ?>
+    </select>
+    <!-- Encargado -->
+    <select name="buscarEncargado" id="buscarEncargado">
+        <option value="">Encargados</option> <!-- Agrega la opción predeterminada -->
+        <?php
+        $selectedEncargado = $_POST["buscarEncargado"]; // Obtén el valor seleccionado por el usuario
+        $especialistas = $dbEspecialistas->selectEspecialistas();
+        foreach ($especialistas as $especialista) {
+            $idEspecialista = $especialista["idEspecialista"];
+            $nombreEspecialista = $especialista["nombre"];
+            $selected = ($selectedEncargado == $idEspecialista) ? 'selected' : '';
+            echo '<option value="' . $idEspecialista . '" ' . $selected . '>' . $nombreEspecialista . '</option>';
+        }
+        ?>
+    </select>
+    <!-- Objetos -->
+    <select name="buscarObjeto" id="buscarObjeto">
+        <option value="">Objetos</option> <!-- Agrega la opción predeterminada -->
+        <?php
+        $selectedObjeto = $_POST["buscarObjeto"]; // Obtén el valor seleccionado por el usuario
+        $objetos = $dbObjetos->selectObjetos();
+        foreach ($objetos as $objeto) {
+            $idObjeto = $objeto["idObjeto"];
+            $nombreObjeto = $objeto["nombre"];
+            $selected = ($selectedObjeto == $idObjeto) ? 'selected' : '';
+            echo '<option value="' . $idObjeto . '" ' . $selected . '>' . $nombreObjeto . '</option>';
+        }
+        ?>
+    </select>
+    <button type="submit" class="button-link btn-new f-e">Filtrar</button>
+</form>
+
     </div>
 </div>
 
