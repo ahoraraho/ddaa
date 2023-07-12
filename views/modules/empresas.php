@@ -88,8 +88,8 @@ $contador = count($empresas);
                 <?php
                 $selectedMipe = $_POST["buscarMipe"]; // Obtén el valor seleccionado por el usuario
                 $options = array(
-                    'S' => 'Si es mipe',
-                    'N' => 'No es mipe'
+                    'SI' => 'Si es mipe',
+                    'NO' => 'No es mipe'
                 );
                 foreach ($options as $value => $text) {
                     $selected = ($selectedMipe == $value) ? 'selected' : '';
@@ -128,7 +128,7 @@ $contador = count($empresas);
                 $email = $empresa['email'];
                 $numeroPartida = $empresa['numeroPartida'];
                 $mipe = $empresa['mipe'];
-                ?>
+            ?>
                 <tr onclick="window.location.href='?m=panel&mod=empresa&action=view&id=<?= $id ?>'">
                     <td>
                         <?= $id ?>
@@ -146,10 +146,8 @@ $contador = count($empresas);
                         <?= $email ?>
                     </td>
                     <td>
-                        <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i
-                                class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=empresa&action=delete&id=<?= $id ?>" title="Eliminar"><i
-                                class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=empresa&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>
