@@ -3,6 +3,10 @@
 validacionIicioSesion();
 //recive el mensaje y inprime lo que corresponde
 mensaje('Noticia', 'a');
+
+$noticias = $dbNoticias->selectNoticias();
+$contador = count($noticias);
+
 ?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
@@ -23,7 +27,7 @@ mensaje('Noticia', 'a');
             <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=noticia&action=add" class="button-link btn-new f-e">
@@ -47,7 +51,6 @@ mensaje('Noticia', 'a');
         <tbody>
 
             <?php
-            $noticias = $dbNoticias->selectNoticias();
 
             foreach ($noticias as $noticia) {
                 $idNoticia = $noticia['idNoticia'];

@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     $empresas = $dbEmpresas->selectEmpresas();
 }
+$contador = count($empresas);
 ?>
 
 <h2>EMPRESAS</h2>
@@ -64,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="buscar" value="" placeholder="Buscar...">
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=empresa&action=add" class="button-link btn-new f-e">

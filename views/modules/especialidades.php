@@ -3,6 +3,9 @@ validacionIicioSesion();
 
 mensaje('Especialidad', 'a');
 
+$especialidades = $dbEspecialidades->selectEspecialidades();
+$contador = count($especialidades);
+
 ?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
@@ -22,7 +25,7 @@ mensaje('Especialidad', 'a');
             <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=especialidad&action=add" class="button-link btn-new f-e">
@@ -43,8 +46,6 @@ mensaje('Especialidad', 'a');
         <tbody>
 
             <?php
-            $especialidades = $dbEspecialidades->selectEspecialidades();
-
             foreach($especialidades as $especialidad){
                 $id = $especialidad['idEspecialidad'];
                 $nombre = $especialidad['nombre'];

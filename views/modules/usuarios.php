@@ -7,6 +7,9 @@ if (!$_SESSION["Usuario"]["Administrador"]) {
 
 mensaje('Especialista', 'a');
 
+$especialistas = $dbEspecialistas->selectEspecialistas();
+$contador = count($especialistas);
+
 ?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
@@ -27,7 +30,7 @@ mensaje('Especialista', 'a');
             <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=usuario&action=add" class="button-link btn-new f-e">
@@ -51,7 +54,6 @@ mensaje('Especialista', 'a');
         <tbody>
 
             <?php
-            $especialistas = $dbEspecialistas->selectEspecialistas();
             foreach ($especialistas as $especialista) {
                 $id = $especialista['idEspecialista'];
                 $dni = $especialista['dni'];

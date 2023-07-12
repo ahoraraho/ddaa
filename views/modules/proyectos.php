@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     $proyectos = $dbProyectos->selectProyectos();
 }
+$contador = count($proyectos);
 ?>
 <h2>PROYECTOS</h2>
 <div class="numm">
@@ -66,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="buscar" value="" placeholder="Buscar...">
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=proyecto&action=add" class="button-link btn-new f-e">

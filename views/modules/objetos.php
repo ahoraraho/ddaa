@@ -2,6 +2,9 @@
 validacionIicioSesion();
 
 mensaje('Objeto', 'o');
+
+$objetos = $dbObjetos->selectObjetos();
+$contador = count($objetos);
 ?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
@@ -22,7 +25,7 @@ mensaje('Objeto', 'o');
             <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=objeto&action=add" class="button-link btn-new f-e">
@@ -43,7 +46,6 @@ mensaje('Objeto', 'o');
         </thead>
         <tbody>
             <?php
-            $objetos = $dbObjetos->selectObjetos();
 
             foreach ($objetos as $objeto) {
                 $id = $objeto['idObjeto'];
