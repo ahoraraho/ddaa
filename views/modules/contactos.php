@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $buscarCargo = $_POST["buscarCargo"];
 
     $contactos = $dbContactos->filtrarContacto($buscarCargo);
-
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
     $busqueda = $_GET["buscar"];
     $contactos = $dbContactos->buscarContacto($busqueda);
@@ -40,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=contacto&action=add" class="button-link btn-new f-e">
@@ -51,33 +50,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="filtros">
     <form class="order-nav" name="filtros" action="?m=panel&mod=contactos" method="POST">
-        <<div class="contenedor-select">
+        <div class="contenedor-select">
             <div class="conteneFilto">
                 <strong><i class="bi bi-funnel-fill"></i>...FILTROS...<i class="bi bi-filter-circle-fill"></i></strong>
             </div>
-        </div>
-        <!-- Cargo -->
-        <div class="contenedor-select">
-            <select name="buscarCargo" id="buscarCargo">
-                <option value="">Cargo</option> <!-- Agrega la opción predeterminada -->
-                <?php
-                $selectedCargo = $_POST["buscarCargo"]; // Obtén el valor seleccionado por el usuario
-                $options = array(
-                    'Dueño de negocio' => 'Dueño de negocio',
-                    'Gerente' => 'Gerente',
-                    'Otros' => 'Otros'
-                );
-                foreach ($options as $value => $text) {
-                    $selected = ($selectedCargo == $value) ? 'selected' : '';
-                    echo '<option value="' . $value . '" ' . $selected . '>' . $text . '</option>';
-                }
-                ?>
-            </select>
-        </div>
-        <div class="contenedor-select">
-            <button type="submit" class="btn-filtrador">Filtrar</button>
-        </div>
-    </form>
+</div>
+<!-- Cargo -->
+<div class="contenedor-select">
+    <select name="buscarCargo" id="buscarCargo">
+        <option value="">Cargo</option> <!-- Agrega la opción predeterminada -->
+        <?php
+        $selectedCargo = $_POST["buscarCargo"]; // Obtén el valor seleccionado por el usuario
+        $options = array(
+            'Dueño de negocio' => 'Dueño de negocio',
+            'Gerente' => 'Gerente',
+            'Otros' => 'Otros'
+        );
+        foreach ($options as $value => $text) {
+            $selected = ($selectedCargo == $value) ? 'selected' : '';
+            echo '<option value="' . $value . '" ' . $selected . '>' . $text . '</option>';
+        }
+        ?>
+    </select>
+</div>
+<div class="contenedor-select">
+    <button type="submit" class="btn-filtrador">Filtrar</button>
+</div>
+</form>
 </div>
 
 <!-- tabla categorias -->
@@ -105,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $email = $contacto['email'];
                 $celular = $contacto['celular'];
                 $cargo = $contacto['cargo'];
-                ?>
+            ?>
                 <tr onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
                     <td>
                         <?= $id ?>
@@ -126,10 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?= $cargo ?>
                     </td>
                     <td>
-                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i
-                                class="edid bi-pencil-square"></i></a>
-                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i
-                                class="delete bi-trash"></i></a>
+                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>
