@@ -330,8 +330,7 @@ textarea {
 }
 
 
-.button-link,
-.button-comprar {
+.button-link {
     background-color: var(--primary);
     color: var(--secondary);
     border: solid 1px var(--secondary);
@@ -342,6 +341,12 @@ textarea {
     transition: 1s background-color;
     border-radius: 10px;
     font-weight: bold;
+}
+
+.button-link:hover {
+    background-color: var(--secondary);
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
 .btn-main {
@@ -361,15 +366,6 @@ textarea {
     background-color: var(--primary);
     color: var(--secondary);
     border-color: var(--secondary);
-}
-
-
-.button-link:hover,
-.button-comprar:hover {
-    background-color: var(--secondary);
-    color: var(--primary);
-    border-color: var(--primary);
-
 }
 
 /*BOTON DE ALGO DE NUEVO*/
@@ -533,14 +529,14 @@ textarea {
     position: relative;
     width: min-content;
     height: min-content;
-    padding: 0;
+    padding-left: 5px;
 }
 
 .from_input input[type="text"] {
     padding: 11px;
     margin: auto;
-    width: max-content;
-    border-radius: 15px;
+    width: 300px;
+    border-radius: 7px;
 }
 
 
@@ -733,7 +729,7 @@ textarea {
     cursor: pointer;
     /* Cambia el cursor al pasar el mouse por encima */
     border: solid 1px var(--secondary);
-    
+
 }
 
 
@@ -1343,6 +1339,7 @@ option {
     .responsive-noticias td:nth-of-type(1):before {
         content: "#";
     }
+
     .responsive-noticias td:nth-of-type(2):before {
         content: "Imagen";
     }
