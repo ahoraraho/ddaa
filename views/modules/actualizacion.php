@@ -23,7 +23,10 @@ if (isset($_GET['file'])) {
 
         readfile($ruta_archivo);
     } else {
-        echo "El archivo no existe en el servidor.";
+        $msj = "El archivo no existe en el servidor.";
+        $typeMsj = "msj-error";
+        $iconoAlert = "bi-bug";
+        alertaResponDialog($typeMsj, $msj, $iconoAlert);
     }
 }
 
@@ -39,16 +42,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $pdfActual = $_POST["pdfActual"];
 
-    $directorio = "pdfsActualizaciones/" . $pdfNombre;
+    $directorio = "pdfsActualizaciones/";
+    $ruta = $directorio . "/" . $pdfNombre;
+
 
     switch ($action) {
         case 'add':
-            $msj = "0x400"; // BUG
+            $msj = "0x000"; // BUG
+            //si la carpeta no exite crea la misma con el nombre establecido lineas arriba
+            if (!is_dir($directorio)) {
+                mkdir($directorio, 0777, true);
+            }
+
             $affectedRows = $dbActualizaciones->InsertActualizacion($descripcion, $tipo, $pdfNombre);
             if ($affectedRows > 0) {
                 $msj = "0x10";
                 if (!empty($pdfNombre)) {
-                    if (move_uploaded_file($pdf["tmp_name"], $directorio) == false) {
+                    if (move_uploaded_file($pdf["tmp_name"], $ruta) == false) {
                         $msj = "0x11";
                     }
                 }
@@ -56,9 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         case 'update':
             if (!empty($pdfNombre)) {
-                if (move_uploaded_file($pdf["tmp_name"], $directorio) == true) {
+                if (move_uploaded_file($pdf["tmp_name"], $ruta) == true) {
                     $sqlpdf = $pdfNombre;
-                    unlink("pdfsActualizaciones/" . $pdfActual);
+                    unlink($directorio . "/" . $pdfActual);
                 } else {
                     $msj = "0x21";
                 }
@@ -67,12 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $affectedRows = $dbActualizaciones->UpdateActualizacion($id, $descripcion, $tipo, $sqlpdf);
             if ($affectedRows == 0) {
-                $msj = "0x400";
+                $msj = "0x000";
             }
             $msj = "0x20";
             break;
         case 'delete':
-            $msj = "0x400";
+            $msj = "0x000";
             if ($dbActualizaciones->DeleteActualizacion($id) > 0) {
                 unlink("pdfsActualizaciones/" . $pdfActual);
                 $msj = "0x30";

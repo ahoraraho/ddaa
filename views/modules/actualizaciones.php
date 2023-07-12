@@ -1,6 +1,33 @@
 <?php
 validacionIicioSesion();
-mensaje('Actualización', 'a');
+
+if (isset($_GET['msj'])) {
+    $msj = $_GET['msj'];
+
+    $mensajeMap = [
+        '0x10' => array('msj' => "Actualización y PDF Agregados!", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check-circle-fill"),
+        '0x11' => array('msj' => "Actualización Agregada, 0 PDF Agregados", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check2-circle"),
+        '0x13' => array('msj' => "No se registraron las Actualización ni los PDF", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-exclamation-triangle-fill"),
+
+        '0x20' => array('msj' => "Actualización y PDF Actualizados!", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check-circle-fill"),
+        '0x21' => array('msj' => "Actualización Actualizados", 'typeMsj' => "msj-ok", 'iconoAlert' => "bi-check2-circle"),
+        '0x23' => array('msj' => "No se realizaron cambios", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-exclamation-triangle-fill"),
+
+        '0x30' => array('msj' => "Actualización y PDF Eliminados!", 'typeMsj' => "msj-warning", 'iconoAlert' => "bi-info-circle-fill"),
+        '0x31' => array('msj' => "Actualización Eliminados", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-check2-circle"),
+        '0x33' => array('msj' => "No se Eliminaron los Actualización ni PDF", 'typeMsj' => "msj-alert", 'iconoAlert' => "bi-exclamation-triangle-fill"),
+
+        '0x000' => array('msj' => "Hubo un error al intentar realizar la operación!", 'typeMsj' => "msj-error", 'iconoAlert' => "bi-bug-fill")
+    ];
+
+    if (isset($mensajeMap[$msj])) {
+        $mensaje = $mensajeMap[$msj];
+        $msj = $mensaje['msj'];
+        $typeMsj = $mensaje['typeMsj'];
+        $iconoAlert = $mensaje['iconoAlert'];
+        alertaResponDialog($typeMsj, $msj, $iconoAlert);
+    }
+}
 
 // descarga el archivo
 if (isset($_GET['file'])) {
@@ -16,7 +43,10 @@ if (isset($_GET['file'])) {
 
         readfile($ruta_archivo);
     } else {
-        echo "El archivo no existe en el servidor.";
+        $msj = "El archivo no existe en el servidor.";
+        $typeMsj = "msj-error";
+        $iconoAlert = "bi-bug";
+        alertaResponDialog($typeMsj, $msj, $iconoAlert);
     }
 }
 ?>
@@ -102,26 +132,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </thead>
         <tbody>
             <?php
+            $actualizaciones = $dbActualizaciones->selectActualizaciones();
+            // $tieneArchivo = isset($archivo) && !empty($archivo);
+            ?>
 
-            foreach ($actualizaciones as $actualizacion) {
+            <?php foreach ($actualizaciones as $actualizacion) {
+                // $archivo = null;
                 $id = $actualizacion['idActualizacion'];
                 $descripcion = $actualizacion['descripcion'];
                 $archivo = $actualizacion['archivo'];
-                ?>
+                $tieneArchivo = isset($archivo) && !empty($archivo);
+            ?>
                 <tr onclick="window.location.href='?m=panel&mod=actualizacion&action=view&id=<?= $id ?>'">
-                    <td>
-                        <?= $id ?>
-                    </td>
-                    <td>
-                        <?= $descripcion ?>
-                    </td>
-                    <td style="text-align: end;   width: auto;">
-                        <a title="Ver" target="_blank" href="pdfsActualizaciones/<?= $archivo ?>">
-                            <i class="view bi bi-file-earmark-pdf"></i>
-                        </a>
-                        <a title="Descargar" href="?m=panel&mod=actualizaciones&file=<?= $archivo ?>">
-                            <i class="donwload bi bi-download"></i>
-                        </a>
+                    <td><?= $id ?></td>
+                    <td style="max-width: 1000px;"><?= $descripcion ?></td>
+                    <td style="text-align: end; width: auto;">
+                        <?php if ($tieneArchivo) { ?>
+                            <a title="Ver" target="_blank" href="pdfsActualizaciones/<?= $archivo ?>" onclick="event.stopPropagation();">
+                                <i class="view bi bi-file-earmark-pdf"></i>
+                            </a>
+                            <a title="Descargar" href="?m=panel&mod=actualizaciones&file=<?= $archivo ?>">
+                                <i class="donwload bi bi-download"></i>
+                            </a>
+                        <?php } ?>
+
                         <a href="?m=panel&mod=actualizacion&action=update&id=<?= $id ?>" title="Modificar">
                             <i class="edid bi-pencil-square"></i>
                         </a>
@@ -130,7 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </td>
                 </tr>
+
             <?php } ?>
+
         </tbody>
     </table>
 </div>

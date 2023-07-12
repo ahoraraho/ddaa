@@ -100,31 +100,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $email = $contacto['email'];
                 $celular = $contacto['celular'];
                 $cargo = $contacto['cargo'];
-                ?>
+            ?>
                 <tr onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
+                    <td><?= $id ?></td>
+                    <td><?= $nombre ?></td>
+                    <td><?= $dni ?></td>
+                    <td><?= $email ?></td>
+                    <td><?= $celular ?></td>
+                    <td><?= $cargo ?></td>
                     <td>
-                        <?= $id ?>
-                    </td>
-                    <td>
-                        <?= $nombre ?>
-                    </td>
-                    <td>
-                        <?= $dni ?>
-                    </td>
-                    <td>
-                        <?= $email ?>
-                    </td>
-                    <td>
-                        <?= $celular ?>
-                    </td>
-                    <td>
-                        <?= $cargo ?>
-                    </td>
-                    <td>
-                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i
-                                class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i
-                                class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>
