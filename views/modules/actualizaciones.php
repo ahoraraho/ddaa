@@ -50,6 +50,24 @@ if (isset($_GET['file'])) {
     }
 }
 ?>
+
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $filtro = '';
+
+    $buscarTipo = $_POST["buscarTipo"];
+
+    $actualizaciones = $dbActualizaciones->filtrarActualizacion($buscarTipo);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $actualizaciones = $dbActualizaciones->buscarActualizacion($busqueda);
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $actualizaciones = $dbActualizaciones->selectActualizaciones();
+}
+?>
+
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
@@ -79,11 +97,15 @@ if (isset($_GET['file'])) {
     </div>
 </div>
 
-<div class="numm">
-    <div class="f1">
-        <form name="filtros" action="?m=panel&mod=actualizaciones" method="POST">
-            <h3>Filtros:</h3>
+<div class="filtros">
+        <form class="order-nav" name="filtros" action="?m=panel&mod=actualizaciones" method="POST">
+        <div class="contenedor-select">
+            <div class="conteneFilto">
+                <strong><i class="bi bi-funnel-fill"></i>...FILTROS...<i class="bi bi-filter-circle-fill"></i></strong>
+            </div>
+        </div>
             <!-- Tipo -->
+            <div class="contenedor-select">
             <select name="buscarTipo" id="buscarTipo">
                 <option value="">Tipo de actualización</option> <!-- Agrega la opción predeterminada -->
                 <?php
@@ -97,28 +119,12 @@ if (isset($_GET['file'])) {
                 }
                 ?>
             </select>
-            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
+            </div>
+            <div class="contenedor-select">
+            <button type="submit" class="btn-filtrador">Filtrar</button>
+        </div>
         </form>
-
-    </div>
 </div>
-
-<?php
-/* //////////////////////////  FILTROS  //////////////////////////*/
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $filtro = '';
-
-    $buscarTipo = $_POST["buscarTipo"];
-
-    $actualizaciones = $dbActualizaciones->filtrarActualizacion($buscarTipo);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
-    $busqueda = $_GET["buscar"];
-    $actualizaciones = $dbActualizaciones->buscarActualizacion($busqueda);
-    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
-} else {
-    $actualizaciones = $dbActualizaciones->selectActualizaciones();
-}
-?>
 
 <!-- tabla objetos -->
 <div class="contenido-tabla">
@@ -132,7 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </thead>
         <tbody>
             <?php
-            $actualizaciones = $dbActualizaciones->selectActualizaciones();
             // $tieneArchivo = isset($archivo) && !empty($archivo);
             ?>
 

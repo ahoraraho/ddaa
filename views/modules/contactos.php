@@ -10,6 +10,24 @@ mensaje('Contacto', 'o');
     <a href="#" title="Estas justo aqui" class="active">Contactos</a>
 </div>
 
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $filtro = '';
+
+    $buscarCargo = $_POST["buscarCargo"];
+
+    $contactos = $dbContactos->filtrarContacto($buscarCargo);
+
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $contactos = $dbContactos->buscarContacto($busqueda);
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $contactos = $dbContactos->selectContactos();
+}
+?>
+
 <h2>CONTACTOS</h2>
 <div class="numm">
     <div class="f1">
@@ -31,11 +49,15 @@ mensaje('Contacto', 'o');
     </div>
 </div>
 
-<div class="numm">
-    <div class="f1">
-        <form name="filtros" action="?m=panel&mod=contactos" method="POST">
-            <h3>Filtros:</h3>
-            <!-- Cargo -->
+<div class="filtros">
+    <form class="order-nav" name="filtros" action="?m=panel&mod=contactos" method="POST">
+        <<div class="contenedor-select">
+            <div class="conteneFilto">
+                <strong><i class="bi bi-funnel-fill"></i>...FILTROS...<i class="bi bi-filter-circle-fill"></i></strong>
+            </div>
+        </div>
+        <!-- Cargo -->
+        <div class="contenedor-select">
             <select name="buscarCargo" id="buscarCargo">
                 <option value="">Cargo</option> <!-- Agrega la opción predeterminada -->
                 <?php
@@ -51,29 +73,12 @@ mensaje('Contacto', 'o');
                 }
                 ?>
             </select>
-            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
-        </form>
-
-    </div>
+        </div>
+        <div class="contenedor-select">
+            <button type="submit" class="btn-filtrador">Filtrar</button>
+        </div>
+    </form>
 </div>
-
-<?php
-/* //////////////////////////  FILTROS  //////////////////////////*/
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $filtro = '';
-
-    $buscarCargo = $_POST["buscarCargo"];
-
-    $contactos = $dbContactos->filtrarContacto($buscarCargo);
-
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
-    $busqueda = $_GET["buscar"];
-    $contactos = $dbContactos->buscarContacto($busqueda);
-    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
-} else {
-    $contactos = $dbContactos->selectContactos();
-}
-?>
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
@@ -100,17 +105,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $email = $contacto['email'];
                 $celular = $contacto['celular'];
                 $cargo = $contacto['cargo'];
-            ?>
+                ?>
                 <tr onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
-                    <td><?= $id ?></td>
-                    <td><?= $nombre ?></td>
-                    <td><?= $dni ?></td>
-                    <td><?= $email ?></td>
-                    <td><?= $celular ?></td>
-                    <td><?= $cargo ?></td>
                     <td>
-                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
-                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
+                        <?= $id ?>
+                    </td>
+                    <td>
+                        <?= $nombre ?>
+                    </td>
+                    <td>
+                        <?= $dni ?>
+                    </td>
+                    <td>
+                        <?= $email ?>
+                    </td>
+                    <td>
+                        <?= $celular ?>
+                    </td>
+                    <td>
+                        <?= $cargo ?>
+                    </td>
+                    <td>
+                        <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i
+                                class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i
+                                class="delete bi-trash"></i></a>
                     </td>
                 </tr>
             <?php } ?>

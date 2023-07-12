@@ -85,27 +85,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!--Empresa-->
         <div class="contenedor-select">
             <select name="buscarEmpresa" id="buscarEmpresa">
-                <option value=""><?= (!empty($buscarEmpresa)) ? $buscarEmpresa : 'EMPRESA...'; ?></option> <!-- Agrega la opción predeterminada -->
+                <option value="">Todas las Empresas</option> <!-- Agrega la opción predeterminada -->
                 <?php
+                $selectedEmpresa = $_POST["buscarEmpresa"]; // Obtén el valor seleccionado por el usuario
                 $empresas = $dbEmpresas->selectEmpresas();
                 foreach ($empresas as $empresa) {
                     $idEmpresa = $empresa["idEmpresa"];
-                    $nombre = $empresa["nombreEmpresa"];
-                    echo '<option value="' . $idEmpresa . '">' . $nombre . '</option>';
+                    $nombreEmpresa = $empresa["nombreEmpresa"];
+                    $selected = ($selectedEmpresa == $idEmpresa) ? 'selected' : '';
+                    echo '<option value="' . $idEmpresa . '" ' . $selected . '>' . $nombreEmpresa . '</option>';
                 }
                 ?>
             </select>
         </div>
         <!--objetos-->
         <div class="contenedor-select">
-            <select name="buscarObjeto" id="buscarObjeto">
-                <option value=""><?= (!empty($buscarObjeto)) ? $buscarObjeto : 'OBJETO...'; ?></option> <!-- Agrega la opción predeterminada -->
+        <select name="buscarObjeto" id="buscarObjeto">
+                <option value="">Todos los Objetos</option> <!-- Agrega la opción predeterminada -->
                 <?php
+                $selectedObjeto = $_POST["buscarObjeto"]; // Obtén el valor seleccionado por el usuario
                 $objetos = $dbObjetos->selectObjetos();
                 foreach ($objetos as $objeto) {
                     $idObjeto = $objeto["idObjeto"];
-                    $nombre = $objeto["nombre"];
-                    echo '<option value="' . $idObjeto . '">' . $nombre . '</option>';
+                    $nombreObjeto = $objeto["nombre"];
+                    $selected = ($selectedObjeto == $idObjeto) ? 'selected' : '';
+                    echo '<option value="' . $idObjeto . '" ' . $selected . '>' . $nombreObjeto . '</option>';
                 }
                 ?>
             </select>
@@ -114,28 +118,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!--Especialidad-->
 
         <div class="contenedor-select">
-            <select name="buscarEspecialidad" id="buscarEspecialidad">
-                <option value=""><?= (!empty($buscarEspecialidad)) ? $buscarEspecialidad : 'ESPECIALIDADES...'; ?></option> <!-- Agrega la opción predeterminada -->
+        <select name="buscarEspecialidad" id="buscarEspecialidad">
+                <option value="">Todas las Especialidades</option> <!-- Agrega la opción predeterminada -->
                 <?php
+                $selectedEspecialidad = $_POST["buscarEspecialidad"]; // Obtén el valor seleccionado por el usuario
                 $especialidades = $dbEspecialidades->selectEspecialidades();
                 foreach ($especialidades as $especialidad) {
                     $idEspecialidad = $especialidad["idEspecialidad"];
-                    $nombre = $especialidad["nombre"];
-                    echo '<option value="' . $idEspecialidad . '">' . $nombre . '</option>';
+                    $nombreEspecialidad = $especialidad["nombre"];
+                    $selected = ($selectedEspecialidad == $idEspecialidad) ? 'selected' : '';
+                    echo '<option value="' . $idEspecialidad . '" ' . $selected . '>' . $nombreEspecialidad . '</option>';
                 }
                 ?>
             </select>
         </div>
         <!--contacto-->
         <div class="contenedor-select">
-            <select name="buscarContacto" id="buscarContacto">
-                <option value=""><?= (!empty($buscarContacto)) ? $buscarContacto : 'CONTACTOS...'; ?></option> <!-- Agrega la opción predeterminada -->
+        <select name="buscarContacto" id="buscarContacto">
+                <option value="">Todos los Contactos</option> <!-- Agrega la opción predeterminada -->
                 <?php
+                $selectedContacto = $_POST["buscarContacto"]; // Obtén el valor seleccionado por el usuario
                 $contactos = $dbContactos->selectContactos();
                 foreach ($contactos as $contacto) {
                     $idContacto = $contacto["idContacto"];
-                    $nombre = $contacto["nombre"];
-                    echo '<option value="' . $idContacto . '">' . $nombre . '</option>';
+                    $nombreContacto = $contacto["nombre"];
+                    $selected = ($selectedContacto == $idContacto) ? 'selected' : '';
+                    echo '<option value="' . $idContacto . '" ' . $selected . '>' . $nombreContacto . '</option>';
                 }
                 ?>
             </select>
@@ -146,8 +154,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </form>
 </div>
-
-
 
 <div class="contenido-tabla">
     <table class="responsive-proyectos">

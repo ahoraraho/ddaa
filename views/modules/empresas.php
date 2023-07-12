@@ -38,6 +38,23 @@ if (isset($_GET['msj'])) {
 
 ?>
 
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $filtro = '';
+
+    $buscarMipe = $_POST["buscarMipe"];
+
+    $empresas = $dbEmpresas->filtrarEmpresa($buscarMipe);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $empresas = $dbEmpresas->buscarEmpresa($busqueda);
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $empresas = $dbEmpresas->selectEmpresas();
+}
+?>
+
 <h2>EMPRESAS</h2>
 <div class="numm">
     <div class="f1">
@@ -55,11 +72,16 @@ if (isset($_GET['msj'])) {
         </a>
     </div>
 </div>
-<div class="numm">
-    <div class="f1">
-        <form name="filtros" action="?m=panel&mod=empresas" method="POST">
-            <h3>Filtros:</h3>
-            <!-- Especialidad -->
+
+<div class="filtros">
+    <form class="order-nav" name="filtros" action="?m=panel&mod=empresas" method="POST">
+        <div class="contenedor-select">
+            <div class="conteneFilto">
+                <strong><i class="bi bi-funnel-fill"></i>...FILTROS...<i class="bi bi-filter-circle-fill"></i></strong>
+            </div>
+        </div>
+        <!-- Especialidad -->
+        <div class="contenedor-select">
             <select name="buscarMipe" id="buscarMipe">
                 <option value="">Es Mipe?</option> <!-- Agrega la opción predeterminada -->
                 <?php
@@ -74,28 +96,12 @@ if (isset($_GET['msj'])) {
                 }
                 ?>
             </select>
-            <button type="submit" class="button-link btn-new f-e">Filtrar</button>
-        </form>
-
-    </div>
+        </div>
+        <div class="contenedor-select">
+            <button type="submit" class="btn-filtrador">Filtrar</button>
+        </div>
+    </form>
 </div>
-
-<?php
-/* //////////////////////////  FILTROS  //////////////////////////*/
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $filtro = '';
-
-    $buscarMipe = $_POST["buscarMipe"];
-
-    $empresas = $dbEmpresas->filtrarEmpresa($buscarMipe);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
-    $busqueda = $_GET["buscar"];
-    $empresas = $dbEmpresas->buscarEmpresa($busqueda);
-    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
-} else {
-    $empresas = $dbEmpresas->selectEmpresas();
-}
-?>
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
