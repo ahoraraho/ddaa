@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=usuarios" title="Ir a Usuarios">Usuarios</a>
     <a href="?m=panel&mod=usuario&action=update&id=<?= $idEspecialista ?>" title="Ir a Usuario">Usuario</a>
-    <a href="#" title="Estás justo aquí" class="active"><?= $hacer ?></a>
+    <a href="#" title="Estás justo aquí" class="active">Definir contraseña nueva</a>
 </div>
 <div class="formularios">
     <div class="entradas">
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <i id="iconoEye" class="bi bi-eye"></i>
                         </div>
                     </div>
-                    <br><br>
+                    <br>
                     <button type="submit" name="action" class="btn-actions btn-update">Definir contraseña nueva</button>
                 </form>
             </div>

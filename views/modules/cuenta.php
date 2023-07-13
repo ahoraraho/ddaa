@@ -146,11 +146,11 @@ if (isset($_GET['msj'])) {
                 <input type="text" name="cargo" value="<?= $cargo ?>">
             </div>
             <div><br><br>
-                <button type="submit" name="update" id="actualizar" class="btn-actions btn-update">Modificar y guardar cambios</button>
+                <button type="submit" name="update"  class="btn-actions btn-update">Modificar y guardar cambios</button>
             </div><br>
             <?php if ($rol == 0) { ?>
                 <div>
-                    <button type="submit" name="delete" id="eliminar-cuenta" class="btn-actions btn-delete">Eliminar cuenta</button>
+                    <button type="submit" name="delete"  class="btn-actions btn-delete">Eliminar cuenta</button>
                 </div><br><br>
             <?php } ?>
         </form><br>

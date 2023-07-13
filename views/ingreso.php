@@ -102,8 +102,8 @@ if (isset($_POST['login'])) {
         		</div> -->
 			<button name="login" class="form_login">Ingresar</button>
 		</form><br>
-		<a class="crear-cuenta" href="?m=reset">¿Olvidaste tu contraseña?</a>
+		<!-- <a class="crear-cuenta" href="?m=reset">¿Olvidaste tu contraseña?</a> -->
 		<p class="nuevo-usuario">¿No tienes una cuenta?</p>
-		<a href="?m=registro"><button class="form_singup">Nuevo usuario</button></a>
+		<a href="?m=registro"><button class="form_singup">Registrate</button></a>
 	</div>
 </div>
