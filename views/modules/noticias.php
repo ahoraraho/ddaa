@@ -4,10 +4,22 @@ validacionIicioSesion();
 //recive el mensaje y inprime lo que corresponde
 mensaje('Noticia', 'a');
 
-$noticias = $dbNoticias->selectNoticias();
-$contador = count($noticias);
+
 
 ?>
+
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $noticias = $dbNoticias->buscarNoticia($busqueda);
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $noticias = $dbNoticias->selectNoticias();
+}
+$contador = count($noticias);
+?>
+
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
@@ -21,7 +33,7 @@ $contador = count($noticias);
         <form class="from_input" action="" method="GET">
             <!-- para agregar la vista de ?m=productos en la url -->
             <input type="hidden" name="m" value="panel">
-            <input type="hidden" name="mod" value="categorias">
+            <input type="hidden" name="mod" value="noticias">
             <!-- concatenando el valor a buscar -->
             <input type="text" name="buscar" value="" placeholder="Buscar...">
             <!-- <input type="submit" value="BUSCAR"> -->

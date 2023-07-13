@@ -108,4 +108,25 @@ class dbObjeto
             return [];
         }
     }
+
+    public function buscarObjeto($buscar)
+    {
+        global $conexion;
+
+        $consulta = "SELECT * FROM objeto
+                    WHERE nombre LIKE '%" . $buscar . "%'";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $objetos = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $objetos[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $objetos;
+    }
 }

@@ -2,10 +2,17 @@
 validacionIicioSesion();
 
 mensaje('Especialidad', 'a');
-
-$especialidades = $dbEspecialidades->selectEspecialidades();
+?>
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $especialidades = $dbEspecialidades->buscarEspecialidad($busqueda);
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $especialidades = $dbEspecialidades->selectEspecialidades();
+}
 $contador = count($especialidades);
-
 ?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
@@ -19,7 +26,7 @@ $contador = count($especialidades);
         <form class="from_input" action="" method="GET">
             <!-- para agregar la vista de ?m=productos en la url -->
             <input type="hidden" name="m" value="panel">
-            <input type="hidden" name="mod" value="categorias">
+            <input type="hidden" name="mod" value="especialidades">
             <!-- concatenando el valor a buscar -->
             <input type="text" name="buscar" value="" placeholder="Buscar...">
             <!-- <input type="submit" value="BUSCAR"> -->

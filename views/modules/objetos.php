@@ -3,7 +3,19 @@ validacionIicioSesion();
 
 mensaje('Objeto', 'o');
 
-$objetos = $dbObjetos->selectObjetos();
+
+
+?>
+
+<?php
+/* //////////////////////////  FILTROS  //////////////////////////*/
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
+    $busqueda = $_GET["buscar"];
+    $objetos = $dbObjetos->buscarObjeto($busqueda);
+    /* //////////////////////////  Barra de busqueda  //////////////////////////*/
+} else {
+    $objetos = $dbObjetos->selectObjetos();
+}
 $contador = count($objetos);
 ?>
 <!-- ruta de acceso guia -->
@@ -19,7 +31,7 @@ $contador = count($objetos);
         <form class="from_input" action="" method="GET">
             <!-- para agregar la vista de ?m=productos en la url -->
             <input type="hidden" name="m" value="panel">
-            <input type="hidden" name="mod" value="categorias">
+            <input type="hidden" name="mod" value="objetos">
             <!-- concatenando el valor a buscar -->
             <input type="text" name="buscar" value="" placeholder="Buscar...">
             <!-- <input type="submit" value="BUSCAR"> -->

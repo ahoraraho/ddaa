@@ -228,5 +228,33 @@ class dbEspecialistas
         return false;
     }
 
+    public function buscarEspecialista($buscar)
+    {
+        global $conexion;
+
+        $consulta = "SELECT l.idUsuario, l.rol, l.idAdministrador, l.idEspecialista, l.Email, l.Contrasena, l.Activacion, l.Estado, e.idEspecialista, e.dni, e.nombre, e.apellido, e.cargo, e.direccion, e.telefono
+        FROM login l
+        LEFT JOIN especialista e ON l.idEspecialista = e.idEspecialista
+        WHERE e.dni LIKE '%" . $buscar . "%'
+        OR e.nombre LIKE '%" . $buscar . "%'
+        OR e.apellido LIKE '%" . $buscar . "%'
+        OR e.direccion LIKE '%" . $buscar . "%'
+        OR e.telefono LIKE '%" . $buscar . "%'
+        OR l.Email LIKE '%" . $buscar . "%'";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $especialistas = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $especialistas[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $especialistas;
+    }
+
 }
 ?>

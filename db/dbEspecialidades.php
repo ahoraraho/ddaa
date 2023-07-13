@@ -116,5 +116,26 @@ class dbEspecialidades
             return [];
         }
     }
+
+    public function buscarEspecialidad($buscar)
+    {
+        global $conexion;
+
+        $consulta = "SELECT * FROM especialidad
+                    WHERE nombre LIKE '%" . $buscar . "%'";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $especialidades = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $especialidades[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $especialidades;
+    }
 }
 ?>

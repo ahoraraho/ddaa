@@ -100,4 +100,29 @@ class dbNoticias
                 return [];
             }
     }
+
+    public function buscarNoticia($buscar)
+    {
+        global $conexion;
+
+        $consulta = "SELECT * FROM noticias
+                    WHERE titulo LIKE '%" . $buscar . "%'
+                    OR descripcion LIKE '%" . $buscar . "%'
+                    OR fecha LIKE '%" . $buscar . "%'
+                    OR destacado LIKE '%" . $buscar . "%'
+                    OR imagen LIKE '%" . $buscar . "%'";
+
+        $resultado = mysqli_query($conexion, $consulta);
+
+        $noticias = array();
+
+        if ($resultado) {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $noticias[] = $fila;
+            }
+            mysqli_free_result($resultado);
+        }
+
+        return $noticias;
+    }
 }
