@@ -160,11 +160,11 @@ $contador = count($proyectos);
     <table class="responsive-proyectos">
         <thead>
             <tr>
-                <th>Id Proyecto</th>
+                <th># Proyecto</th>
                 <th>Nombre de Empresa</th>
                 <th>Nombre de Proyecto</th>
-                <th>Numero de contrato</th>
-                <th colspan="2">Acciones</th>
+                <th>Número de contrato</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -212,7 +212,7 @@ $contador = count($proyectos);
         </tbody>
     </table>
 </div>
-<div class="piePagina">
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -234,4 +234,4 @@ $contador = count($proyectos);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

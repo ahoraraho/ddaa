@@ -1,15 +1,17 @@
-<?php
-validacionIicioSesion();
-
-mensaje('Tipo Actualización', 'o');
-?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=actualizaciones" title="Ir a Actulizaciones">Actualizaciones</a>
     <a href="#" title="Estas justo aqui" class="active">Tipos de Actualizaciones</a>
 </div>
+<?php
+validacionIicioSesion();
 
+mensaje('Tipo Actualización', 'o');
+$prodds = $dbProdds->selectProdds();
+$contador = count($prodds);
+
+?>
 
 <h2>TIPOS DE ACTULIZACIONES</h2>
 <div class="numm">
@@ -23,7 +25,7 @@ mensaje('Tipo Actualización', 'o');
             <!-- <input type="submit" value="BUSCAR"> -->
             <button class="btn-buscador" type="submit"><i class="bi-search"></i></button>
         </form>
-        <span class="f-s">15</span>
+        <span class="f-s"><?= $contador ?></span>
     </div>
     <div class="f2">
         <a href="?m=panel&mod=prodd&action=add" class="button-link btn-new f-e">
@@ -39,19 +41,16 @@ mensaje('Tipo Actualización', 'o');
             <tr>
                 <th>#</th>
                 <th>Nombre de tipo</th>
-                <th colspan="2">Acciones</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
-
             <?php
-            $prodds = $dbProdds->selectProdds();
-
             foreach ($prodds as $prodd) {
                 $id = $prodd['idActual'];
                 $nombre = $prodd['nombre'];
             ?>
-                <tr  onclick="window.location.href='?m=panel&mod=prodd&action=view&id=<?= $id ?>'">
+                <tr onclick="window.location.href='?m=panel&mod=prodd&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $nombre ?></td>
                     <td>
@@ -64,7 +63,7 @@ mensaje('Tipo Actualización', 'o');
     </table>
 </div>
 
-<div class="piePagina">
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -86,4 +85,4 @@ mensaje('Tipo Actualización', 'o');
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

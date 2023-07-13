@@ -136,40 +136,42 @@ input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="password"],
-input[type="date"],
 textarea {
     font-size: 17px;
     background: transparent;
     border: 1px solid var(--text-color);
-    outline-color: rgb(0, 40, 108);
-    pointer-events: rgba(56, 20, 103, 0) 0px 5px 20px 0px;
+    outline-color: rgb(26, 91, 188);
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     margin: 15px 0px;
     border-radius: 8px;
     color: var(--text-color);
-    overflow: hidden;
+    overflow: scroll;
 }
 
 /* Estilo específico para los input de tipo "date" */
 input[type="date"] {
+    font-size: 17px;
+    background: transparent;
+    border: 1px solid var(--text-color);
+    outline-color: rgb(27, 94, 195);
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0px;
+    border-radius: 8px;
     color: var(--text-color);
-
+    overflow: hidden;
     /* Restablecer estilos predeterminados */
     /* appearance: textfield;
     -webkit-appearance: textfield;
     -moz-appearance: textfield; */
     /* Agregar estilos personalizados */
-    padding: 15px;
-    border: 1px solid var(--text-color);
-    border-radius: 8px;
 }
 
 input[type="file"] {
     background: transparent;
     border: none;
-    outline-color: rgb(0, 40, 108);
-    pointer-events: rgba(56, 20, 103, 0) 0px 5px 20px 0px;
+    outline-color: rgb(27, 94, 195);
     width: 100%;
     padding: 5px;
     margin: 0px;
@@ -264,27 +266,22 @@ select option:selected {
     border: solid 1px var(--primary);
 }
 
-/*input[type="search"] {
-    width: 80% !important;
-    margin: 0;
-    font-size: 18px;
-    border: 1px solid rgba(0, 0, 0, 0);
-    outline-color: rgb(31, 63, 118);
-    box-shadow: rgba(20, 64, 118, 0.447) 0px 5px 20px 0px;
-    padding: 8px;
-    border-radius: 20px;
-}*/
 textarea {
     height: 80px;
-    padding: 10;
+    padding: auto;
     border: 1px solid var(--text-color);
 }
 
 /*campo de no edicion de datos*/
 #noEdid {
-    background-color: rgba(43, 104, 130, 0.422);
-    color: #000000;
+    pointer-events: none;
+    opacity: 0.8;
+    cursor: not-allowed;
     text-align: center;
+    border-radius: 25px;
+    border: none;
+    font-size: 25px;
+    background-color: var(--primary);
 }
 
 .noEdid {
@@ -313,6 +310,54 @@ textarea {
     background-color: rgba(255, 255, 255, 0);
     color: rgb(40, 201, 91);
 }
+
+/*BOTONES DEL CRUD DE CADA FORMULARIO*/
+.btn-actions {
+    margin-top: 10px;
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    border: solid 1px var(--text-color);
+    transition: background-color 400ms ease-in;
+    position: relative;
+    text-align: center;
+}
+
+.btn-add {
+    background: #00ff4ca2;
+}
+
+.btn-update {
+    background: #009dff97;
+}
+
+.btn-delete {
+    background: #fc00009a;
+}
+
+.btn-add:hover {
+    font-weight: bold;
+    background: #06b011;
+    box-shadow: 0px 1px 20px 2px rgba(9, 190, 21, 0.7);
+}
+
+.btn-update:hover {
+    font-weight: bold;
+    background: rgba(4, 94, 198, 0.76);
+    box-shadow: 0px 1px 20px 2px rgba(0, 119, 255, 0.7);
+}
+
+.btn-delete:hover {
+    font-weight: bold;
+    background: #fc0000;
+    box-shadow: 0px 1px 20px 2px rgba(252, 0, 0, 0.7);
+}
+
 
 
 
@@ -536,7 +581,12 @@ textarea {
     padding: 11px;
     margin: auto;
     width: 300px;
-    border-radius: 7px;
+    border-radius: 10px;
+}
+
+.from_input input[type="text"]:focus {
+    border-color: transparent;
+    outline-color: none;
 }
 
 
@@ -781,33 +831,17 @@ textarea {
     margin-right: 5px;
 }
 
-.button-filtrar {
-    margin-top: 12px;
-    height: 35px;
-    background-color: #f6ff00;
-    font-size: 15px;
-    border: solid black 2px;
-    border-radius: 7px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 10px;
-    padding-right: 10px;
-    cursor: pointer;
-}
 
-.button-filtrar:hover {
-    background-color: #000000;
-    color: #f6ff00;
-}
 
 /*CONTADOR DE ...*/
 .f-s {
-    color: #f6ff00;
-    background: rgb(11, 48, 126);
-    font-size: 22px;
-    border-radius: 15px;
-    margin: 10px;
-    padding: 10px 10px;
+    color: var(--primary);
+    border: solid 1px var(--primary);
+    background: var(--secondary);
+    font-size: 23px;
+    border-radius: 10px;
+    margin-left: 2px;
+    padding: 8px;
     text-align: center;
     width: auto;
 }
@@ -1120,14 +1154,12 @@ option {
     }
 
     .f-s {
-        color: #f6ff00;
-        background: rgb(21, 39, 78);
-        font-size: 18px;
-        border-radius: 10px;
+        font-size: 20px;
         text-align: center;
         width: auto;
-        padding: 8px;
-        margin: 0 0 0 4px;
+        padding: 9px 8px;
+        margin: 0 0 0 3px;
+        border-radius: 5px;
     }
 
     .f-e {
@@ -1165,10 +1197,10 @@ option {
     /*LOGUEADO CUENTA ADMINISTRADOR*/
 
     .from_input input[type="text"] {
-        padding: 11px;
+        padding: 10px;
         margin: auto;
         width: 160px;
-        border-radius: 15px;
+        border-radius: 5px;
     }
 
     /*BOTON FILTRO DE MAYOR O MENOR PRECIO DE LA TABLA PRODUCTOS*/
@@ -1349,6 +1381,10 @@ option {
     }
 
     .responsive-noticias td:nth-of-type(4):before {
+        content: "Destacado";
+    }
+
+    .responsive-noticias td:nth-of-type(5):before {
         content: "Acciones";
     }
 
@@ -1427,26 +1463,18 @@ option {
     }
 
     .responsive-usuarios td:nth-of-type(2):before {
-        content: "Nombre";
+        content: "Nombres";
     }
 
     .responsive-usuarios td:nth-of-type(3):before {
-        content: "Apellido";
+        content: "Apellidos";
     }
 
     .responsive-usuarios td:nth-of-type(4):before {
-        content: "Dirección";
+        content: "Celular";
     }
 
     .responsive-usuarios td:nth-of-type(5):before {
-        content: "Telefono";
-    }
-
-    .responsive-usuarios td:nth-of-type(6):before {
-        content: "Email";
-    }
-
-    .responsive-usuarios td:nth-of-type(7):before {
         content: "Acciones";
     }
 

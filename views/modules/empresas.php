@@ -36,9 +36,6 @@ if (isset($_GET['msj'])) {
     }
 }
 
-?>
-
-<?php
 /* //////////////////////////  FILTROS  //////////////////////////*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filtro = '';
@@ -109,12 +106,12 @@ $contador = count($empresas);
     <table class="responsive-empresas">
         <thead>
             <tr>
-                <th>Id de Empresa</th>
-                <th>Nombre Empresa</th>
+                <th># Empresa</th>
+                <th>Nombre</th>
                 <th>RUC</th>
                 <th>Telefono</th>
                 <th>Correo</th>
-                <th colspan="2">Acciones</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -130,21 +127,11 @@ $contador = count($empresas);
                 $mipe = $empresa['mipe'];
             ?>
                 <tr onclick="window.location.href='?m=panel&mod=empresa&action=view&id=<?= $id ?>'">
-                    <td>
-                        <?= $id ?>
-                    </td>
-                    <td>
-                        <?= $nombreEmpresa ?>
-                    </td>
-                    <td>
-                        <?= $ruc ?>
-                    </td>
-                    <td>
-                        <?= $telefono ?>
-                    </td>
-                    <td>
-                        <?= $email ?>
-                    </td>
+                    <td><?= $id ?></td>
+                    <td><?= $nombreEmpresa ?></td>
+                    <td><?= $ruc ?></td>
+                    <td><?= $telefono ?></td>
+                    <td><?= $email ?></td>
                     <td>
                         <a href="?m=panel&mod=empresa&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
                         <a href="?m=panel&mod=empresa&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
@@ -154,6 +141,7 @@ $contador = count($empresas);
         </tbody>
     </table>
 </div>
+<!-- 
 <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
@@ -176,4 +164,4 @@ $contador = count($empresas);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

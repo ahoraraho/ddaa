@@ -1,10 +1,3 @@
-<?php
-validacionIicioSesion();
-
-mensaje('Proceso', 'o');
-
-
-?>
 <!-- ruta de acceso guia -->
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
@@ -12,6 +5,9 @@ mensaje('Proceso', 'o');
 </div>
 
 <?php
+validacionIicioSesion();
+
+mensaje('Proceso', 'o');
 /* //////////////////////////  FILTROS  //////////////////////////*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filtro = '';
@@ -116,12 +112,12 @@ $contador = count($procesos);
     <table class="responsive-procesos">
         <thead>
             <tr>
-                <th>Numero de Proceso</th>
+                <th># Proceso</th>
                 <th>Entidad</th>
                 <th>Nombre clave</th>
                 <th>Postores</th>
                 <th>Encargado</th>
-                <th colspan="2">Acciones</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -141,7 +137,7 @@ $contador = count($procesos);
                 $encargado = $proceso['nomEncargado'];
                 $objeto = $proceso['nomObjeto'];
                 $observaciones = $proceso['observaciones'];
-                ?>
+            ?>
                 <tr onclick="window.location.href='?m=panel&mod=proceso&action=view&id=<?= $id ?>'">
                     <td>
                         <?= $id ?>
@@ -159,17 +155,15 @@ $contador = count($procesos);
                         <?= $encargado ?>
                     </td>
                     <td>
-                        <a href="?m=panel&mod=proceso&action=update&id=<?= $id ?>" title="Modificar"><i
-                                class="edid bi-pencil-square"><b> </i></a>
-                        <a href="?m=panel&mod=proceso&action=delete&id=<?= $id ?>" title="Eliminar"><i
-                                class="delete bi-trash"><b></i></a>
+                        <a href="?m=panel&mod=proceso&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=proceso&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
                     </td>
                 </tr>
-            </tbody>
-        <?php } ?>
+        </tbody>
+    <?php } ?>
     </table>
 </div>
-<div class="piePagina">
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -191,4 +185,4 @@ $contador = count($procesos);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

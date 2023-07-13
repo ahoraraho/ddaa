@@ -117,15 +117,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 switch ($btn) {
     case 'Eliminar':
-        $style = "background-color:crimson";
+        $style = "btn-delete";
         $hacer = "Eliminar Noticia";
         break;
     case 'Agregar':
-        $style = "background-color:rgb(0, 176, 26)";
+        $style = "btn-add";
         $hacer = "Agregar Noticia";
         break;
     case 'Actualizar':
-        $style = "background-color:rgb(9, 109, 149)";
+        $style = "btn-update";
         $hacer = "Actualizar Noticia";
         break;
     case 'Ver':
@@ -167,11 +167,13 @@ switch ($btn) {
                         </select>
                         <span class="custom-select-icon"><i class="bi bi-chevron-down"></i></apan> <!-- Reemplaza "Icono" con el código o clase de tu icono personalizado -->
                     </div>
+                    <?php if ($botonView == 1) { ?>
+                        <input type="file" name="imagen" id="selectImg" accept="image/*" <?= $status ?>>
+                        <div class="btn-actions btn-update">
+                            <label for="selectImg" name="addImg" id="addImg" class="">Elegir imagen</label>
+                        </div>
+                    <?php } ?>
 
-                    <input type="file" name="imagen" id="selectImg" accept="image/*" <?= $status ?>>
-                    <div style="text-align: center;">
-                        <label for="selectImg" name="addImg" id="addImg" style="<?= $styleImage ?>" class="form_login">Elegir imagen</label>
-                    </div>
 
                     <div class="center">
                         <div class="previewImg">
@@ -184,7 +186,7 @@ switch ($btn) {
                     </div>
                     <br><br>
                     <?php if ($botonView == 1) { ?>
-                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                        <button type="submit" name="action" id="ac" class="btn-actions <?= $style ?>"><?= $btn ?></button>
                     <?php } ?>
                 </form>
             </div>

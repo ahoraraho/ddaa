@@ -96,15 +96,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 switch ($btn) {
     case 'Eliminar':
-        $style = "background-color:crimson";
+        $style = "btn-delete";
         $hacer = "Eliminar Contacto";
         break;
     case 'Agregar':
-        $style = "background-color:rgb(0, 176, 26)";
+        $style = "btn-add";
         $hacer = "Agregar Contacto";
         break;
     case 'Actualizar':
-        $style = "background-color:rgb(9, 109, 149)";
+        $style = "btn-update";
         $hacer = "Actualizar Contacto";
         break;
     case 'Ver':
@@ -133,7 +133,7 @@ switch ($btn) {
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id" value="<?= $contacto["idContacto"] ?>" <?= $status ?>>
                     <strong> DNI </strong>
                     <input required type="number" oninput="validateLength(this, 8)" name="dni" value="<?= $contacto["dni"] ?>" <?= $status ?>>
-                    <strong> Nombre </strong>
+                    <strong> Nombres y Apellidos </strong>
                     <input required type="text" name="nombre" value="<?= $contacto["nombre"] ?>" <?= $status ?>>
                     <strong> Email </strong>
                     <input required type="email" name="email" value="<?= $contacto["email"] ?>" <?= $status ?>>
@@ -150,7 +150,7 @@ switch ($btn) {
                     </div>
                     <br><br>
                     <?php if ($botonView == 1) { ?>
-                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                        <button type="submit" name="action" id="ac" class="btn-actions <?= $style ?>"><?= $btn ?></button>
                     <?php } ?>
                 </form>
             </div>

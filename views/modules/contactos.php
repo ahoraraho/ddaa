@@ -55,29 +55,29 @@ $contador = count($contactos);
             <div class="conteneFilto">
                 <strong><i class="bi bi-funnel-fill"></i>...FILTROS...<i class="bi bi-filter-circle-fill"></i></strong>
             </div>
-</div>
-<!-- Cargo -->
-<div class="contenedor-select">
-    <select name="buscarCargo" id="buscarCargo">
-        <option value="">Cargo</option> <!-- Agrega la opción predeterminada -->
-        <?php
-        $selectedCargo = $_POST["buscarCargo"]; // Obtén el valor seleccionado por el usuario
-        $options = array(
-            'Dueño de negocio' => 'Dueño de negocio',
-            'Gerente' => 'Gerente',
-            'Otros' => 'Otros'
-        );
-        foreach ($options as $value => $text) {
-            $selected = ($selectedCargo == $value) ? 'selected' : '';
-            echo '<option value="' . $value . '" ' . $selected . '>' . $text . '</option>';
-        }
-        ?>
-    </select>
-</div>
-<div class="contenedor-select">
-    <button type="submit" class="btn-filtrador">Filtrar</button>
-</div>
-</form>
+        </div>
+        <!-- Cargo -->
+        <div class="contenedor-select">
+            <select name="buscarCargo" id="buscarCargo">
+                <option value="">Cargo</option> <!-- Agrega la opción predeterminada -->
+                <?php
+                $selectedCargo = $_POST["buscarCargo"]; // Obtén el valor seleccionado por el usuario
+                $options = array(
+                    'Dueño de negocio' => 'Dueño de negocio',
+                    'Gerente' => 'Gerente',
+                    'Otros' => 'Otros'
+                );
+                foreach ($options as $value => $text) {
+                    $selected = ($selectedCargo == $value) ? 'selected' : '';
+                    echo '<option value="' . $value . '" ' . $selected . '>' . $text . '</option>';
+                }
+                ?>
+            </select>
+        </div>
+        <div class="contenedor-select">
+            <button type="submit" class="btn-filtrador">Filtrar</button>
+        </div>
+    </form>
 </div>
 
 <!-- tabla categorias -->
@@ -85,13 +85,13 @@ $contador = count($contactos);
     <table class="responsive-contactos">
         <thead>
             <tr>
-                <th>Id Contacto</th>
-                <th>nombre</th>
+                <th># Contacto</th>
+                <th>Nombre</th>
                 <th>DNI</th>
-                <th>email</th>
-                <th>telefono</th>
+                <th>Email</th>
+                <th>Celular</th>
                 <th>Cargo</th>
-                <th colspan="2">Acciones</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -107,24 +107,12 @@ $contador = count($contactos);
                 $cargo = $contacto['cargo'];
             ?>
                 <tr onclick="window.location.href='?m=panel&mod=contacto&action=view&id=<?= $id ?>'">
-                    <td>
-                        <?= $id ?>
-                    </td>
-                    <td>
-                        <?= $nombre ?>
-                    </td>
-                    <td>
-                        <?= $dni ?>
-                    </td>
-                    <td>
-                        <?= $email ?>
-                    </td>
-                    <td>
-                        <?= $celular ?>
-                    </td>
-                    <td>
-                        <?= $cargo ?>
-                    </td>
+                    <td><?= $id ?></td>
+                    <td><?= $nombre ?></td>
+                    <td><?= $dni ?></td>
+                    <td><?= $email ?></td>
+                    <td><?= $celular ?></td>
+                    <td><?= $cargo ?></td>
                     <td>
                         <a href="?m=panel&mod=contacto&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
                         <a href="?m=panel&mod=contacto&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
@@ -134,7 +122,7 @@ $contador = count($contactos);
         </tbody>
     </table>
 </div>
-<div class="piePagina">
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -156,4 +144,4 @@ $contador = count($contactos);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

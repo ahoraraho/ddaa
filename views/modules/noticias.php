@@ -1,14 +1,14 @@
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Noticias</a>
+</div>
 <?php
 //valida que exista una varialbel de tipo sesion
 validacionIicioSesion();
 //recive el mensaje y inprime lo que corresponde
 mensaje('Noticia', 'a');
 
-
-
-?>
-
-<?php
 /* //////////////////////////  FILTROS  //////////////////////////*/
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
     $busqueda = $_GET["buscar"];
@@ -19,12 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
 }
 $contador = count($noticias);
 ?>
-
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Noticias</a>
-</div>
 
 
 <h2>NOTICIAS</h2>
@@ -57,7 +51,7 @@ $contador = count($noticias);
                 <th>Imagen</th>
                 <th>Titulo</th>
                 <th>Destacado</th>
-                <th colspan="2">Acciones</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -95,7 +89,7 @@ $contador = count($noticias);
         </tbody>
     </table>
 </div>
-
+<!-- 
 <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
@@ -118,4 +112,4 @@ $contador = count($noticias);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

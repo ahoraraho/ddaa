@@ -275,15 +275,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 switch ($btn) {
     case 'Eliminar':
-        $style = "background-color:crimson";
+        $style = "btn-delete";
         $hacer = "Eliminar Proyecto";
         break;
     case 'Agregar':
-        $style = "background-color:rgb(0, 176, 26)";
+        $style = "btn-add";
         $hacer = "Agregar Proyecto";
         break;
     case 'Actualizar':
-        $style = "background-color:rgb(9, 109, 149)";
+        $style = "btn-update";
         $hacer = "Actualizar Proyecto";
         break;
     case 'Ver':
@@ -643,7 +643,7 @@ switch ($btn) {
                         </table>
                     </div>
                     <?php if ($botonView == 1) { ?>
-                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                        <button type="submit" name="action" id="ac" class="btn-actions <?= $style ?>"><?= $btn ?></button>
                     <?php } ?>
                 </form>
             </div>

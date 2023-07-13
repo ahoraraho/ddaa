@@ -1,9 +1,13 @@
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Especialidades</a>
+</div>
 <?php
 validacionIicioSesion();
 
 mensaje('Especialidad', 'a');
-?>
-<?php
+
 /* //////////////////////////  FILTROS  //////////////////////////*/
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
     $busqueda = $_GET["buscar"];
@@ -14,11 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
 }
 $contador = count($especialidades);
 ?>
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Especialidades</a>
-</div>
+
 
 <h2>ESPECIALIDADES</h2>
 <div class="numm">
@@ -45,31 +45,31 @@ $contador = count($especialidades);
     <table class="responsive-especialidades">
         <thead>
             <tr>
-                <th>Id Especialidad</th>
-                <th>Nombre de especialidad</th>
-                <th colspan="2">Acciones</th>
+                <th># Especialidad</th>
+                <th>Especialidad</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
 
             <?php
-            foreach($especialidades as $especialidad){
+            foreach ($especialidades as $especialidad) {
                 $id = $especialidad['idEspecialidad'];
                 $nombre = $especialidad['nombre'];
             ?>
-                <tr  onclick="window.location.href='?m=panel&mod=especialidad&action=view&id=<?= $id ?>'">
+                <tr onclick="window.location.href='?m=panel&mod=especialidad&action=view&id=<?= $id ?>'">
                     <td> <?= $id ?></td>
                     <td> <?= $nombre ?></td>
                     <td>
-                            <a href="?m=panel&mod=especialidad&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
-                            <a href="?m=panel&mod=especialidad&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
-                        </td>
+                        <a href="?m=panel&mod=especialidad&action=update&id=<?= $id ?>" title="Modificar"><i class="edid bi-pencil-square"></i></a>
+                        <a href="?m=panel&mod=especialidad&action=delete&id=<?= $id ?>" title="Eliminar"><i class="delete bi-trash"></i></a>
+                    </td>
                 </tr>
-                <?php } ?>
+            <?php } ?>
         </tbody>
     </table>
 </div>
-<div class="piePagina">
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -77,9 +77,9 @@ $contador = count($especialidades);
             <input type="hidden" name="buscar" value="<?= $filtro ?>">
             <input type="hidden" name="orden" value="<?= $orden ?>">
             <select class="form-select" name="limite">
-                <option  value="15">15</option>
-                <option  value="10">10</option>
-                <option  value="5">5</option>
+                <option value="15">15</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
             </select>
             <button onclick="filtrardorAlfabeto()" title="Numero de productos" class="btn-filtro-num" type="submit">
                 <i class="bi bi-sliders"></i>
@@ -91,4 +91,4 @@ $contador = count($especialidades);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

@@ -1,3 +1,8 @@
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Actualizaciones</a>
+</div>
 <?php
 validacionIicioSesion();
 
@@ -49,9 +54,7 @@ if (isset($_GET['file'])) {
         alertaResponDialog($typeMsj, $msj, $iconoAlert);
     }
 }
-?>
 
-<?php
 /* //////////////////////////  FILTROS  //////////////////////////*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filtro = '';
@@ -68,13 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $contador = count($actualizaciones);
 ?>
-
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Actualizaciones</a>
-</div>
-
 
 <h2>ACTUALIZACIONES</h2>
 <div class="numm">
@@ -99,14 +95,14 @@ $contador = count($actualizaciones);
 </div>
 
 <div class="filtros">
-        <form class="order-nav" name="filtros" action="?m=panel&mod=actualizaciones" method="POST">
+    <form class="order-nav" name="filtros" action="?m=panel&mod=actualizaciones" method="POST">
         <div class="contenedor-select">
             <div class="conteneFilto">
                 <strong><i class="bi bi-funnel-fill"></i>...FILTROS...<i class="bi bi-filter-circle-fill"></i></strong>
             </div>
         </div>
-            <!-- Tipo -->
-            <div class="contenedor-select">
+        <!-- Tipo -->
+        <div class="contenedor-select">
             <select name="buscarTipo" id="buscarTipo">
                 <option value="">Tipo de actualización</option> <!-- Agrega la opción predeterminada -->
                 <?php
@@ -120,11 +116,11 @@ $contador = count($actualizaciones);
                 }
                 ?>
             </select>
-            </div>
-            <div class="contenedor-select">
+        </div>
+        <div class="contenedor-select">
             <button type="submit" class="btn-filtrador">Filtrar</button>
         </div>
-        </form>
+    </form>
 </div>
 
 <!-- tabla objetos -->
@@ -134,14 +130,10 @@ $contador = count($actualizaciones);
             <tr>
                 <th style="width: 25px;">#</th>
                 <th style="text-align: start;">Descripción</th>
-                <th style="text-align: end;">Acciones</th>
+                <th style="width: 182px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <?php
-            // $tieneArchivo = isset($archivo) && !empty($archivo);
-            ?>
-
             <?php foreach ($actualizaciones as $actualizacion) {
                 // $archivo = null;
                 $id = $actualizacion['idActualizacion'];
@@ -177,7 +169,7 @@ $contador = count($actualizaciones);
     </table>
 </div>
 
-<div class="piePagina">
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -199,4 +191,4 @@ $contador = count($actualizaciones);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

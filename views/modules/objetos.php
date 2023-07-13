@@ -1,13 +1,14 @@
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Objetos</a>
+</div>
+
 <?php
 validacionIicioSesion();
 
 mensaje('Objeto', 'o');
 
-
-
-?>
-
-<?php
 /* //////////////////////////  FILTROS  //////////////////////////*/
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
     $busqueda = $_GET["buscar"];
@@ -18,11 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
 }
 $contador = count($objetos);
 ?>
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Objetos</a>
-</div>
 
 
 <h2>OBJETOS</h2>
@@ -51,9 +47,9 @@ $contador = count($objetos);
     <table class="responsive-objetos">
         <thead>
             <tr>
-                <th>Id Objeto</th>
-                <th>Nombre del Objeto</th>
-                <th colspan="2">Acciones</th>
+                <th># Objeto</th>
+                <th>Objeto</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -78,7 +74,7 @@ $contador = count($objetos);
     </table>
 </div>
 
-<div class="piePagina">
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -100,4 +96,4 @@ $contador = count($objetos);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

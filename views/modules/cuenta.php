@@ -1,3 +1,9 @@
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Configuración</a>
+</div>
+
 <?php
 validacionIicioSesion();
 
@@ -61,13 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $user["Email"];
     $dni = $user["DNI"];
 }
-?>
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Configuración</a>
-</div>
-<?php
+
 if (isset($_GET['msj'])) {
     $msj = $_GET['msj'];
     $typeMsj = "";
@@ -97,13 +97,12 @@ if (isset($_GET['msj'])) {
 }
 ?>
 
-
 <div class="formularios">
     <div class="entradas">
-        <h3>CONFIGURACIÓN</h3>
+        <h3>Configuración</h3>
         <div class="numm">
             <div class="f1">
-                
+
             </div>
             <div class="f2">
                 <a href="?m=panel&mod=cuentaReset" class="button-link f-e">
@@ -147,24 +146,24 @@ if (isset($_GET['msj'])) {
                 <input type="text" name="cargo" value="<?= $cargo ?>">
             </div>
             <div><br><br>
-                <button type="submit" name="update" id="actualizar" class="form_login">Modificar y guardar cambios</button>
+                <button type="submit" name="update" id="actualizar" class="btn-actions btn-update">Modificar y guardar cambios</button>
             </div><br>
             <?php if ($rol == 0) { ?>
                 <div>
-                    <button type="submit" name="delete" id="eliminar-cuenta" class="form_login">Eliminar cuenta</button>
+                    <button type="submit" name="delete" id="eliminar-cuenta" class="btn-actions btn-delete">Eliminar cuenta</button>
                 </div><br><br>
             <?php } ?>
         </form><br>
         <div class="numm">
             <div class="f1">
-                
+
             </div>
             <div class="f2">
-                <a href="?m=panel&sesion=cerrar"" class="button-link f-e">
+                <a href="?m=panel&sesion=cerrar"" class=" button-link f-e">
                     <i class="abi bi bi-power"></i><span>Cerrar Sesión</span>
                 </a>
             </div>
         </div><br><br>
     </div>
-    
+
 </div>

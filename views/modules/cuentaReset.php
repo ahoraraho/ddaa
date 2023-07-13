@@ -101,7 +101,7 @@ if (isset($_GET['msj'])) {
                     <i id="iconoEyeOk" class="bi bi-eye"></i>
                 </div>
             </div><br><br>
-            <button type="submit" name="resetPassUser" id="resetPassUser" class="form_login">Restaurar contraseña</button>
+            <button type="submit" name="resetPassUser" id="resetPassUser" class="btn-actions btn-add">Restaurar contraseña</button>
         </form><br>
     </div>
 </div>

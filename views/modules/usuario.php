@@ -117,15 +117,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php
 switch ($btn) {
     case 'Eliminar':
-        $style = "background-color: crimson";
+        $style = "btn-delete";
         $hacer = "Eliminar Especialista";
         break;
     case 'Agregar':
-        $style = "background-color: rgb(0, 176, 26)";
+        $style = "btn-add";
         $hacer = "Agregar Especialista";
         break;
     case 'Actualizar':
-        $style = "background-color: rgb(9, 109, 149)";
+        $style = "btn-update";
         $hacer = "Actualizar Especialista";
         break;
     case 'Ver':
@@ -147,7 +147,7 @@ switch ($btn) {
 </div>
 <div class="formularios">
     <div class="entradas">
-        <h3>USUARIO</h3>
+        <h3>Usuario</h3>
         <div class="numm">
             <div class="f1">
             </div>
@@ -161,20 +161,20 @@ switch ($btn) {
             <div class="formm">
                 <form action="?m=panel&mod=usuario&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $especialista['idEspecialista'] ?>">
-                    <b>Id</b>
+                   
                     <input id="noEdid" title="No se puede modificar" disabled required type="text" name="id"
                         value="<?= $especialista['idEspecialista'] ?>" <?= $status ?>>
                     <b>DNI</b>
                     <input required type="text" min="0" name="dni" value="<?= $especialista['dni'] ?>" <?= $status ?>>
-                    <b>Nombre</b>
+                    <b>Nombres</b>
                     <input required type="text" name="nombre" value="<?= $especialista['nombre'] ?>" <?= $status ?>>
-                    <b>Apellido</b>
+                    <b>Apellidos</b>
                     <input required type="text" min="0" name="apellido" value="<?= $especialista['apellido'] ?>"
                         <?= $status ?>>
                     <b>Dirección</b>
                     <input required type="text" min="0" name="direccion" value="<?= $especialista['direccion'] ?>"
                         <?= $status ?>>
-                    <b>Teléfono</b>
+                    <b>Celular</b>
                     <input required type="text" min="0" name="telefono" value="<?= $especialista['telefono'] ?>"
                         <?= $status ?>>
                     <b>Email</b>
@@ -195,7 +195,7 @@ switch ($btn) {
                     <input type="hidden" name="estado_actual" id="estado_actual" value="<?= $especialista['Estado'] ?>">
                     <br><br>
                     <?php if ($botonView == 1) { ?>
-                        <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $btn ?></button>
+                        <button type="submit" name="action" id="ac" class="btn-actions <?= $style ?>"><?= $btn ?></button>
                     <?php } ?>
                     <br><br>
                 </form>

@@ -1,3 +1,9 @@
+<!-- ruta de acceso guia -->
+<div class="ruta">
+    <a href="./" title="Home"><i class="bi bi-house"></i></a>
+    <a href="#" title="Estas justo aqui" class="active">Usuarios</a>
+</div>
+
 <?php
 
 if (!$_SESSION["Usuario"]["Administrador"]) {
@@ -18,11 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET["buscar"])) {
 }
 $contador = count($especialistas);
 ?>
-<!-- ruta de acceso guia -->
-<div class="ruta">
-    <a href="./" title="Home"><i class="bi bi-house"></i></a>
-    <a href="#" title="Estas justo aqui" class="active">Usuarios</a>
-</div>
 
 
 <h2>USUARIOS</h2>
@@ -48,14 +49,14 @@ $contador = count($especialistas);
 
 <!-- tabla categorias -->
 <div class="contenido-tabla">
-    <table class="responsive-categorias">
+    <table class="responsive-usuarios">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Telefono</th>
-                <th colspan="2">Acciones</th>
+                <th>#</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Celular</th>
+                <th style="width: 100px;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -71,7 +72,7 @@ $contador = count($especialistas);
                 $telefono = $especialista['telefono'];
             ?>
 
-                <tr  onclick="window.location.href='?m=panel&mod=usuario&action=view&id=<?= $id ?>'">
+                <tr onclick="window.location.href='?m=panel&mod=usuario&action=view&id=<?= $id ?>'">
                     <td><?= $id ?></td>
                     <td><?= $nombre ?></td>
                     <td><?= $apellido ?></td>
@@ -85,7 +86,8 @@ $contador = count($especialistas);
         </tbody>
     </table>
 </div>
-<div class="piePagina">
+
+<!-- <div class="piePagina">
     <div class="derecha">
         <form class="num_paginas--filtro" action="" method="GET">
             <input type="hidden" name="m" value="panel">
@@ -107,4 +109,4 @@ $contador = count($especialistas);
         //createPaginationLogueado($paginas_total, $pagina, $filtro, $orden, $limite, "categorias");
         ?>
     </div>
-</div>
+</div> -->

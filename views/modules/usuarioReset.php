@@ -23,11 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<?php
-$style = "background-color: rgb(9, 109, 149)";
-$hacer = "Definir contraseña nueva";
-?>
-
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=usuarios" title="Ir a Usuarios">Usuarios</a>
@@ -37,14 +32,14 @@ $hacer = "Definir contraseña nueva";
 <div class="formularios">
     <div class="entradas">
         <h3>Cambiar contraseña</h3>
-        <div class="main">  
+        <div class="main">
             <div class="form">
                 <form action="?m=panel&mod=usuarioReset" method="POST">
-                    <input title="No se puede modificar"  required type="hidden" name="idEspecialista" value="<?= $especialista['idEspecialista'] ?>">
-                    <input title="No se puede modificar"  required type="hidden" name="idUsuario" value="<?= $especialista['idUsuario'] ?>">
+                    <input title="No se puede modificar" required type="hidden" name="idEspecialista" value="<?= $especialista['idEspecialista'] ?>">
+                    <input title="No se puede modificar" required type="hidden" name="idUsuario" value="<?= $especialista['idUsuario'] ?>">
                     <strong>Nombre</strong>
                     <input title="No se puede modificar" disabled required type="text" name="nombre" value="<?= $especialista['nombre'] ?>">
-                    <input title="No se puede modificar"  required type="hidden" name="email" value="<?= $especialista['Email'] ?>">
+                    <input title="No se puede modificar" required type="hidden" name="email" value="<?= $especialista['Email'] ?>">
 
                     <div class="form_logueado">
                         <b>Nueva contraseña</b>
@@ -54,7 +49,7 @@ $hacer = "Definir contraseña nueva";
                         </div>
                     </div>
                     <br><br>
-                    <button type="submit" name="action" id="ac" style="<?= $style ?>" class="form_login"><?= $hacer; ?></button>
+                    <button type="submit" name="action" class="btn-actions btn-update">Definir contraseña nueva</button>
                 </form>
             </div>
         </div>
