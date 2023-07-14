@@ -124,7 +124,7 @@ switch ($btn) {
 </div>
 <div class="formularios">
     <div class="entradas">
-        <h3>CONTACTO</h3>
+        <h3>Contacto</h3>
         <div class="main">
             <div class="formm">
 

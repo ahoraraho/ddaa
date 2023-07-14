@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="ruta">
     <a href="./" title="Home"><i class="bi bi-house"></i></a>
     <a href="?m=panel&mod=cuenta" title="Ir al configuracion">Configuración</a>
-    <a href="#" title="Estas justo aqui" class="active">Reset Pass</a>
+    <a href="#" title="Estas justo aqui" class="active">Cambio de Contraseña</a>
 </div>
 <?php
 if (isset($_GET['msj'])) {

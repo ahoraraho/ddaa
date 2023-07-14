@@ -137,7 +137,7 @@ switch ($btn) {
 </div>
 <div class="formularios">
     <div class="entradas">
-        <h3>PROCESO</h3>
+        <h3>Proceso</h3>
         <div class="main">
             <div class="formm">
                 <form action="?m=panel&mod=proceso&action=<?= $action ?>" method="POST" enctype="multipart/form-data">
